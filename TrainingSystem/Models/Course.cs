@@ -14,11 +14,8 @@ namespace TrainingSystem.Models
         public string Instructor { get; set; }
         public string Description { get; set; }
 
-        [Required]
         public List<Keyword> Keywords { get; set; }
-        [Required]
         public List<Lesson> Lessons { get; set; }
-        [Required]
         public List<Material> Materials { get; set; }
         public List<Rating> Ratings { get; set; }
     }

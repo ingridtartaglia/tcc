@@ -23,7 +23,7 @@ namespace TrainingSystem.Controllers
 
         // GET: api/Courses
         [HttpGet]
-        public IEnumerable<Course> GetCourse()
+        public IEnumerable<Course> GetCourses()
         {
             return _context.Course;
         }
@@ -49,19 +49,19 @@ namespace TrainingSystem.Controllers
 
         // PUT: api/Courses/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCourse([FromRoute] int id, [FromBody] Course course)
+        public async Task<IActionResult> PutCourse([FromRoute] int id, [FromBody] Course newCourse)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != course.CourseId)
+            if (id != newCourse.CourseId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(course).State = EntityState.Modified;
+            _context.Entry(newCourse).State = EntityState.Modified;
 
             try
             {

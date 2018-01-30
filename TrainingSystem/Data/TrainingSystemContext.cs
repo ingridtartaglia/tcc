@@ -7,7 +7,6 @@ namespace TrainingSystem.Data
     {
         public TrainingSystemContext(DbContextOptions<TrainingSystemContext> options) : base(options)
         {
-
         }
         public DbSet<TrainingSystem.Models.Course> Course { get; set; }
         public DbSet<TrainingSystem.Models.Answer> Answer { get; set; }
