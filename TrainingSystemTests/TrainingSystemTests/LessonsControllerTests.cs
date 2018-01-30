@@ -11,13 +11,13 @@ using TrainingSystem.Data;
 using TrainingSystem.Models;
 using Xunit;
 
-namespace TrainingSystem.Tests.ControllerTests
+namespace TrainingSystem.Tests.ControllerIntegrationTests
 {
-    public class CoursesControllerTests : IDisposable
+    public class LessonsControllerTests : IDisposable
     {
         private readonly TrainingSystemContext _dbContext;
 
-        public CoursesControllerTests()
+        public LessonsControllerTests()
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
@@ -29,21 +29,27 @@ namespace TrainingSystem.Tests.ControllerTests
         }
 
         [Fact]
-        public void GetCourses()
+        public void GetLessons()
         {
             // Arrange
             var course1 = new Course() {
+                CourseId = 1,
                 Name = "Curso 1",
                 Category = "Outros",
                 Instructor = "Fulano"
             };
-            var course2 = new Course() {
-                Name = "Curso 2",
-                Category = "Asp.net",
-                Instructor = "Fulano"
-            };
             _dbContext.Course.Add(course1);
-            _dbContext.Course.Add(course2);
+
+            var lesson1 = new Lesson() {
+                CourseId = 1,
+                Name = "Unidade 1"
+            };
+            var lesson2 = new Lesson() {
+                CourseId = 1,
+                Name = "Unidade 2"
+            };
+            _dbContext.Lesson.Add(lesson1);
+            _dbContext.Lesson.Add(lesson2);
             _dbContext.SaveChanges();
 
             var objectValidator = new Mock<IObjectModelValidator>();
@@ -51,131 +57,19 @@ namespace TrainingSystem.Tests.ControllerTests
                                               It.IsAny<ValidationStateDictionary>(),
                                               It.IsAny<string>(),
                                               It.IsAny<Object>()));
-            var controller = new CoursesController(_dbContext) {
+            var controller = new LessonsController(_dbContext) {
                 ObjectValidator = objectValidator.Object
             };
 
             // Act
-            var response = controller.GetCourses();
+            var response = controller.GetLessons();
 
             // Assert
             response.Should().HaveCount(2);
         }
 
         [Fact]
-        public void GetCourse()
-        {
-            // Arrange
-            var course1 = new Course() {
-                Name = "Curso 1",
-                Category = "Outros",
-                Instructor = "Fulano"
-            };
-            _dbContext.Course.Add(course1);
-            _dbContext.SaveChanges();
-
-            var objectValidator = new Mock<IObjectModelValidator>();
-            objectValidator.Setup(o => o.Validate(It.IsAny<ActionContext>(),
-                                              It.IsAny<ValidationStateDictionary>(),
-                                              It.IsAny<string>(),
-                                              It.IsAny<Object>()));
-            var controller = new CoursesController(_dbContext) {
-                ObjectValidator = objectValidator.Object
-            };
-
-            // Act
-            var response = (OkObjectResult)controller.GetCourse(1).Result;
-
-            // Assert
-            ((Course)response.Value).CourseId.Should().Be(1);
-        }
-
-        [Fact]
-        public void GetNotFoundCourse()
-        {
-            // Arrange
-            var course1 = new Course() {
-                Name = "Curso 1",
-                Category = "Outros",
-                Instructor = "Fulano"
-            };
-            _dbContext.Course.Add(course1);
-            _dbContext.SaveChanges();
-
-            var objectValidator = new Mock<IObjectModelValidator>();
-            objectValidator.Setup(o => o.Validate(It.IsAny<ActionContext>(),
-                                              It.IsAny<ValidationStateDictionary>(),
-                                              It.IsAny<string>(),
-                                              It.IsAny<Object>()));
-            var controller = new CoursesController(_dbContext) {
-                ObjectValidator = objectValidator.Object
-            };
-
-            // Act
-            var response = (NotFoundResult)controller.GetCourse(50).Result;
-
-            // Assert
-            response.StatusCode.Should().Be(404);
-        }
-
-        [Fact]
-        public void PostCourse()
-        {
-            // Arrange
-            var courseToAdd = new Course() {
-                Name = "Curso 1",
-                Category = "Outros",
-                Instructor = "Fulano"
-            };
-
-            var objectValidator = new Mock<IObjectModelValidator>();
-            objectValidator.Setup(o => o.Validate(It.IsAny<ActionContext>(),
-                                              It.IsAny<ValidationStateDictionary>(),
-                                              It.IsAny<string>(),
-                                              It.IsAny<Object>()));
-            var controller = new CoursesController(_dbContext) {
-                ObjectValidator = objectValidator.Object
-            };
-
-            // Act
-            var response = (CreatedAtActionResult)controller.PostCourse(courseToAdd).Result;
-
-            // Assert
-            Assert.Equal((int)HttpStatusCode.Created, response.StatusCode);
-            ((Course)response.Value).CourseId.Should().NotBe(0);
-            ((Course)response.Value).Name.Should().Be("Curso 1");
-        }
-
-        [Fact]
-        public void CreateInvalidCourse()
-        {
-            // Arrange
-            var courseToAdd = new Course() {
-                Name = "",
-                Category = "Outros",
-                Instructor = "Fulano"
-            };
-
-            var objectValidator = new Mock<IObjectModelValidator>();
-            objectValidator.Setup(o => o.Validate(It.IsAny<ActionContext>(),
-                                              It.IsAny<ValidationStateDictionary>(),
-                                              It.IsAny<string>(),
-                                              It.IsAny<Object>()));
-            var controller = new CoursesController(_dbContext) {
-                ObjectValidator = objectValidator.Object
-            };
-            controller.ModelState.AddModelError("Name", "The Name field is required");
-
-            // Act
-            var response = (BadRequestObjectResult)controller.PostCourse(courseToAdd).Result;
-
-            // Assert
-            Assert.Equal((int)HttpStatusCode.BadRequest, response.StatusCode);
-            ((SerializableError)response.Value).ContainsKey("Name").Should().BeTrue();
-        }
-
-        [Fact]
-        public void PutCourse()
+        public void GetLesson()
         {
             // Arrange
             var course1 = new Course() {
@@ -185,105 +79,236 @@ namespace TrainingSystem.Tests.ControllerTests
                 Instructor = "Fulano"
             };
             _dbContext.Course.Add(course1);
-            _dbContext.SaveChanges();
 
-            var courseToUpdate = _dbContext.Course.FirstOrDefaultAsync(c => c.CourseId == 1).Result;
-            courseToUpdate.Category = "Asp.Net";
+            var lesson1 = new Lesson() {
+                CourseId = 1,
+                Name = "Unidade 1"
+            };
+            _dbContext.Lesson.Add(lesson1);
+            _dbContext.SaveChanges();
 
             var objectValidator = new Mock<IObjectModelValidator>();
             objectValidator.Setup(o => o.Validate(It.IsAny<ActionContext>(),
                                               It.IsAny<ValidationStateDictionary>(),
                                               It.IsAny<string>(),
                                               It.IsAny<Object>()));
-            var controller = new CoursesController(_dbContext) {
+            var controller = new LessonsController(_dbContext) {
                 ObjectValidator = objectValidator.Object
             };
 
             // Act
-            var response = (NoContentResult)controller.PutCourse(1, courseToUpdate).Result;
+            var response = (OkObjectResult)controller.GetLesson(1).Result;
+
+            // Assert
+            ((Lesson)response.Value).CourseId.Should().Be(1);
+        }
+
+        [Fact]
+        public void GetNotFoundLesson()
+        {
+            // Arrange
+            var course1 = new Course() {
+                CourseId = 1,
+                Name = "Curso 1",
+                Category = "Outros",
+                Instructor = "Fulano"
+            };
+            _dbContext.Course.Add(course1);
+
+            var lesson1 = new Lesson() {
+                CourseId = 1,
+                Name = "Unidade 1"
+            };
+            _dbContext.Lesson.Add(lesson1);
+            _dbContext.SaveChanges();
+
+            var objectValidator = new Mock<IObjectModelValidator>();
+            objectValidator.Setup(o => o.Validate(It.IsAny<ActionContext>(),
+                                              It.IsAny<ValidationStateDictionary>(),
+                                              It.IsAny<string>(),
+                                              It.IsAny<Object>()));
+            var controller = new LessonsController(_dbContext) {
+                ObjectValidator = objectValidator.Object
+            };
+
+            // Act
+            var response = (NotFoundResult)controller.GetLesson(50).Result;
+
+            // Assert
+            response.StatusCode.Should().Be(404);
+        }
+
+        [Fact]
+        public void PostLesson()
+        {
+            // Arrange
+            var course1 = new Course() {
+                CourseId = 1,
+                Name = "Curso 1",
+                Category = "Outros",
+                Instructor = "Fulano"
+            };
+            _dbContext.Course.Add(course1);
+
+            var lessonToAdd = new Lesson() {
+                CourseId = 1,
+                Name = "Unidade 1"
+            };
+
+            var objectValidator = new Mock<IObjectModelValidator>();
+            objectValidator.Setup(o => o.Validate(It.IsAny<ActionContext>(),
+                                              It.IsAny<ValidationStateDictionary>(),
+                                              It.IsAny<string>(),
+                                              It.IsAny<Object>()));
+            var controller = new LessonsController(_dbContext) {
+                ObjectValidator = objectValidator.Object
+            };
+
+            // Act
+            var response = (CreatedAtActionResult)controller.PostLesson(lessonToAdd).Result;
+
+            // Assert
+            Assert.Equal((int)HttpStatusCode.Created, response.StatusCode);
+            ((Lesson)response.Value).LessonId.Should().NotBe(0);
+            ((Lesson)response.Value).Name.Should().Be("Unidade 1");
+        }
+
+        [Fact]
+        public void PutLesson()
+        {
+            // Arrange
+            var course1 = new Course() {
+                CourseId = 1,
+                Name = "Curso 1",
+                Category = "Outros",
+                Instructor = "Fulano"
+            };
+            _dbContext.Course.Add(course1);
+
+            var lesson1 = new Lesson() {
+                LessonId = 1,
+                CourseId = 1,
+                Name = "Unidade 1"
+            };
+            _dbContext.Lesson.Add(lesson1);
+            _dbContext.SaveChanges();
+
+            var lessonToUpdate = _dbContext.Lesson.FirstOrDefaultAsync(l => l.LessonId == 1).Result;
+            lessonToUpdate.Name = "Unidade 2";
+
+            var objectValidator = new Mock<IObjectModelValidator>();
+            objectValidator.Setup(o => o.Validate(It.IsAny<ActionContext>(),
+                                              It.IsAny<ValidationStateDictionary>(),
+                                              It.IsAny<string>(),
+                                              It.IsAny<Object>()));
+            var controller = new LessonsController(_dbContext) {
+                ObjectValidator = objectValidator.Object
+            };
+
+            // Act
+            var response = (NoContentResult)controller.PutLesson(1, lessonToUpdate).Result;
 
             // Assert
             response.StatusCode.Should().Be(204);
         }
 
         [Fact]
-        public void UpdateNotFoundCourse()
+        public void UpdateNotFoundLesson()
         {
             // Arrange
             var course1 = new Course() {
+                CourseId = 1,
                 Name = "Curso 1",
                 Category = "Outros",
                 Instructor = "Fulano"
             };
             _dbContext.Course.Add(course1);
+
+            var lesson1 = new Lesson() {
+                CourseId = 1,
+                Name = "Unidade 1"
+            };
+            _dbContext.Lesson.Add(lesson1);
             _dbContext.SaveChanges();
 
-            var courseToUpdate = new Course() {
-                CourseId = 50,
-                Name = "Curso 50",
-                Category = "Outros",
-                Instructor = "Fulano"
+            var lessonToUpdate = new Lesson() {
+                CourseId = 1,
+                LessonId = 50,
+                Name = "Unidade 50"
             };
             var objectValidator = new Mock<IObjectModelValidator>();
             objectValidator.Setup(o => o.Validate(It.IsAny<ActionContext>(),
                                               It.IsAny<ValidationStateDictionary>(),
                                               It.IsAny<string>(),
                                               It.IsAny<Object>()));
-            var controller = new CoursesController(_dbContext) {
+            var controller = new LessonsController(_dbContext) {
                 ObjectValidator = objectValidator.Object
             };
 
             // Act
-            var response = (NotFoundResult)controller.PutCourse(50, courseToUpdate).Result;
+            var response = (NotFoundResult)controller.PutLesson(50, lessonToUpdate).Result;
 
             // Assert
             response.StatusCode.Should().Be(404);
         }
 
         [Fact]
-        public void UpdateBadRequestCourse()
+        public void UpdateBadRequestLesson()
         {
             // Arrange
             var course1 = new Course() {
+                CourseId = 1,
                 Name = "Curso 1",
                 Category = "Outros",
                 Instructor = "Fulano"
             };
             _dbContext.Course.Add(course1);
+
+            var lesson1 = new Lesson() {
+                CourseId = 1,
+                Name = "Unidade 1"
+            };
+            _dbContext.Lesson.Add(lesson1);
             _dbContext.SaveChanges();
 
-            var courseToUpdate = new Course() {
+            var lessonToUpdate = new Lesson() {
                 CourseId = 1,
-                Name = "Curso 2",
-                Category = "Outros",
-                Instructor = "Fulano"
+                LessonId = 1,
+                Name = "Unidade 2"
             };
             var objectValidator = new Mock<IObjectModelValidator>();
             objectValidator.Setup(o => o.Validate(It.IsAny<ActionContext>(),
                                               It.IsAny<ValidationStateDictionary>(),
                                               It.IsAny<string>(),
                                               It.IsAny<Object>()));
-            var controller = new CoursesController(_dbContext) {
+            var controller = new LessonsController(_dbContext) {
                 ObjectValidator = objectValidator.Object
             };
 
             // Act
-            var response = (BadRequestResult)controller.PutCourse(50, courseToUpdate).Result;
+            var response = (BadRequestResult)controller.PutLesson(50, lessonToUpdate).Result;
 
             // Assert
             response.StatusCode.Should().Be(400);
         }
 
         [Fact]
-        public void DeleteCourse()
+        public void DeleteLesson()
         {
             // Arrange
             var course1 = new Course() {
+                CourseId = 1,
                 Name = "Curso 1",
                 Category = "Outros",
                 Instructor = "Fulano"
             };
             _dbContext.Course.Add(course1);
+
+            var lesson1 = new Lesson() {
+                CourseId = 1,
+                Name = "Unidade 1"
+            };
+            _dbContext.Lesson.Add(lesson1);
             _dbContext.SaveChanges();
 
             var objectValidator = new Mock<IObjectModelValidator>();
@@ -291,16 +316,16 @@ namespace TrainingSystem.Tests.ControllerTests
                                               It.IsAny<ValidationStateDictionary>(),
                                               It.IsAny<string>(),
                                               It.IsAny<Object>()));
-            var controller = new CoursesController(_dbContext) {
+            var controller = new LessonsController(_dbContext) {
                 ObjectValidator = objectValidator.Object
             };
 
             // Act
-            var response = (OkObjectResult)controller.DeleteCourse(1).Result;
+            var response = (OkObjectResult)controller.DeleteLesson(1).Result;
 
             // Assert
             response.StatusCode.Should().Be(200);
-            _dbContext.Course.Find(1).Should().BeNull();
+            _dbContext.Lesson.Find(1).Should().BeNull();
         }
 
         public void Dispose()
@@ -309,3 +334,4 @@ namespace TrainingSystem.Tests.ControllerTests
         }
     }
 }
+

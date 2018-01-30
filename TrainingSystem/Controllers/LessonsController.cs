@@ -23,7 +23,7 @@ namespace TrainingSystem.Controllers
 
         // GET: api/Lessons
         [HttpGet]
-        public IEnumerable<Lesson> GetLesson()
+        public IEnumerable<Lesson> GetLessons()
         {
             return _context.Lesson;
         }
