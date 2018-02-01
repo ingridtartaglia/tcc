@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace TrainingSystem.Models
 {
@@ -10,7 +9,6 @@ namespace TrainingSystem.Models
         public int LessonId { get; set; }
         public Lesson Lesson { get; set; }
 
-        [Required]
         public List<Question> Questions { get; set; }
     }
 }
