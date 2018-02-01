@@ -23,7 +23,7 @@ namespace TrainingSystem.Controllers
 
         // GET: api/Keywords
         [HttpGet]
-        public IEnumerable<Keyword> GetKeyword()
+        public IEnumerable<Keyword> GetKeywords()
         {
             return _context.Keyword;
         }
