@@ -13,11 +13,11 @@ using Xunit;
 
 namespace TrainingSystem.Tests.ControllerTests
 {
-    public class LessonsControllerTests : IDisposable
+    public class VideosControllerTests : IDisposable
     {
         private readonly TrainingSystemContext _dbContext;
 
-        public LessonsControllerTests()
+        public VideosControllerTests()
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
@@ -29,27 +29,34 @@ namespace TrainingSystem.Tests.ControllerTests
         }
 
         [Fact]
-        public void GetLessons()
+        public void GetVideos()
         {
             // Arrange
-            var course1 = new Course() {
+            var course = new Course() {
                 CourseId = 1,
                 Name = "Curso 1",
                 Category = "Outros",
                 Instructor = "Fulano"
             };
-            _dbContext.Course.Add(course1);
-
-            var lesson1 = new Lesson() {
+            var lesson = new Lesson() {
                 CourseId = 1,
+                LessonId = 1,
                 Name = "Unidade 1"
             };
-            var lesson2 = new Lesson() {
-                CourseId = 1,
-                Name = "Unidade 2"
+            var video1 = new Video() {
+                LessonId = 1,
+                Name = "Introdução à programação",
+                FileName = "introduction.mp4"
             };
-            _dbContext.Lesson.Add(lesson1);
-            _dbContext.Lesson.Add(lesson2);
+            var video2 = new Video() {
+                LessonId = 1,
+                Name = "Escrevendo o seu primeiro hello world",
+                FileName = "helloworld.mp4"
+            };
+            _dbContext.Course.Add(course);
+            _dbContext.Lesson.Add(lesson);
+            _dbContext.Video.Add(video1);
+            _dbContext.Video.Add(video2);
             _dbContext.SaveChanges();
 
             var objectValidator = new Mock<IObjectModelValidator>();
@@ -57,34 +64,40 @@ namespace TrainingSystem.Tests.ControllerTests
                                               It.IsAny<ValidationStateDictionary>(),
                                               It.IsAny<string>(),
                                               It.IsAny<Object>()));
-            var controller = new LessonsController(_dbContext) {
+            var controller = new VideosController(_dbContext) {
                 ObjectValidator = objectValidator.Object
             };
 
             // Act
-            var response = controller.GetLessons();
+            var response = controller.GetVideos();
 
             // Assert
             response.Should().HaveCount(2);
         }
 
         [Fact]
-        public void GetLesson()
+        public void GetVideo()
         {
             // Arrange
-            var course1 = new Course() {
+            var course = new Course() {
                 CourseId = 1,
                 Name = "Curso 1",
                 Category = "Outros",
                 Instructor = "Fulano"
             };
-            _dbContext.Course.Add(course1);
-
-            var lesson1 = new Lesson() {
+            var lesson = new Lesson() {
                 CourseId = 1,
+                LessonId = 1,
                 Name = "Unidade 1"
             };
-            _dbContext.Lesson.Add(lesson1);
+            var video = new Video() {
+                LessonId = 1,
+                Name = "Introdução à programação",
+                FileName = "introduction.mp4"
+            };
+            _dbContext.Course.Add(course);
+            _dbContext.Lesson.Add(lesson);
+            _dbContext.Video.Add(video);
             _dbContext.SaveChanges();
 
             var objectValidator = new Mock<IObjectModelValidator>();
@@ -92,34 +105,40 @@ namespace TrainingSystem.Tests.ControllerTests
                                               It.IsAny<ValidationStateDictionary>(),
                                               It.IsAny<string>(),
                                               It.IsAny<Object>()));
-            var controller = new LessonsController(_dbContext) {
+            var controller = new VideosController(_dbContext) {
                 ObjectValidator = objectValidator.Object
             };
 
             // Act
-            var response = (OkObjectResult)controller.GetLesson(1).Result;
+            var response = (OkObjectResult)controller.GetVideo(1).Result;
 
             // Assert
-            ((Lesson)response.Value).CourseId.Should().Be(1);
+            ((Video)response.Value).VideoId.Should().Be(1);
         }
 
         [Fact]
-        public void GetNotFoundLesson()
+        public void GetNotFoundVideo()
         {
             // Arrange
-            var course1 = new Course() {
+            var course = new Course() {
                 CourseId = 1,
                 Name = "Curso 1",
                 Category = "Outros",
                 Instructor = "Fulano"
             };
-            _dbContext.Course.Add(course1);
-
-            var lesson1 = new Lesson() {
+            var lesson = new Lesson() {
                 CourseId = 1,
+                LessonId = 1,
                 Name = "Unidade 1"
             };
-            _dbContext.Lesson.Add(lesson1);
+            var video = new Video() {
+                LessonId = 1,
+                Name = "Introdução à programação",
+                FileName = "introduction.mp4"
+            };
+            _dbContext.Course.Add(course);
+            _dbContext.Lesson.Add(lesson);
+            _dbContext.Video.Add(video);
             _dbContext.SaveChanges();
 
             var objectValidator = new Mock<IObjectModelValidator>();
@@ -127,188 +146,266 @@ namespace TrainingSystem.Tests.ControllerTests
                                               It.IsAny<ValidationStateDictionary>(),
                                               It.IsAny<string>(),
                                               It.IsAny<Object>()));
-            var controller = new LessonsController(_dbContext) {
+            var controller = new VideosController(_dbContext) {
                 ObjectValidator = objectValidator.Object
             };
 
             // Act
-            var response = (NotFoundResult)controller.GetLesson(50).Result;
+            var response = (NotFoundResult)controller.GetVideo(50).Result;
 
             // Assert
             response.StatusCode.Should().Be(404);
         }
 
         [Fact]
-        public void PostLesson()
+        public void PostVideo()
         {
             // Arrange
-            var course1 = new Course() {
+            var course = new Course() {
                 CourseId = 1,
                 Name = "Curso 1",
                 Category = "Outros",
                 Instructor = "Fulano"
             };
-            _dbContext.Course.Add(course1);
-
-            var lessonToAdd = new Lesson() {
+            var lesson = new Lesson() {
                 CourseId = 1,
+                LessonId = 1,
                 Name = "Unidade 1"
             };
+            var videoToAdd = new Video() {
+                LessonId = 1,
+                Name = "Introdução à programação",
+                FileName = "introduction.mp4"
+            };
+            _dbContext.Course.Add(course);
+            _dbContext.Lesson.Add(lesson);
+            _dbContext.SaveChanges();
 
             var objectValidator = new Mock<IObjectModelValidator>();
             objectValidator.Setup(o => o.Validate(It.IsAny<ActionContext>(),
                                               It.IsAny<ValidationStateDictionary>(),
                                               It.IsAny<string>(),
                                               It.IsAny<Object>()));
-            var controller = new LessonsController(_dbContext) {
+            var controller = new VideosController(_dbContext) {
                 ObjectValidator = objectValidator.Object
             };
 
             // Act
-            var response = (CreatedAtActionResult)controller.PostLesson(lessonToAdd).Result;
+            var response = (CreatedAtActionResult)controller.PostVideo(videoToAdd).Result;
 
             // Assert
             Assert.Equal((int)HttpStatusCode.Created, response.StatusCode);
-            ((Lesson)response.Value).LessonId.Should().NotBe(0);
-            ((Lesson)response.Value).Name.Should().Be("Unidade 1");
+            ((Video)response.Value).VideoId.Should().NotBe(0);
+            ((Video)response.Value).Name.Should().Be("Introdução à programação");
         }
 
         [Fact]
-        public void PutLesson()
+        public void CreateInvalidVideo()
         {
             // Arrange
-            var course1 = new Course() {
+            var course = new Course() {
                 CourseId = 1,
                 Name = "Curso 1",
                 Category = "Outros",
                 Instructor = "Fulano"
             };
-            _dbContext.Course.Add(course1);
-
-            var lesson1 = new Lesson() {
-                LessonId = 1,
+            var lesson = new Lesson() {
                 CourseId = 1,
+                LessonId = 1,
                 Name = "Unidade 1"
             };
-            _dbContext.Lesson.Add(lesson1);
+            var videoToAdd = new Video() {
+                LessonId = 1,
+                Name = "Introdução à programação",
+                FileName = ""
+            };
+            _dbContext.Course.Add(course);
+            _dbContext.Lesson.Add(lesson);
             _dbContext.SaveChanges();
-
-            var lessonToUpdate = _dbContext.Lesson.FirstOrDefaultAsync(l => l.LessonId == 1).Result;
-            lessonToUpdate.Name = "Unidade 2";
 
             var objectValidator = new Mock<IObjectModelValidator>();
             objectValidator.Setup(o => o.Validate(It.IsAny<ActionContext>(),
                                               It.IsAny<ValidationStateDictionary>(),
                                               It.IsAny<string>(),
                                               It.IsAny<Object>()));
-            var controller = new LessonsController(_dbContext) {
+            var controller = new VideosController(_dbContext) {
+                ObjectValidator = objectValidator.Object
+            };
+            controller.ModelState.AddModelError("FileName", "The FileName field is required");
+
+            // Act
+            var response = (BadRequestObjectResult)controller.PostVideo(videoToAdd).Result;
+
+            // Assert
+            Assert.Equal((int)HttpStatusCode.BadRequest, response.StatusCode);
+            ((SerializableError)response.Value).ContainsKey("FileName").Should().BeTrue();
+        }
+
+        [Fact]
+        public void PutVideo()
+        {
+            // Arrange
+            var course = new Course() {
+                CourseId = 1,
+                Name = "Curso 1",
+                Category = "Outros",
+                Instructor = "Fulano"
+            };
+            var lesson = new Lesson() {
+                CourseId = 1,
+                LessonId = 1,
+                Name = "Unidade 1"
+            };
+            var video = new Video() {
+                VideoId = 1,
+                LessonId = 1,
+                Name = "Introdução à programação",
+                FileName = "introduction.mp4"
+            };
+            _dbContext.Course.Add(course);
+            _dbContext.Lesson.Add(lesson);
+            _dbContext.Video.Add(video);
+            _dbContext.SaveChanges();
+
+            var videoToUpdate = _dbContext.Video.FirstOrDefaultAsync(v => v.VideoId == 1).Result;
+            videoToUpdate.Name = "Introdução";
+
+            var objectValidator = new Mock<IObjectModelValidator>();
+            objectValidator.Setup(o => o.Validate(It.IsAny<ActionContext>(),
+                                              It.IsAny<ValidationStateDictionary>(),
+                                              It.IsAny<string>(),
+                                              It.IsAny<Object>()));
+            var controller = new VideosController(_dbContext) {
                 ObjectValidator = objectValidator.Object
             };
 
             // Act
-            var response = (NoContentResult)controller.PutLesson(1, lessonToUpdate).Result;
+            var response = (NoContentResult)controller.PutVideo(1, videoToUpdate).Result;
 
             // Assert
             response.StatusCode.Should().Be(204);
         }
 
         [Fact]
-        public void UpdateNotFoundLesson()
+        public void UpdateNotFoundVideo()
         {
             // Arrange
-            var course1 = new Course() {
+            var course = new Course() {
                 CourseId = 1,
                 Name = "Curso 1",
                 Category = "Outros",
                 Instructor = "Fulano"
             };
-            _dbContext.Course.Add(course1);
-
-            var lesson1 = new Lesson() {
+            var lesson = new Lesson() {
                 CourseId = 1,
+                LessonId = 1,
                 Name = "Unidade 1"
             };
-            _dbContext.Lesson.Add(lesson1);
+            var video = new Video() {
+                VideoId = 1,
+                LessonId = 1,
+                Name = "Introdução à programação",
+                FileName = "introduction.mp4"
+            };
+            _dbContext.Course.Add(course);
+            _dbContext.Lesson.Add(lesson);
+            _dbContext.Video.Add(video);
             _dbContext.SaveChanges();
 
-            var lessonToUpdate = new Lesson() {
-                CourseId = 1,
-                LessonId = 50,
-                Name = "Unidade 50"
+            var videoToUpdate = new Video() {
+                LessonId = 1,
+                VideoId = 50,
+                Name = "Introdução",
+                FileName = "introduction.mp4"
             };
             var objectValidator = new Mock<IObjectModelValidator>();
             objectValidator.Setup(o => o.Validate(It.IsAny<ActionContext>(),
                                               It.IsAny<ValidationStateDictionary>(),
                                               It.IsAny<string>(),
                                               It.IsAny<Object>()));
-            var controller = new LessonsController(_dbContext) {
+            var controller = new VideosController(_dbContext) {
                 ObjectValidator = objectValidator.Object
             };
 
             // Act
-            var response = (NotFoundResult)controller.PutLesson(50, lessonToUpdate).Result;
+            var response = (NotFoundResult)controller.PutVideo(50, videoToUpdate).Result;
 
             // Assert
             response.StatusCode.Should().Be(404);
         }
 
         [Fact]
-        public void UpdateBadRequestLesson()
+        public void UpdateBadRequestVideo()
         {
             // Arrange
-            var course1 = new Course() {
+            var course = new Course() {
                 CourseId = 1,
                 Name = "Curso 1",
                 Category = "Outros",
                 Instructor = "Fulano"
             };
-            _dbContext.Course.Add(course1);
-
-            var lesson1 = new Lesson() {
-                CourseId = 1,
-                Name = "Unidade 1"
-            };
-            _dbContext.Lesson.Add(lesson1);
-            _dbContext.SaveChanges();
-
-            var lessonToUpdate = new Lesson() {
+            var lesson = new Lesson() {
                 CourseId = 1,
                 LessonId = 1,
-                Name = "Unidade 2"
+                Name = "Unidade 1"
+            };
+            var video = new Video() {
+                VideoId = 1,
+                LessonId = 1,
+                Name = "Introdução à programação",
+                FileName = "introduction.mp4"
+            };
+            _dbContext.Course.Add(course);
+            _dbContext.Lesson.Add(lesson);
+            _dbContext.Video.Add(video);
+            _dbContext.SaveChanges();
+
+            var videoToUpdate = new Video() {
+                LessonId = 1,
+                VideoId = 1,
+                Name = "Introdução",
+                FileName = "introduction.mp4"
             };
             var objectValidator = new Mock<IObjectModelValidator>();
             objectValidator.Setup(o => o.Validate(It.IsAny<ActionContext>(),
                                               It.IsAny<ValidationStateDictionary>(),
                                               It.IsAny<string>(),
                                               It.IsAny<Object>()));
-            var controller = new LessonsController(_dbContext) {
+            var controller = new VideosController(_dbContext) {
                 ObjectValidator = objectValidator.Object
             };
 
             // Act
-            var response = (BadRequestResult)controller.PutLesson(50, lessonToUpdate).Result;
+            var response = (BadRequestResult)controller.PutVideo(50, videoToUpdate).Result;
 
             // Assert
             response.StatusCode.Should().Be(400);
         }
 
         [Fact]
-        public void DeleteLesson()
+        public void DeleteVideo()
         {
             // Arrange
-            var course1 = new Course() {
+            var course = new Course() {
                 CourseId = 1,
                 Name = "Curso 1",
                 Category = "Outros",
                 Instructor = "Fulano"
             };
-            _dbContext.Course.Add(course1);
-
-            var lesson1 = new Lesson() {
+            var lesson = new Lesson() {
                 CourseId = 1,
+                LessonId = 1,
                 Name = "Unidade 1"
             };
-            _dbContext.Lesson.Add(lesson1);
+            var video = new Video() {
+                VideoId = 1,
+                LessonId = 1,
+                Name = "Introdução à programação",
+                FileName = "introduction.mp4"
+            };
+            _dbContext.Course.Add(course);
+            _dbContext.Lesson.Add(lesson);
+            _dbContext.Video.Add(video);
             _dbContext.SaveChanges();
 
             var objectValidator = new Mock<IObjectModelValidator>();
@@ -316,16 +413,16 @@ namespace TrainingSystem.Tests.ControllerTests
                                               It.IsAny<ValidationStateDictionary>(),
                                               It.IsAny<string>(),
                                               It.IsAny<Object>()));
-            var controller = new LessonsController(_dbContext) {
+            var controller = new VideosController(_dbContext) {
                 ObjectValidator = objectValidator.Object
             };
 
             // Act
-            var response = (OkObjectResult)controller.DeleteLesson(1).Result;
+            var response = (OkObjectResult)controller.DeleteVideo(1).Result;
 
             // Assert
             response.StatusCode.Should().Be(200);
-            _dbContext.Lesson.Find(1).Should().BeNull();
+            _dbContext.Video.Find(1).Should().BeNull();
         }
 
         public void Dispose()
@@ -334,4 +431,3 @@ namespace TrainingSystem.Tests.ControllerTests
         }
     }
 }
-

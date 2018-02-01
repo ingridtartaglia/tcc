@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TrainingSystem.Data;
@@ -23,7 +21,7 @@ namespace TrainingSystem.Controllers
 
         // GET: api/Videos
         [HttpGet]
-        public IEnumerable<Video> GetVideo()
+        public IEnumerable<Video> GetVideos()
         {
             return _context.Video;
         }
