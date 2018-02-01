@@ -23,7 +23,7 @@ namespace TrainingSystem.Controllers
 
         // GET: api/Ratings
         [HttpGet]
-        public IEnumerable<Rating> GetRating()
+        public IEnumerable<Rating> GetRatings()
         {
             return _context.Rating;
         }
