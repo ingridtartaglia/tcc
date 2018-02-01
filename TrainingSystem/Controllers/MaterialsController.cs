@@ -23,7 +23,7 @@ namespace TrainingSystem.Controllers
 
         // GET: api/Materials
         [HttpGet]
-        public IEnumerable<Material> GetMaterial()
+        public IEnumerable<Material> GetMaterials()
         {
             return _context.Material;
         }
