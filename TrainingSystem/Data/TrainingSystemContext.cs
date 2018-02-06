@@ -9,7 +9,7 @@ namespace TrainingSystem.Data
         {
         }
         public DbSet<TrainingSystem.Models.Course> Course { get; set; }
-        public DbSet<TrainingSystem.Models.Answer> Answer { get; set; }
+        public DbSet<TrainingSystem.Models.QuestionChoice> QuestionChoice { get; set; }
         public DbSet<TrainingSystem.Models.Exam> Exam { get; set; }
         public DbSet<TrainingSystem.Models.Keyword> Keyword { get; set; }
         public DbSet<TrainingSystem.Models.Lesson> Lesson { get; set; }

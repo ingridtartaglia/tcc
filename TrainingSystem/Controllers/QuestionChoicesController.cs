@@ -11,57 +11,57 @@ using TrainingSystem.Models;
 namespace TrainingSystem.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Answers")]
-    public class AnswersController : Controller
+    [Route("api/QuestionChoice")]
+    public class QuestionChoicesController : Controller
     {
         private readonly TrainingSystemContext _context;
 
-        public AnswersController(TrainingSystemContext context)
+        public QuestionChoicesController(TrainingSystemContext context)
         {
             _context = context;
         }
 
-        // GET: api/Answers
+        // GET: api/QuestionChoices
         [HttpGet]
-        public IEnumerable<Answer> GetAnswer()
+        public IEnumerable<QuestionChoice> GetQuestionChoices()
         {
-            return _context.Answer;
+            return _context.QuestionChoice;
         }
 
-        // GET: api/Answers/5
+        // GET: api/QuestionChoices/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetAnswer([FromRoute] int id)
+        public async Task<IActionResult> GetQuestionChoice([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var answer = await _context.Answer.SingleOrDefaultAsync(m => m.AnswerId == id);
+            var questionChoice = await _context.QuestionChoice.SingleOrDefaultAsync(q => q.QuestionChoiceId == id);
 
-            if (answer == null)
+            if (questionChoice == null)
             {
                 return NotFound();
             }
 
-            return Ok(answer);
+            return Ok(questionChoice);
         }
 
-        // PUT: api/Answers/5
+        // PUT: api/QuestionChoices/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAnswer([FromRoute] int id, [FromBody] Answer answer)
+        public async Task<IActionResult> PutQuestionChoice([FromRoute] int id, [FromBody] QuestionChoice questionChoice)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != answer.AnswerId)
+            if (id != questionChoice.QuestionChoiceId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(answer).State = EntityState.Modified;
+            _context.Entry(questionChoice).State = EntityState.Modified;
 
             try
             {
@@ -69,7 +69,7 @@ namespace TrainingSystem.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AnswerExists(id))
+                if (!QuestionChoiceExists(id))
                 {
                     return NotFound();
                 }
@@ -82,45 +82,45 @@ namespace TrainingSystem.Controllers
             return NoContent();
         }
 
-        // POST: api/Answers
+        // POST: api/QuestionChoices
         [HttpPost]
-        public async Task<IActionResult> PostAnswer([FromBody] Answer answer)
+        public async Task<IActionResult> PostQuestionChoice([FromBody] QuestionChoice questionChoice)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _context.Answer.Add(answer);
+            _context.QuestionChoice.Add(questionChoice);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAnswer", new { id = answer.AnswerId }, answer);
+            return CreatedAtAction("GetQuestionChoice", new { id = questionChoice.QuestionChoiceId }, questionChoice);
         }
 
-        // DELETE: api/Answers/5
+        // DELETE: api/QuestionChoices/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAnswer([FromRoute] int id)
+        public async Task<IActionResult> DeleteQuestionChoice([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var answer = await _context.Answer.SingleOrDefaultAsync(m => m.AnswerId == id);
-            if (answer == null)
+            var questionChoice = await _context.QuestionChoice.SingleOrDefaultAsync(q => q.QuestionChoiceId == id);
+            if (questionChoice == null)
             {
                 return NotFound();
             }
 
-            _context.Answer.Remove(answer);
+            _context.QuestionChoice.Remove(questionChoice);
             await _context.SaveChangesAsync();
 
-            return Ok(answer);
+            return Ok(questionChoice);
         }
 
-        private bool AnswerExists(int id)
+        private bool QuestionChoiceExists(int id)
         {
-            return _context.Answer.Any(e => e.AnswerId == id);
+            return _context.QuestionChoice.Any(e => e.QuestionChoiceId == id);
         }
     }
 }

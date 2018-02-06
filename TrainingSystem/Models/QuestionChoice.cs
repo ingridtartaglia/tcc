@@ -2,11 +2,12 @@
 
 namespace TrainingSystem.Models
 {
-    public class Answer
+    public class QuestionChoice
     {
-        public int AnswerId { get; set; }
+        public int QuestionChoiceId { get; set; }
         [Required]
-        public string AnswerName { get; set; }
+        public string QuestionChoiceName { get; set; }
+        [Required]
         public bool IsCorrect { get; set; }
 
         public int QuestionId { get; set; }
