@@ -23,7 +23,7 @@ namespace TrainingSystem.Controllers
 
         // GET: api/Questions
         [HttpGet]
-        public IEnumerable<Question> GetQuestion()
+        public IEnumerable<Question> GetQuestions()
         {
             return _context.Question;
         }
