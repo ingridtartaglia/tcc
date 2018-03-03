@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using TrainingSystem.Models;
 
 namespace TrainingSystem.Data
 {
-    public class TrainingSystemContext : DbContext
+    public class TrainingSystemContext : IdentityDbContext<AppUser>
     {
         public TrainingSystemContext(DbContextOptions<TrainingSystemContext> options) : base(options)
         {
