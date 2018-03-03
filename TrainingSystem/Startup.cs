@@ -92,7 +92,7 @@ namespace TrainingSystem
                 }
             });
 
-            //CreateRoles(serviceProvider).Wait();
+            CreateRoles(serviceProvider).Wait();
         }
 
         private async Task CreateRoles(IServiceProvider serviceProvider)
@@ -125,7 +125,7 @@ namespace TrainingSystem
                     UserName = "Admin",
                     Email = "admin@email.com",
                 };
-                string adminPassword = "123456";
+                string adminPassword = "Admin!23";
 
                 var createPowerUser = await userManager.CreateAsync(poweruser, adminPassword);
                 if (createPowerUser.Succeeded)
