@@ -25,22 +25,41 @@
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
     <Compile Remove="bin\**" />
+    <Compile Remove="ClientApp\src\app\models\**" />
     <Compile Remove="obj\**" />
     <Content Remove="$(SpaRoot)**" />
     <Content Remove="bin\**" />
+    <Content Remove="ClientApp\src\app\models\**" />
     <Content Remove="obj\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Remove="bin\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\models\**" />
     <EmbeddedResource Remove="obj\**" />
     <None Remove="bin\**" />
+    <None Remove="ClientApp\src\app\models\**" />
     <None Remove="obj\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="ClientApp\src\app\app-routing.module.ts" />
+    <None Remove="ClientApp\src\app\core\auth.guard.ts" />
+    <None Remove="ClientApp\src\app\core\auth.service.ts" />
+    <None Remove="ClientApp\src\app\core\jwt.interceptor.ts" />
   </ItemGroup>
   
   <ItemGroup>
     <Folder Include="Migrations\" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\app-routing.module.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\core\auth.guard.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\core\auth.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\core\jwt.interceptor.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\user.model.ts" />
   </ItemGroup>
   
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
