@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './admin/home/home.component';
 
 import { AuthGuard } from './core/auth.guard';
 import { AuthService } from './core/auth.service';
