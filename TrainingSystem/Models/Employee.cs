@@ -12,7 +12,7 @@ namespace TrainingSystem.Models
         [Required]
         public string Occupation { get; set; }
 
-        public int AppUserId { get; set; }
+        public string AppUserId { get; set; }
         public AppUser AppUser { get; set; }
     }
 }

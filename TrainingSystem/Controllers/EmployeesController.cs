@@ -51,7 +51,7 @@ namespace TrainingSystem.Controllers
         }
 
         // POST: api/Employees
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> PostEmployee([FromBody] RegisterViewModel registerViewModel)
         {
@@ -67,6 +67,7 @@ namespace TrainingSystem.Controllers
             }
 
             appUser = new AppUser {
+                UserName = registerViewModel.Email,
                 FirstName = registerViewModel.FirstName,
                 LastName = registerViewModel.LastName,
                 Email = registerViewModel.Email

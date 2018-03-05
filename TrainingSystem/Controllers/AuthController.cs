@@ -45,7 +45,7 @@ namespace TrainingSystem.Controllers
 
         private AppUser Authenticate(LoginViewModel loginViewModel)
         {
-            AppUser appUser = _userManager.FindByEmailAsync(loginViewModel.UserName).Result;
+            AppUser appUser = _userManager.FindByEmailAsync(loginViewModel.Email).Result;
 
             if (appUser == null) return null;
 
