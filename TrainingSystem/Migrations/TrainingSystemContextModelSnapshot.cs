@@ -209,16 +209,14 @@ namespace TrainingSystem.Migrations
                     b.Property<int>("EmployeeId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("AppUserId");
-
-                    b.Property<string>("AppUserId1");
+                    b.Property<string>("AppUserId");
 
                     b.Property<string>("Occupation")
                         .IsRequired();
 
                     b.HasKey("EmployeeId");
 
-                    b.HasIndex("AppUserId1");
+                    b.HasIndex("AppUserId");
 
                     b.ToTable("Employee");
                 });
@@ -414,7 +412,7 @@ namespace TrainingSystem.Migrations
                 {
                     b.HasOne("TrainingSystem.Models.AppUser", "AppUser")
                         .WithMany()
-                        .HasForeignKey("AppUserId1");
+                        .HasForeignKey("AppUserId");
                 });
 
             modelBuilder.Entity("TrainingSystem.Models.Exam", b =>
