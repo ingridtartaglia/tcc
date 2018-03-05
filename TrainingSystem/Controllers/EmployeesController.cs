@@ -30,7 +30,7 @@ namespace TrainingSystem.Controllers
         [HttpGet]
         public IEnumerable<Employee> GetEmployees()
         {
-            return _context.Employee;
+            return _context.Employee.Include(e => e.AppUser);
         }
 
         // GET: api/Employees/5
