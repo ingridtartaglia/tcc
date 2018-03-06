@@ -15,13 +15,16 @@ import { EmployeeService } from './admin/register/shared/employee.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { RegisterComponent } from './admin/register/register.component';
+import { NotificationComponent } from './core/shared/notification/notification.component';
+import { NotificationService } from './core/notification.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
-    RegisterComponent
+    RegisterComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -33,6 +36,7 @@ import { RegisterComponent } from './admin/register/register.component';
     AuthGuard,
     AuthService,
     EmployeeService,
+    NotificationService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,

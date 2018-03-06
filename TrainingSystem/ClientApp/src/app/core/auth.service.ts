@@ -10,9 +10,8 @@ export class AuthService {
   login(email: string, password: string) {
     return this.http.post<any>('/api/Auth', { email: email, password: password })
       .map(user => {
-        // login successful if there's a jwt token in the response
         if (user && user.token) {
-          // store user details and jwt token in local storage to keep user logged in between page refreshes
+          // Guarda as infos do usuário e o jwt token no localStorage para mantê-lo logado
           localStorage.setItem('currentUser', JSON.stringify(user));
         }
 
@@ -21,7 +20,6 @@ export class AuthService {
   }
 
   logout() {
-    // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
   }
 }
