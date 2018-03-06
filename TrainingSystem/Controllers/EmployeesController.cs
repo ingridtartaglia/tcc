@@ -41,7 +41,9 @@ namespace TrainingSystem.Controllers
                 return BadRequest(ModelState);
             }
 
-            var employee = await _context.Employee.SingleOrDefaultAsync(e => e.EmployeeId == id);
+            var employee = await _context.Employee
+                .Include(e => e.AppUser)
+                .SingleOrDefaultAsync(e => e.EmployeeId == id);
 
             if (employee == null) {
                 return NotFound();

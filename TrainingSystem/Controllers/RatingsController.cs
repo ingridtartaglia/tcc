@@ -25,7 +25,7 @@ namespace TrainingSystem.Controllers
         [HttpGet]
         public IEnumerable<Rating> GetRatings()
         {
-            return _context.Rating;
+            return _context.Rating.Include(r => r.Course);
         }
 
         // GET: api/Ratings/5
@@ -37,7 +37,9 @@ namespace TrainingSystem.Controllers
                 return BadRequest(ModelState);
             }
 
-            var rating = await _context.Rating.SingleOrDefaultAsync(m => m.RatingId == id);
+            var rating = await _context.Rating
+                .Include(r => r.Course)
+                .SingleOrDefaultAsync(r => r.RatingId == id);
 
             if (rating == null)
             {
@@ -106,7 +108,7 @@ namespace TrainingSystem.Controllers
                 return BadRequest(ModelState);
             }
 
-            var rating = await _context.Rating.SingleOrDefaultAsync(m => m.RatingId == id);
+            var rating = await _context.Rating.SingleOrDefaultAsync(r => r.RatingId == id);
             if (rating == null)
             {
                 return NotFound();
@@ -120,7 +122,7 @@ namespace TrainingSystem.Controllers
 
         private bool RatingExists(int id)
         {
-            return _context.Rating.Any(e => e.RatingId == id);
+            return _context.Rating.Any(r => r.RatingId == id);
         }
     }
 }

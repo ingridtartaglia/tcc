@@ -23,7 +23,7 @@ namespace TrainingSystem.Controllers
         [HttpGet]
         public IEnumerable<Video> GetVideos()
         {
-            return _context.Video;
+            return _context.Video.Include(v => v.Lesson);
         }
 
         // GET: api/Videos/5
@@ -35,7 +35,9 @@ namespace TrainingSystem.Controllers
                 return BadRequest(ModelState);
             }
 
-            var video = await _context.Video.SingleOrDefaultAsync(m => m.VideoId == id);
+            var video = await _context.Video
+                .Include(v => v.Lesson)
+                .SingleOrDefaultAsync(v => v.VideoId == id);
 
             if (video == null)
             {
@@ -104,7 +106,7 @@ namespace TrainingSystem.Controllers
                 return BadRequest(ModelState);
             }
 
-            var video = await _context.Video.SingleOrDefaultAsync(m => m.VideoId == id);
+            var video = await _context.Video.SingleOrDefaultAsync(v => v.VideoId == id);
             if (video == null)
             {
                 return NotFound();
@@ -118,7 +120,7 @@ namespace TrainingSystem.Controllers
 
         private bool VideoExists(int id)
         {
-            return _context.Video.Any(e => e.VideoId == id);
+            return _context.Video.Any(v => v.VideoId == id);
         }
     }
 }
