@@ -28,14 +28,21 @@ namespace TrainingSystem.Controllers
             _userManager = userManager;
         }
 
+        /// <summary>
+        /// Permite que o usuário se autentique para pegar novos jwt tokens
+        /// </summary>
+        /// <param name="loginViewModel"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         [HttpPost]
         public IActionResult CreateToken([FromBody] LoginViewModel loginViewModel)
         {
+            // Verifica se o e-mail e a senha do usuário são válidos e retorna o model do usuário 
             var appUser = Authenticate(loginViewModel);
 
             if (appUser != null)
             {
+                // Se o usuário existir, será criado um novo token para ele
                 var tokenString = BuildToken(appUser);
                 return Ok(new { token = tokenString });
             }

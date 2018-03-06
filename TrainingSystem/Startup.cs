@@ -97,7 +97,7 @@ namespace TrainingSystem
 
         private async Task CreateRoles(IServiceProvider serviceProvider)
         {
-            // initializing custom roles 
+            // Inicia perfis customizáveis 
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             var userManager = serviceProvider.GetRequiredService<UserManager<AppUser>>();
             string[] roleNames = { "Admin", "Employee" };
@@ -105,21 +105,19 @@ namespace TrainingSystem
             foreach (var roleName in roleNames)
             {
                 var roleExist = await roleManager.RoleExistsAsync(roleName);
-                // ensure that the role does not exist
+
+                // Se o perfil não existir, ele é criado e adicionado no banco
                 if (!roleExist)
                 {
-                    // create the roles and seed them to the database: 
                     await roleManager.CreateAsync(new IdentityRole(roleName));
                 }
             }
 
-            // find the user with the admin email 
             var user = await userManager.FindByEmailAsync("admin@email.com");
 
-            // check if the user exists
+            // Se o admin não existir, cria um usuário com tais poderes
             if (user == null)
             {
-                // here you could create the super admin who will maintain the web app
                 var poweruser = new AppUser
                 {
                     UserName = "Admin",
@@ -130,7 +128,6 @@ namespace TrainingSystem
                 var createPowerUser = await userManager.CreateAsync(poweruser, adminPassword);
                 if (createPowerUser.Succeeded)
                 {
-                    // here we tie the new user to the role
                     await userManager.AddToRoleAsync(poweruser, "Admin");
                 }
             }
