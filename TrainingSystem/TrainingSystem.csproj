@@ -38,20 +38,6 @@
     <None Remove="bin\**" />
     <None Remove="obj\**" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Migrations\20180304232335_Employee.cs" />
-    <Compile Remove="Migrations\20180304232335_Employee.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="ClientApp\src\app\app-routing.module.ts" />
-    <None Remove="ClientApp\src\app\core\auth.guard.ts" />
-    <None Remove="ClientApp\src\app\core\auth.service.ts" />
-    <None Remove="ClientApp\src\app\core\jwt.interceptor.ts" />
-    <None Remove="Migrations\20180304232335_Employee.cs" />
-    <None Remove="Migrations\20180304232335_Employee.Designer.cs" />
-  </ItemGroup>
   
   <ItemGroup>
     <Folder Include="ClientApp\src\app\employee\" />

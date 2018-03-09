@@ -91,46 +91,6 @@ namespace TrainingSystem
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
-
-            CreateRoles(serviceProvider).Wait();
-        }
-
-        private async Task CreateRoles(IServiceProvider serviceProvider)
-        {
-            // Inicia perfis customizáveis 
-            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            var userManager = serviceProvider.GetRequiredService<UserManager<AppUser>>();
-            string[] roleNames = { "Admin", "Employee" };
-
-            foreach (var roleName in roleNames)
-            {
-                var roleExist = await roleManager.RoleExistsAsync(roleName);
-
-                // Se o perfil não existir, ele é criado e adicionado no banco
-                if (!roleExist)
-                {
-                    await roleManager.CreateAsync(new IdentityRole(roleName));
-                }
-            }
-
-            var user = await userManager.FindByEmailAsync("admin@email.com");
-
-            // Se o admin não existir, cria um usuário com tais poderes
-            if (user == null)
-            {
-                var poweruser = new AppUser
-                {
-                    UserName = "Admin",
-                    Email = "admin@email.com",
-                };
-                string adminPassword = "Admin!23";
-
-                var createPowerUser = await userManager.CreateAsync(poweruser, adminPassword);
-                if (createPowerUser.Succeeded)
-                {
-                    await userManager.AddToRoleAsync(poweruser, "Admin");
-                }
-            }
         }
     }
 }
