@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
+using TrainingSystem.Auth;
 using TrainingSystem.Models;
 using TrainingSystem.ViewModels;
 
@@ -19,13 +15,15 @@ namespace TrainingSystem.Controllers
     [Route("api/Auth")]
     public class AuthController : Controller
     {
-        private readonly IConfiguration _config;
         private readonly UserManager<AppUser> _userManager;
+        private readonly IJwtFactory _jwtFactory;
+        private readonly JwtIssuerOptions _jwtOptions;
 
-        public AuthController(IConfiguration config, UserManager<AppUser> userManager)
+        public AuthController(UserManager<AppUser> userManager, IJwtFactory jwtFactory, IOptions<JwtIssuerOptions> jwtOptions)
         {
-            _config = config;
             _userManager = userManager;
+            _jwtFactory = jwtFactory;
+            _jwtOptions = jwtOptions.Value;
         }
 
         /// <summary>
@@ -37,43 +35,51 @@ namespace TrainingSystem.Controllers
         [HttpPost]
         public IActionResult CreateToken([FromBody] LoginViewModel loginViewModel)
         {
-            // Verifica se o e-mail e a senha do usuário são válidos e retorna o model do usuário 
-            var appUser = Authenticate(loginViewModel);
-
-            if (appUser != null)
-            {
-                // Se o usuário existir, será criado um novo token para ele
-                var tokenString = BuildToken(appUser);
-                return Ok(new { token = tokenString });
+            if (!ModelState.IsValid) {
+                return BadRequest(ModelState);
             }
 
-            return Unauthorized();
+            var identity = GetClaimsIdentity(loginViewModel.Email, loginViewModel.Password);
+            if (identity == null) {
+                ModelState.AddModelError("login_failure", "Invalid username or password.");
+                return BadRequest(ModelState);
+            }
+
+            var jwt = GenerateJwt(identity, _jwtFactory, loginViewModel.Email, _jwtOptions, new JsonSerializerSettings { Formatting = Formatting.Indented });
+            return new OkObjectResult(jwt);
         }
 
-        private AppUser Authenticate(LoginViewModel loginViewModel)
+        private ClaimsIdentity GetClaimsIdentity(string userName, string password)
         {
-            AppUser appUser = _userManager.FindByEmailAsync(loginViewModel.Email).Result;
+            if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password))
+                return null;
 
-            if (appUser == null) return null;
+            // get the user to verifty
+            var userToVerify = _userManager.FindByEmailAsync(userName).Result;
 
-            if (_userManager.CheckPasswordAsync(appUser, loginViewModel.Password).Result)
+            if (userToVerify == null) return null;
+
+            // check the credentials
+            if (_userManager.CheckPasswordAsync(userToVerify, password).Result)
             {
-                return appUser;
+                var role = _userManager.GetRolesAsync(userToVerify).Result.FirstOrDefault();
+                return _jwtFactory.GenerateClaimsIdentity(userName, userToVerify.Id, role);
             }
+
+            // Credentials are invalid, or account doesn't exist
             return null;
         }
 
-        private string BuildToken(AppUser appUser)
+        public static string GenerateJwt(ClaimsIdentity identity, IJwtFactory jwtFactory, string userName, JwtIssuerOptions jwtOptions, JsonSerializerSettings serializerSettings)
         {
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var response = new
+            {
+                id = identity.Claims.Single(c => c.Type == "id").Value,
+                auth_token = jwtFactory.GenerateEncodedToken(userName, identity).Result,
+                expires_in = (int)jwtOptions.ValidFor.TotalSeconds
+            };
 
-            var token = new JwtSecurityToken(_config["Jwt:Issuer"],
-              _config["Jwt:Issuer"],
-              expires: DateTime.Now.AddMinutes(30),
-              signingCredentials: creds);
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            return JsonConvert.SerializeObject(response, serializerSettings);
         }
     }
 }
