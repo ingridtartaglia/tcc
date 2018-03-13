@@ -6,6 +6,9 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { AuthService } from './shared/auth.service';
+import { JwtInterceptor } from './shared/jwt.interceptor';
+import { AuthGuard } from './shared/auth.guard';
 
 @NgModule({
   declarations: [
@@ -17,7 +20,15 @@ import { AppRoutingModule } from './app-routing.module';
     FormsModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    AuthGuard,
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

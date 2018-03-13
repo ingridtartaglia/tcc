@@ -44,14 +44,6 @@
     <Folder Include="Migrations\" />
   </ItemGroup>
   
-  <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\src\app\app-routing.module.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\core\auth.guard.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\core\auth.service.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\core\jwt.interceptor.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\login\user.model.ts" />
-  </ItemGroup>
-  
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->
     <Exec Command="node --version" ContinueOnError="true">

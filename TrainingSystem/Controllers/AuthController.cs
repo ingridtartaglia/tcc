@@ -49,6 +49,12 @@ namespace TrainingSystem.Controllers
             return new OkObjectResult(jwt);
         }
 
+        [HttpGet("user")]
+        public AppUser GetCurrentUser() {
+            var user = _userManager.GetUserAsync(User).Result;
+            return user;
+        }
+
         private ClaimsIdentity GetClaimsIdentity(string userName, string password)
         {
             if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password))
