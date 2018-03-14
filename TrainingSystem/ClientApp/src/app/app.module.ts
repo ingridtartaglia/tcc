@@ -10,6 +10,7 @@ import { AuthService } from './shared/auth.service';
 import { JwtInterceptor } from './shared/jwt.interceptor';
 import { AuthGuard } from './shared/auth.guard';
 import { AdminGuard } from './shared/admin.guard';
+import { EmployeeGuard } from './shared/employee.guard';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { AdminGuard } from './shared/admin.guard';
   providers: [
     AuthGuard,
     AdminGuard,
+    EmployeeGuard,
     AuthService,
     {
       provide: HTTP_INTERCEPTORS,

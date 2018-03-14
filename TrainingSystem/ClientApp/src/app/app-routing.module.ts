@@ -3,12 +3,18 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { AdminGuard } from './shared/admin.guard';
+import { EmployeeGuard } from './shared/employee.guard';
 
 const routes: Routes = [
   {
     path: 'admin',
     loadChildren: 'app/admin/admin.module#AdminModule',
     canActivate: [AdminGuard]
+  },
+  {
+    path: 'platform',
+    loadChildren: 'app/platform/platform.module#PlatformModule',
+    canActivate: [EmployeeGuard]
   },
   {
     path: 'login',
