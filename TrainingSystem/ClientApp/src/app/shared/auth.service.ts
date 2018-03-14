@@ -11,8 +11,13 @@ export class AuthService {
     return this.http.post<any>('/api/Auth', { email: email, password: password })
       .map(res => {
         if (res) {
+          let response = JSON.parse(res);
           // Guarda as infos do usuário e o jwt token no localStorage para mantê-lo logado
-          localStorage.setItem('auth_token', res.auth_token);
+          localStorage.setItem('auth_token', response.auth_token);
+
+          var encryptedData = response.auth_token.split('.')[1];
+          let decryptedToken = JSON.parse(window.atob(encryptedData));
+          localStorage.setItem('user_role', decryptedToken.rol);
         }
         return res;
       });
@@ -20,5 +25,6 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('auth_token');
+    localStorage.removeItem('user_role');
   }
 }
