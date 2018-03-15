@@ -1,0 +1,27 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+
+import { Employee } from './models/employee.model';
+
+@Injectable()
+export class EmployeeService {
+
+  constructor(private http: HttpClient) { }
+
+  getAll(): Observable<Employee[]> {
+    return this.http.get<Employee[]>('/api/Employees');
+  }
+
+  getById(id: number): Observable<Employee[]> {
+    return this.http.get<Employee[]>(`/api/Employees/${id}`);
+  }
+
+  // create(register: Register) {
+  //   return this.http.post(`/api/Employees/${register}`);
+  // }
+
+  delete(id: number) {
+    return this.http.delete(`/api/Employees/${id}`);
+  }
+}
