@@ -25,7 +25,7 @@ namespace TrainingSystem.Controllers
         [HttpGet]
         public IEnumerable<Keyword> GetKeywords()
         {
-            return _context.Keyword;
+            return _context.Keyword.Include(k => k.Course);
         }
 
         // GET: api/Keywords/5
@@ -37,7 +37,9 @@ namespace TrainingSystem.Controllers
                 return BadRequest(ModelState);
             }
 
-            var keyword = await _context.Keyword.SingleOrDefaultAsync(m => m.KeywordId == id);
+            var keyword = await _context.Keyword
+                .Include(k => k.Course)
+                .SingleOrDefaultAsync(k => k.KeywordId == id);
 
             if (keyword == null)
             {
@@ -106,7 +108,7 @@ namespace TrainingSystem.Controllers
                 return BadRequest(ModelState);
             }
 
-            var keyword = await _context.Keyword.SingleOrDefaultAsync(m => m.KeywordId == id);
+            var keyword = await _context.Keyword.SingleOrDefaultAsync(k => k.KeywordId == id);
             if (keyword == null)
             {
                 return NotFound();
@@ -120,7 +122,7 @@ namespace TrainingSystem.Controllers
 
         private bool KeywordExists(int id)
         {
-            return _context.Keyword.Any(e => e.KeywordId == id);
+            return _context.Keyword.Any(k => k.KeywordId == id);
         }
     }
 }
