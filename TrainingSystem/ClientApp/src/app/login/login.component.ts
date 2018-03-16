@@ -10,8 +10,8 @@ import { AuthService } from '../shared/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  email: string = '';
-  password: string = '';
+  email: '';
+  password: '';
   loading: boolean;
   returnUrl: string;
 
@@ -31,15 +31,15 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.email, this.password)
       .subscribe(
         data => {
-          if(!this.returnUrl){
-            let role = localStorage.getItem('user_role');
-            if(role == "Admin"){
-              this.returnUrl = "/admin";
-            } else if(role == "Employee") {
-              this.returnUrl = "/platform";
+          if (!this.returnUrl) {
+            const role = localStorage.getItem('user_role');
+            if (role === 'Admin') {
+              this.returnUrl = '/admin';
+            } else if (role === 'Employee') {
+              this.returnUrl = '/platform';
             } else {
-              console.log("role desconhecido: " + role)
-              this.returnUrl = "/login";
+              console.log('role desconhecido: ' + role);
+              this.returnUrl = '/login';
             }
           }
 
