@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminComponent } from './admin.component';
 import { HomeComponent } from './home/home.component';
 import { EmployeesListComponent } from './employees/employees-list.component';
+import { EmployeesRegisterComponent } from './employees/employees-register.component';
 
 const routes: Routes = [
   {
@@ -11,7 +12,8 @@ const routes: Routes = [
     component: AdminComponent,
     children: [
       { path: '', component: HomeComponent },
-      { path: 'list', component: EmployeesListComponent }
+      { path: 'employees/list', component: EmployeesListComponent },
+      { path: 'employees/add', component: EmployeesRegisterComponent }
     ]
   }
 ];
