@@ -1,7 +1,7 @@
 import { AppUser } from './app-user.model';
 
 export class Employee {
-  id: string;
+  employeeId: number;
   occupation: string;
   appUser: AppUser;
 }

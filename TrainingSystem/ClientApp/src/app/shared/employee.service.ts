@@ -14,8 +14,8 @@ export class EmployeeService {
     return this.http.get<Employee[]>('/api/Employees');
   }
 
-  getById(id: number): Observable<Employee[]> {
-    return this.http.get<Employee[]>(`/api/Employees/${id}`);
+  getById(employeeId: number): Observable<Employee> {
+    return this.http.get<Employee>(`/api/Employees/${employeeId}`);
   }
 
   create(register: Register): Observable<any> {

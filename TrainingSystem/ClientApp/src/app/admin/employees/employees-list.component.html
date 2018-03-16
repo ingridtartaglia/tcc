@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="employees">
   <div class="row">
     <div class="col-xs-12">
       <div class="table-responsive">
@@ -15,7 +15,9 @@
               <td>{{ employee.appUser.firstName }} {{ employee.appUser.lastName }}</td>
               <td>{{ employee.appUser.email }}</td>
               <td>
-                <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
+                <a href="" [routerLink]="['/admin/employees', employee.employeeId]">
+                  <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
+                </a>
               </td>
             </tr>
           </tbody>

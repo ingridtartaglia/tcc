@@ -7,6 +7,7 @@ import { AdminComponent } from './admin.component';
 import { HomeComponent } from './home/home.component';
 import { EmployeesListComponent } from './employees/employees-list.component';
 import { EmployeesRegisterComponent } from './employees/employees-register.component';
+import { EmployeesDetailComponent } from './employees/employees-detail.component';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { EmployeesRegisterComponent } from './employees/employees-register.compo
     HomeComponent,
     AdminComponent,
     EmployeesListComponent,
-    EmployeesRegisterComponent
+    EmployeesRegisterComponent,
+    EmployeesDetailComponent
   ]
 })
 export class AdminModule { }
