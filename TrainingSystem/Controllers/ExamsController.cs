@@ -25,7 +25,9 @@ namespace TrainingSystem.Controllers
         [HttpGet]
         public IEnumerable<Exam> GetExams()
         {
-            return _context.Exam;
+            return _context.Exam
+                .Include(e => e.Lesson)
+                .Include(e => e.Questions);
         }
 
         // GET: api/Exams/5
@@ -37,7 +39,10 @@ namespace TrainingSystem.Controllers
                 return BadRequest(ModelState);
             }
 
-            var exam = await _context.Exam.SingleOrDefaultAsync(m => m.ExamId == id);
+            var exam = await _context.Exam
+                .Include(e => e.Lesson)
+                .Include(e => e.Questions)
+                .SingleOrDefaultAsync(e => e.ExamId == id);
 
             if (exam == null)
             {
@@ -106,7 +111,7 @@ namespace TrainingSystem.Controllers
                 return BadRequest(ModelState);
             }
 
-            var exam = await _context.Exam.SingleOrDefaultAsync(m => m.ExamId == id);
+            var exam = await _context.Exam.SingleOrDefaultAsync(e => e.ExamId == id);
             if (exam == null)
             {
                 return NotFound();

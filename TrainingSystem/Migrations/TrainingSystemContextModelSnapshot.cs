@@ -204,6 +204,23 @@ namespace TrainingSystem.Migrations
                     b.ToTable("Course");
                 });
 
+            modelBuilder.Entity("TrainingSystem.Models.Employee", b =>
+                {
+                    b.Property<int>("EmployeeId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AppUserId");
+
+                    b.Property<string>("Occupation")
+                        .IsRequired();
+
+                    b.HasKey("EmployeeId");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("Employee");
+                });
+
             modelBuilder.Entity("TrainingSystem.Models.Exam", b =>
                 {
                     b.Property<int>("ExamId")
@@ -389,6 +406,13 @@ namespace TrainingSystem.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("TrainingSystem.Models.Employee", b =>
+                {
+                    b.HasOne("TrainingSystem.Models.AppUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("AppUserId");
                 });
 
             modelBuilder.Entity("TrainingSystem.Models.Exam", b =>

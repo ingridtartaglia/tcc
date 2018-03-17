@@ -25,7 +25,7 @@ namespace TrainingSystem.Controllers
         [HttpGet]
         public IEnumerable<Material> GetMaterials()
         {
-            return _context.Material;
+            return _context.Material.Include(m => m.Course);
         }
 
         // GET: api/Materials/5
@@ -37,7 +37,9 @@ namespace TrainingSystem.Controllers
                 return BadRequest(ModelState);
             }
 
-            var material = await _context.Material.SingleOrDefaultAsync(m => m.MaterialId == id);
+            var material = await _context.Material
+                .Include(m => m.Course)
+                .SingleOrDefaultAsync(m => m.MaterialId == id);
 
             if (material == null)
             {
@@ -120,7 +122,7 @@ namespace TrainingSystem.Controllers
 
         private bool MaterialExists(int id)
         {
-            return _context.Material.Any(e => e.MaterialId == id);
+            return _context.Material.Any(m => m.MaterialId == id);
         }
     }
 }

@@ -25,7 +25,7 @@ namespace TrainingSystem.Controllers
         [HttpGet]
         public IEnumerable<QuestionChoice> GetQuestionChoices()
         {
-            return _context.QuestionChoice;
+            return _context.QuestionChoice.Include(q => q.Question);
         }
 
         // GET: api/QuestionChoices/5
@@ -37,7 +37,9 @@ namespace TrainingSystem.Controllers
                 return BadRequest(ModelState);
             }
 
-            var questionChoice = await _context.QuestionChoice.SingleOrDefaultAsync(q => q.QuestionChoiceId == id);
+            var questionChoice = await _context.QuestionChoice
+                .Include(q => q.Question)
+                .SingleOrDefaultAsync(q => q.QuestionChoiceId == id);
 
             if (questionChoice == null)
             {
@@ -120,7 +122,7 @@ namespace TrainingSystem.Controllers
 
         private bool QuestionChoiceExists(int id)
         {
-            return _context.QuestionChoice.Any(e => e.QuestionChoiceId == id);
+            return _context.QuestionChoice.Any(q => q.QuestionChoiceId == id);
         }
     }
 }

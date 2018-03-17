@@ -25,7 +25,11 @@ namespace TrainingSystem.Controllers
         [HttpGet]
         public IEnumerable<Course> GetCourses()
         {
-            return _context.Course;
+            return _context.Course
+                .Include(c => c.Lessons)
+                .Include(c => c.Materials)
+                .Include(c => c.Keywords)
+                .Include(c => c.Ratings);
         }
 
         // GET: api/Courses/5
@@ -37,7 +41,12 @@ namespace TrainingSystem.Controllers
                 return BadRequest(ModelState);
             }
 
-            var course = await _context.Course.SingleOrDefaultAsync(m => m.CourseId == id);
+            var course = await _context.Course
+                .Include(c => c.Lessons)
+                .Include(c => c.Materials)
+                .Include(c => c.Keywords)
+                .Include(c => c.Ratings)
+                .SingleOrDefaultAsync(c => c.CourseId == id);
 
             if (course == null)
             {
@@ -106,7 +115,7 @@ namespace TrainingSystem.Controllers
                 return BadRequest(ModelState);
             }
 
-            var course = await _context.Course.SingleOrDefaultAsync(m => m.CourseId == id);
+            var course = await _context.Course.SingleOrDefaultAsync(c => c.CourseId == id);
             if (course == null)
             {
                 return NotFound();
@@ -120,7 +129,7 @@ namespace TrainingSystem.Controllers
 
         private bool CourseExists(int id)
         {
-            return _context.Course.Any(e => e.CourseId == id);
+            return _context.Course.Any(c => c.CourseId == id);
         }
     }
 }

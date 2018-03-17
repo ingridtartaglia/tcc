@@ -25,7 +25,10 @@ namespace TrainingSystem.Controllers
         [HttpGet]
         public IEnumerable<Lesson> GetLessons()
         {
-            return _context.Lesson;
+            return _context.Lesson
+                .Include(l => l.Course)
+                .Include(l => l.Videos)
+                .Include(l => l.Exam);
         }
 
         // GET: api/Lessons/5
@@ -37,7 +40,11 @@ namespace TrainingSystem.Controllers
                 return BadRequest(ModelState);
             }
 
-            var lesson = await _context.Lesson.SingleOrDefaultAsync(m => m.LessonId == id);
+            var lesson = await _context.Lesson
+                .Include(l => l.Course)
+                .Include(l => l.Videos)
+                .Include(l => l.Exam)
+                .SingleOrDefaultAsync(l => l.LessonId == id);
 
             if (lesson == null)
             {
@@ -106,7 +113,7 @@ namespace TrainingSystem.Controllers
                 return BadRequest(ModelState);
             }
 
-            var lesson = await _context.Lesson.SingleOrDefaultAsync(m => m.LessonId == id);
+            var lesson = await _context.Lesson.SingleOrDefaultAsync(l => l.LessonId == id);
             if (lesson == null)
             {
                 return NotFound();
@@ -120,7 +127,7 @@ namespace TrainingSystem.Controllers
 
         private bool LessonExists(int id)
         {
-            return _context.Lesson.Any(e => e.LessonId == id);
+            return _context.Lesson.Any(l => l.LessonId == id);
         }
     }
 }
