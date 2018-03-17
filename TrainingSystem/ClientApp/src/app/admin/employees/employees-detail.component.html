@@ -1,0 +1,11 @@
+<div class="container-fluid" *ngIf="employee">
+  <div class="row">
+    <div class="col-xs-12">
+      <p>Detalhes do usuário</p>
+      <p>Nome: {{ employee.appUser.firstName }} {{ employee.appUser.lastName }}</p>
+      <p>E-mail: {{ employee.appUser.email }}</p>
+      <p>Ocupação: {{ employee.occupation }}</p>
+      <button [routerLink]="['/admin/employees/list']" class="btn btn-link">Voltar</button>
+    </div>
+  </div>
+</div>
