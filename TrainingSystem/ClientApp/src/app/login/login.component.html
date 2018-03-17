@@ -1,16 +1,19 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-xs-12">
-      <form #f="ngForm" novalidate (ngSubmit)="login()">
-        <div class="form-group">
+      <h3>Login</h3>
+      <form #f="ngForm" name="form" novalidate (ngSubmit)="f.form.valid && login()">
+        <div class="form-group" [ngClass]="{ 'has-error': loginEmail.touched && !loginEmail.valid }">
           <label for="email">E-mail</label>
-          <input type="email" class="form-control" name="email" id="email" [(ngModel)]="email" />
+          <input type="email" class="form-control" name="email" id="email" [(ngModel)]="email" #loginEmail="ngModel" required email/>
+          <div *ngIf="loginEmail.touched && !loginEmail.valid" class="help-block">E-mail inválido</div>
         </div>
-        <div class="form-group">
+        <div class="form-group" [ngClass]="{ 'has-error': loginPassword.touched && !loginPassword.valid }">
           <label for="password">Senha</label>
-          <input type="password" class="form-control" name="password" id="password" [(ngModel)]="password" />
+          <input type="password" class="form-control" name="password" id="password" [(ngModel)]="password" #loginPassword="ngModel" required/>
+          <div *ngIf="loginPassword.touched && !loginPassword.valid" class="help-block">Senha obrigatória</div>
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Submit</button>
       </form>
     </div>
   </div>
