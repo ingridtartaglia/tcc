@@ -1,3 +1,19 @@
-<p>
-  courses-register works!
-</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12">
+      <h3>Cadastrar curso</h3>
+        <form #f="ngForm" name="form" (ngSubmit)="f.form.valid && registerCourse()" novalidate>
+          <div class="form-group" [ngClass]="{ 'has-error': name.touched && !name.valid }">
+            <label for="name">Nome do curso*</label>
+            <input type="text" class="form-control" name="name" [(ngModel)]="course.name" #name="ngModel" required />
+            <div *ngIf="name.touched && !name.valid" class="help-block">Nome obrigatório</div>
+          </div>
+
+          <div class="form-group">
+            <a [routerLink]="['/admin/courses/list']" class="btn btn-link">Voltar</a>
+            <button [disabled]="!f.valid" class="btn btn-primary">Cadastrar</button>
+          </div>
+        </form>
+    </div>
+  </div>
+</div>
