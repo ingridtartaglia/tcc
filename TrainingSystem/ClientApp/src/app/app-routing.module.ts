@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { AdminGuard } from './shared/admin.guard';
-import { EmployeeGuard } from './shared/employee.guard';
+import { AdminGuard } from './shared/guards/admin.guard';
+import { EmployeeGuard } from './shared/guards/employee.guard';
 
 const routes: Routes = [
   {

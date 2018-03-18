@@ -6,12 +6,12 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { AuthService } from './shared/auth.service';
+import { AuthService } from './shared/services/auth.service';
+import { EmployeeService } from './shared/services/employee.service';
 import { JwtInterceptor } from './shared/jwt.interceptor';
-import { AuthGuard } from './shared/auth.guard';
-import { AdminGuard } from './shared/admin.guard';
-import { EmployeeGuard } from './shared/employee.guard';
-import { EmployeeService } from './shared/employee.service';
+import { AuthGuard } from './shared/guards/auth.guard';
+import { AdminGuard } from './shared/guards/admin.guard';
+import { EmployeeGuard } from './shared/guards/employee.guard';
 
 @NgModule({
   declarations: [

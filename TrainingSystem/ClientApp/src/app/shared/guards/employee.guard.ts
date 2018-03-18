@@ -9,7 +9,6 @@ export class EmployeeGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const userRole = localStorage.getItem('user_role');
     if (localStorage.getItem('auth_token') && userRole === 'Employee') {
-      // Se estiver logado, retorna true
       return true;
     }
 
@@ -18,7 +17,7 @@ export class EmployeeGuard implements CanActivate {
       return false;
     }
 
-    // Senão redireciona pra tela de login
+    // Se não tiver logado, redireciona pra tela de login
     this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
     return false;
   }
