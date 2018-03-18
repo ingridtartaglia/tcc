@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Register } from '../../shared/models/register.model';
-import { EmployeeService } from '../../shared/employee.service';
+import { EmployeeService } from '../../shared/services/employee.service';
 
 @Component({
   selector: 'app-employees-register',

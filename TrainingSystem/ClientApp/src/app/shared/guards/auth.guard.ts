@@ -2,23 +2,16 @@ import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
 @Injectable()
-export class AdminGuard implements CanActivate {
+export class AuthGuard implements CanActivate {
 
   constructor(private router: Router) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    const userRole = localStorage.getItem('user_role');
-    if (localStorage.getItem('auth_token') && userRole === 'Admin') {
-      // Se estiver logado, retorna true
+    if (localStorage.getItem('auth_token')) {
       return true;
     }
 
-    if (userRole === 'Employee') {
-      this.router.navigate(['/platform']);
-      return false;
-    }
-
-    // Senão redireciona pra tela de login
+    // Se não tiver logado, redireciona pra tela de login
     this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
     return false;
   }
