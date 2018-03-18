@@ -8,6 +8,7 @@ import { HomeComponent } from './home/home.component';
 import { EmployeesListComponent } from './employees/employees-list.component';
 import { EmployeesRegisterComponent } from './employees/employees-register.component';
 import { EmployeesDetailComponent } from './employees/employees-detail.component';
+import { CoursesRegisterComponent } from './courses/courses-register.component';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { EmployeesDetailComponent } from './employees/employees-detail.component
     AdminComponent,
     EmployeesListComponent,
     EmployeesRegisterComponent,
-    EmployeesDetailComponent
+    EmployeesDetailComponent,
+    CoursesRegisterComponent
   ]
 })
 export class AdminModule { }

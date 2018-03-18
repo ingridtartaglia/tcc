@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { EmployeesListComponent } from './employees/employees-list.component';
 import { EmployeesRegisterComponent } from './employees/employees-register.component';
 import { EmployeesDetailComponent } from './employees/employees-detail.component';
+import { CoursesRegisterComponent } from './courses/courses-register.component';
 
 const routes: Routes = [
   {
@@ -15,7 +16,8 @@ const routes: Routes = [
       { path: '', component: HomeComponent },
       { path: 'employees/list', component: EmployeesListComponent },
       { path: 'employees/add', component: EmployeesRegisterComponent },
-      { path: 'employees/:employeeId', component: EmployeesDetailComponent }
+      { path: 'employees/:employeeId', component: EmployeesDetailComponent },
+      { path: 'courses/add', component: CoursesRegisterComponent },
     ]
   }
 ];
