@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
+import { TagInputModule } from 'ngx-chips';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
@@ -14,6 +15,8 @@ import { CoursesListComponent } from './courses/courses-list.component';
 @NgModule({
   imports: [
     CommonModule,
+    TagInputModule,
+    ReactiveFormsModule,
     FormsModule,
     AdminRoutingModule
   ],

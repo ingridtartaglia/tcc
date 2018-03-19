@@ -22,8 +22,21 @@
           </div>
 
           <div class="form-group" [ngClass]="{ 'has-error': description.touched && !description.valid }">
-            <label for="description">Descrição do curso*</label>
+            <label for="description">Descrição do curso</label>
             <input type="text" class="form-control" name="description" [(ngModel)]="course.description" #description="ngModel" />
+          </div>
+
+          <div class="form-group">
+            <label for="description">Palavras-chave</label>
+            <tag-input
+              [(ngModel)]="course.keywords"
+              [editable]="true"
+              [identifyBy]="'name'"
+              [displayBy]="'name'"
+              [ngModelOptions]="{standalone: true}"
+              secondaryPlaceholder="Adicione uma palavra aqui"
+              theme="minimal">
+            </tag-input>
           </div>
 
           <div class="form-group">

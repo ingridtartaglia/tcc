@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TagInputModule } from 'ngx-chips';
 
 import { Course } from '../../shared/models/course.model';
 import { CourseService } from '../../shared/services/course.service';
