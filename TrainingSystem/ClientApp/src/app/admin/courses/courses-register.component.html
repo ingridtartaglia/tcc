@@ -9,6 +9,23 @@
             <div *ngIf="name.touched && !name.valid" class="help-block">Nome obrigatório</div>
           </div>
 
+          <div class="form-group" [ngClass]="{ 'has-error': category.touched && !category.valid }">
+            <label for="category">Categoria do curso*</label>
+            <input type="text" class="form-control" name="category" [(ngModel)]="course.category" #category="ngModel" required />
+            <div *ngIf="category.touched && !category.valid" class="help-block">Categoria obrigatória</div>
+          </div>
+
+          <div class="form-group" [ngClass]="{ 'has-error': instructor.touched && !instructor.valid }">
+            <label for="instructor">Nome do instrutor*</label>
+            <input type="text" class="form-control" name="instructor" [(ngModel)]="course.instructor" #instructor="ngModel" required />
+            <div *ngIf="instructor.touched && !instructor.valid" class="help-block">Instrutor obrigatório</div>
+          </div>
+
+          <div class="form-group" [ngClass]="{ 'has-error': description.touched && !description.valid }">
+            <label for="description">Descrição do curso*</label>
+            <input type="text" class="form-control" name="description" [(ngModel)]="course.description" #description="ngModel" />
+          </div>
+
           <div class="form-group">
             <a [routerLink]="['/admin/courses/list']" class="btn btn-link">Voltar</a>
             <button [disabled]="!f.valid" class="btn btn-primary">Cadastrar</button>

@@ -21,14 +21,14 @@ export class CoursesRegisterComponent implements OnInit {
   }
 
   registerCourse() {
-    // this.courseService.create(this.course)
-    //   .subscribe(
-    //     data => {
-    //       this.router.navigate(['/admin/courses/list']);
-    //     },
-    //     error => {
-    //       console.error();
-    //     });
+    this.courseService.create(this.course)
+      .subscribe(
+        data => {
+          this.router.navigate(['/admin/courses/list']);
+        },
+        error => {
+          console.error();
+        });
   }
 
 }
