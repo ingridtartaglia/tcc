@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace TrainingSystem.Models
 {
@@ -10,5 +11,7 @@ namespace TrainingSystem.Models
 
         public int ExamId { get; set; }
         public Exam Exam { get; set; }
+
+        public List<QuestionChoice> QuestionChoices { get; set; }
     }
 }
