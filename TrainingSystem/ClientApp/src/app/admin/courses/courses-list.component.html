@@ -1,0 +1,30 @@
+<div class="container-fluid" *ngIf="courses">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Curso</th>
+              <th>Instrutor</th>
+              <th>Categoria</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let course of courses">
+              <td>{{ course.name }}</td>
+              <td>{{ course.instructor }}</td>
+              <td>{{ course.category }}</td>
+              <td>
+                <!-- <a href="" [routerLink]="['/admin/employees', employee.employeeId]"> -->
+                  <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
+                <!-- </a> -->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
