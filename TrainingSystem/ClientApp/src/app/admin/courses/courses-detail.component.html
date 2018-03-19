@@ -1,0 +1,18 @@
+<div class="container-fluid" *ngIf="course">
+  <div class="row">
+    <div class="col-xs-12">
+      <h3>Detalhes do curso</h3>
+      <p>{{ course.name }}</p>
+      <p *ngIf="course.description">{{ course.description }}</p>
+      <p>Instrutor: {{ course.instructor }}</p>
+      <p>Categoria: {{ course.category }}</p>
+      <!-- <p *ngIf="course.keywords.length > 0">
+        Palavras-chave:
+        <span *ngFor="let keyword of course.keywords">
+          {{ keyword.name }}
+        </span>
+      </p> -->
+      <button [routerLink]="['/admin/courses/list']" class="btn btn-link">Voltar</button>
+    </div>
+  </div>
+</div>

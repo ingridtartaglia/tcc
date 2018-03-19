@@ -11,6 +11,7 @@ import { EmployeesRegisterComponent } from './employees/employees-register.compo
 import { EmployeesDetailComponent } from './employees/employees-detail.component';
 import { CoursesRegisterComponent } from './courses/courses-register.component';
 import { CoursesListComponent } from './courses/courses-list.component';
+import { CoursesDetailComponent } from './courses/courses-detail.component';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import { CoursesListComponent } from './courses/courses-list.component';
     EmployeesRegisterComponent,
     EmployeesDetailComponent,
     CoursesRegisterComponent,
-    CoursesListComponent
+    CoursesListComponent,
+    CoursesDetailComponent
   ]
 })
 export class AdminModule { }

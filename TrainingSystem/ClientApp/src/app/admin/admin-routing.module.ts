@@ -8,6 +8,7 @@ import { EmployeesRegisterComponent } from './employees/employees-register.compo
 import { EmployeesDetailComponent } from './employees/employees-detail.component';
 import { CoursesListComponent } from './courses/courses-list.component';
 import { CoursesRegisterComponent } from './courses/courses-register.component';
+import { CoursesDetailComponent } from './courses/courses-detail.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,7 @@ const routes: Routes = [
       { path: 'employees/:employeeId', component: EmployeesDetailComponent },
       { path: 'courses/list', component: CoursesListComponent },
       { path: 'courses/add', component: CoursesRegisterComponent },
+      { path: 'courses/:courseId', component: CoursesDetailComponent },
     ]
   }
 ];
