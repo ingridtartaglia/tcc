@@ -5,5 +5,5 @@ export class Lesson {
   lessonId: number;
   name: string;
   exam: Exam;
-  videos: Video;
+  videos: Video[];
 }

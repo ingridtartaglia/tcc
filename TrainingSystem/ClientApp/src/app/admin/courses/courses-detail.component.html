@@ -6,12 +6,12 @@
       <p *ngIf="course.description">{{ course.description }}</p>
       <p>Instrutor: {{ course.instructor }}</p>
       <p>Categoria: {{ course.category }}</p>
-      <!-- <p *ngIf="course.keywords.length > 0">
+      <p *ngIf="course.keywords.length > 0">
         Palavras-chave:
         <span *ngFor="let keyword of course.keywords">
           {{ keyword.name }}
         </span>
-      </p> -->
+      </p>
       <button [routerLink]="['/admin/courses/list']" class="btn btn-link">Voltar</button>
     </div>
   </div>

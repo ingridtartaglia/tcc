@@ -9,8 +9,8 @@ export class Course {
   category: string;
   instructor: string;
   description: string;
-  keywords: Keyword;
-  lessons: Lesson;
-  materials: Material;
-  ratings: Rating;
+  keywords: Keyword[];
+  lessons: Lesson[];
+  materials: Material[];
+  ratings: Rating[];
 }
