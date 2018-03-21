@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { Register } from '../../shared/models/register.model';
 import { EmployeeService } from '../../shared/services/employee.service';
@@ -12,8 +12,7 @@ import { EmployeeService } from '../../shared/services/employee.service';
 export class EmployeesRegisterComponent implements OnInit {
   register: Register;
 
-  constructor(private route: ActivatedRoute,
-    private router: Router,
+  constructor(private router: Router,
     private employeeService: EmployeeService) { }
 
   ngOnInit() {

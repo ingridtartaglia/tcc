@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col-xs-12">
+    <p>Vídeos:</p>
+    <ol *ngIf="videos.length > 0; else noVideos">
+      <li *ngFor="let video of videos">
+        {{ video.name }}
+      </li>
+    </ol>
+    <ng-template #noVideos>
+      <p>Sem vídeos cadastrados no momento.</p>
+    </ng-template>
+    <button (click)="showVideoForm()" class="btn btn-primary">Adicionar vídeo</button>
+  </div>
+</div>
+
+<div class="row" *ngIf="isVideoFormVisible">
+  <div class="col-xs-12">
+    <form #f="ngForm" name="form" (ngSubmit)="f.form.valid && registerVideo()" novalidate>
+      <div class="form-group">
+        <div class="form-group" [ngClass]="{ 'has-error': newVideoName.touched && !newVideoName.valid }">
+          <label for="newVideoName">Nome do vídeo*</label>
+          <input type="text" class="form-control" name="newVideoName" [(ngModel)]="newVideo.name" #newVideoName="ngModel" required />
+          <div *ngIf="newVideoName.touched && !newVideoName.valid" class="help-block">Nome obrigatório</div>
+        </div>
+
+        <!-- <div class="form-group" [ngClass]="{ 'has-error': !file.valid }">
+          <label for="file">Upload*</label>
+          <input type="file" id="file" name="file" [(ngModel)]="video.fileName" #file="ngModel" required />
+          <div *ngIf="!file.valid" class="help-block">Upload obrigatório</div>
+        </div> -->
+      </div>
+
+      <div class="form-group">
+        <button [disabled]="!f.valid" class="btn btn-primary">Salvar</button>
+      </div>
+    </form>
+  </div>
+</div>

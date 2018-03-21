@@ -22,5 +22,4 @@ export class CoursesDetailComponent implements OnInit {
     const id = this.route.snapshot.params.courseId;
     this.courseService.getById(id).subscribe(course => this.course = course);
   }
-
 }

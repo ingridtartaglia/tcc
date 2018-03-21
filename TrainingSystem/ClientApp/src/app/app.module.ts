@@ -14,6 +14,8 @@ import { AuthGuard } from './shared/guards/auth.guard';
 import { AdminGuard } from './shared/guards/admin.guard';
 import { EmployeeGuard } from './shared/guards/employee.guard';
 import { CourseService } from './shared/services/course.service';
+import { LessonService } from './shared/services/lesson.service';
+import { VideoService } from './shared/services/video.service';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import { CourseService } from './shared/services/course.service';
     AuthService,
     EmployeeService,
     CourseService,
+    LessonService,
+    VideoService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,

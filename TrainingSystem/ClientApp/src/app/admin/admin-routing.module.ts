@@ -9,6 +9,7 @@ import { EmployeesDetailComponent } from './employees/employees-detail.component
 import { CoursesListComponent } from './courses/courses-list.component';
 import { CoursesRegisterComponent } from './courses/courses-register.component';
 import { CoursesDetailComponent } from './courses/courses-detail.component';
+import { LessonDetailComponent } from './courses/lessons/lesson-detail.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,7 @@ const routes: Routes = [
       { path: 'courses/list', component: CoursesListComponent },
       { path: 'courses/add', component: CoursesRegisterComponent },
       { path: 'courses/:courseId', component: CoursesDetailComponent },
+      { path: 'courses/:courseId/lessons/:lessonId', component: LessonDetailComponent },
     ]
   }
 ];

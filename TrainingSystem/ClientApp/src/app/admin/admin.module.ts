@@ -12,6 +12,9 @@ import { EmployeesDetailComponent } from './employees/employees-detail.component
 import { CoursesRegisterComponent } from './courses/courses-register.component';
 import { CoursesListComponent } from './courses/courses-list.component';
 import { CoursesDetailComponent } from './courses/courses-detail.component';
+import { LessonDetailComponent } from './courses/lessons/lesson-detail.component';
+import { CourseLessonsComponent } from './courses/lessons/course-lessons.component';
+import { LessonVideosComponent } from './courses/lessons/lesson-videos.component';
 
 @NgModule({
   imports: [
@@ -29,7 +32,10 @@ import { CoursesDetailComponent } from './courses/courses-detail.component';
     EmployeesDetailComponent,
     CoursesRegisterComponent,
     CoursesListComponent,
-    CoursesDetailComponent
+    CoursesDetailComponent,
+    LessonDetailComponent,
+    CourseLessonsComponent,
+    LessonVideosComponent
   ]
 })
 export class AdminModule { }

@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-xs-12">
+    <p>Unidades:</p>
+    <ol *ngIf="lessons.length > 0; else noLessons">
+      <li *ngFor="let lesson of lessons">
+        {{ lesson.name }}
+      </li>
+    </ol>
+    <ng-template #noLessons>
+      <p>Sem unidades cadastradas no momento.</p>
+    </ng-template>
+    <button (click)="showLessonForm()" class="btn btn-primary">Adicionar unidade</button>
+  </div>
+</div>
+
+<div class="row" *ngIf="isLessonFormVisible">
+  <div class="col-xs-12">
+    <div class="form-group" [ngClass]="{ 'has-error': newLessonName.touched && !newLessonName.valid }">
+      <label for="newLessonName">Nome da unidade*</label>
+      <input type="text" class="form-control" name="newLessonName" [(ngModel)]="newLesson.name" #newLessonName="ngModel" required />
+      <div *ngIf="newLessonName.touched && !newLessonName.valid" class="help-block">Nome obrigatório</div>
+    </div>
+    <div class="form-group">
+      <button (click)="addLesson()" class="btn btn-primary">Salvar</button>
+    </div>
+  </div>
+</div>

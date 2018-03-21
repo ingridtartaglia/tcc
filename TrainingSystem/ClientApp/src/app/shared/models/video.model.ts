@@ -1,5 +1,6 @@
 export class Video {
-  videolId: number;
+  videoId: number;
   name: string;
   fileName: string;
+  lessonId: number;
 }

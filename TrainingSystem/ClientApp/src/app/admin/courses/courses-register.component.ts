@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { TagInputModule } from 'ngx-chips';
 
 import { Course } from '../../shared/models/course.model';
@@ -13,8 +13,7 @@ import { CourseService } from '../../shared/services/course.service';
 export class CoursesRegisterComponent implements OnInit {
   course: Course;
 
-  constructor(private route: ActivatedRoute,
-    private router: Router,
+  constructor(private router: Router,
     private courseService: CourseService) { }
 
   ngOnInit() {
@@ -25,7 +24,7 @@ export class CoursesRegisterComponent implements OnInit {
     this.courseService.create(this.course)
       .subscribe(
         data => {
-          this.router.navigate(['/admin/courses/list']);
+          this.router.navigate([`/admin/courses/${data.courseId}`]);
         },
         error => {
           console.error();

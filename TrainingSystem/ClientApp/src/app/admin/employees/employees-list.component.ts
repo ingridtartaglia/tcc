@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { Employee } from '../../shared/models/employee.model';
 import { EmployeeService } from '../../shared/services/employee.service';
@@ -12,8 +11,7 @@ import { EmployeeService } from '../../shared/services/employee.service';
 export class EmployeesListComponent implements OnInit {
   employees: Employee[];
 
-  constructor(private router: Router,
-    private employeeService: EmployeeService) { }
+  constructor(private employeeService: EmployeeService) { }
 
   ngOnInit() {
     this.getEmployeesList();

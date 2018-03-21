@@ -1,0 +1,39 @@
+import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { Video } from '../../../shared/models/video.model';
+import { VideoService } from '../../../shared/services/video.service';
+
+@Component({
+  selector: 'app-lesson-videos',
+  templateUrl: './lesson-videos.component.html',
+  styleUrls: ['./lesson-videos.component.css']
+})
+export class LessonVideosComponent implements OnInit {
+  @Input() videos: Video[];
+  @Input() lessonId: number;
+  isVideoFormVisible: Boolean = false;
+  newVideo: Video;
+
+  constructor(private videoService: VideoService, private router: Router) { }
+
+  ngOnInit() {
+    this.newVideo = new Video();
+    this.newVideo.lessonId = this.lessonId;
+  }
+
+  showVideoForm() {
+    this.isVideoFormVisible = true;
+  }
+
+  registerVideo() {
+    this.videoService.create(this.newVideo)
+      .subscribe(
+        data => {
+          console.log('sucesso');
+        },
+        error => {
+          console.error();
+        });
+  }
+}
