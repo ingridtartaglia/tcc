@@ -14,10 +14,13 @@ export class VideoService {
   }
 
   getById(videoId: number): Observable<Video> {
-    return this.http.get<Video>(`/api/Lessons/${videoId}`);
+    return this.http.get<Video>(`/api/Videos/${videoId}`);
   }
 
   create(video: Video): Observable<any> {
-    return this.http.post('/api/Lessons', video);
+    return this.http.post('/api/Videos', video);
+  }
+  delete(videoId: number): Observable<any> {
+    return this.http.delete(`/api/Videos/${videoId}`);
   }
 }

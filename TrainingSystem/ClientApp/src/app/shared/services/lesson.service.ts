@@ -21,4 +21,8 @@ export class LessonService {
     return this.http.post('/api/Lessons', lesson);
   }
 
+  delete(lessonId: number): Observable<any> {
+    return this.http.delete(`/api/Lessons/${lessonId}`);
+  }
+
 }

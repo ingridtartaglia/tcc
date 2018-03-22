@@ -21,4 +21,8 @@ export class CoursesListComponent implements OnInit {
     return this.courseService.getAll().subscribe(courses => this.courses = courses);
   }
 
+  deleteCourse(id: number) {
+    return this.courseService.delete(id).subscribe();
+  }
+
 }

@@ -36,4 +36,8 @@ export class CourseLessonsComponent implements OnInit {
           console.error();
         });
   }
+
+  deleteLesson(id: number) {
+    return this.lessonService.delete(id).subscribe();
+  }
 }

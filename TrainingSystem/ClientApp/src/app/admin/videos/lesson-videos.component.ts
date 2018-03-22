@@ -36,4 +36,8 @@ export class LessonVideosComponent implements OnInit {
           console.error();
         });
   }
+
+  deleteVideo(id: number) {
+    return this.videoService.delete(id).subscribe();
+  }
 }

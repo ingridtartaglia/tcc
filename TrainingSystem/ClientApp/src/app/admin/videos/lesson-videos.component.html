@@ -2,11 +2,35 @@
   <div class="col-xs-12">
     <h3>Vídeos</h3>
 
-    <ol *ngIf="videos.length > 0; else noVideos">
+    <!-- <ol *ngIf="videos.length > 0; else noVideos">
       <li *ngFor="let video of videos">
         {{ video.name }}
       </li>
-    </ol>
+    </ol> -->
+    <div class="table-responsive"
+      *ngIf="videos.length > 0; else noVideos">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nome da unidade</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let video of videos">
+            <td>{{ video.name }}</td>
+            <td>
+              <a href="" [routerLink]="">
+                <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
+              </a>
+              <a href="" (click)="deleteVideo(video.videoId)">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <ng-template #noVideos>
       <p>Sem vídeos cadastrados no momento.</p>
     </ng-template>
