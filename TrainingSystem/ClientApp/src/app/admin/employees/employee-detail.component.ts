@@ -5,11 +5,11 @@ import { Employee } from '../../shared/models/employee.model';
 import { EmployeeService } from '../../shared/services/employee.service';
 
 @Component({
-  selector: 'app-employees-detail',
-  templateUrl: './employees-detail.component.html',
-  styleUrls: ['./employees-detail.component.css']
+  selector: 'app-employee-detail',
+  templateUrl: './employee-detail.component.html',
+  styleUrls: ['./employee-detail.component.css']
 })
-export class EmployeesDetailComponent implements OnInit {
+export class EmployeeDetailComponent implements OnInit {
   employee: Employee;
 
   constructor(private employeeService: EmployeeService, private route: ActivatedRoute) { }

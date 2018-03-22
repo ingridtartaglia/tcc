@@ -1,0 +1,59 @@
+<div class="container-fluid" *ngIf="course">
+  <div class="row">
+    <div class="col-xs-12">
+      <h2>Detalhes do curso</h2>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <p>
+            <strong>Nome:</strong> {{ course.name }}
+          </p>
+          <p *ngIf="course.description">
+            <strong>Descrição:</strong> {{ course.description }}
+          </p>
+          <p>
+            <strong>Instrutor:</strong> {{ course.instructor }}
+          </p>
+          <p>
+            <strong>Categoria:</strong> {{ course.category }}
+          </p>
+          <p *ngIf="course.keywords.length > 0">
+            <strong>Palavras-chave:</strong>
+            <span *ngFor="let keyword of course.keywords">
+              {{ keyword.name }}
+            </span>
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <ul class="nav nav-tabs nav-justified">
+            <li role="presentation"
+              [ngClass]="{'active': tabContent === 'lessons'}">
+              <a (click)="showTabContent('lessons')">
+                Unidades
+              </a>
+            </li>
+            <li role="presentation"
+              [ngClass]="{'active': tabContent === 'materials'}">
+              <a (click)="showTabContent('materials')">
+                Materiais
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <app-course-lessons
+        *ngIf="tabContent === 'lessons'"
+        [lessons]="course.lessons"
+        [courseId]="course.courseId">
+      </app-course-lessons>
+
+      <app-course-materials
+        *ngIf="tabContent === 'materials'">
+      </app-course-materials>
+    </div>
+  </div>
+</div>

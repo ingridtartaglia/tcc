@@ -4,12 +4,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminComponent } from './admin.component';
 import { HomeComponent } from './home/home.component';
 import { EmployeesListComponent } from './employees/employees-list.component';
-import { EmployeesRegisterComponent } from './employees/employees-register.component';
-import { EmployeesDetailComponent } from './employees/employees-detail.component';
+import { EmployeeRegisterComponent } from './employees/employee-register.component';
+import { EmployeeDetailComponent } from './employees/employee-detail.component';
 import { CoursesListComponent } from './courses/courses-list.component';
-import { CoursesRegisterComponent } from './courses/courses-register.component';
-import { CoursesDetailComponent } from './courses/courses-detail.component';
-import { LessonDetailComponent } from './courses/lessons/lesson-detail.component';
+import { CourseRegisterComponent } from './courses/course-register.component';
+import { CourseDetailComponent } from './courses/course-detail.component';
+import { LessonDetailComponent } from './lessons/lesson-detail.component';
 
 const routes: Routes = [
   {
@@ -18,11 +18,11 @@ const routes: Routes = [
     children: [
       { path: '', component: HomeComponent },
       { path: 'employees/list', component: EmployeesListComponent },
-      { path: 'employees/add', component: EmployeesRegisterComponent },
-      { path: 'employees/:employeeId', component: EmployeesDetailComponent },
+      { path: 'employees/add', component: EmployeeRegisterComponent },
+      { path: 'employees/:employeeId', component: EmployeeDetailComponent },
       { path: 'courses/list', component: CoursesListComponent },
-      { path: 'courses/add', component: CoursesRegisterComponent },
-      { path: 'courses/:courseId', component: CoursesDetailComponent },
+      { path: 'courses/add', component: CourseRegisterComponent },
+      { path: 'courses/:courseId', component: CourseDetailComponent },
       { path: 'courses/:courseId/lessons/:lessonId', component: LessonDetailComponent },
     ]
   }

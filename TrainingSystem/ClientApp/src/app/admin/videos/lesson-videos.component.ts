@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Video } from '../../../shared/models/video.model';
-import { VideoService } from '../../../shared/services/video.service';
+import { Video } from '../../shared/models/video.model';
+import { VideoService } from '../../shared/services/video.service';
 
 @Component({
   selector: 'app-lesson-videos',
@@ -26,7 +26,7 @@ export class LessonVideosComponent implements OnInit {
     this.isVideoFormVisible = true;
   }
 
-  registerVideo() {
+  addVideo() {
     this.videoService.create(this.newVideo)
       .subscribe(
         data => {

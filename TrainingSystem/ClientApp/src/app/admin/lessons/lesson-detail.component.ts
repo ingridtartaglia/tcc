@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { Lesson } from '../../../shared/models/lesson.model';
-import { Video } from '../../../shared/models/video.model';
-import { LessonService } from '../../../shared/services/lesson.service';
+import { Lesson } from '../../shared/models/lesson.model';
+import { Video } from '../../shared/models/video.model';
+import { LessonService } from '../../shared/services/lesson.service';
 
 @Component({
   selector: 'app-lesson-detail',
@@ -12,16 +12,22 @@ import { LessonService } from '../../../shared/services/lesson.service';
 })
 export class LessonDetailComponent implements OnInit {
   lesson: Lesson;
+  tabContent: string;
 
   constructor(private route: ActivatedRoute,
     private lessonService: LessonService) { }
 
   ngOnInit() {
+    this.tabContent = 'videos';
     this.getLesson();
   }
 
   getLesson() {
     const id = this.route.snapshot.params.lessonId;
     this.lessonService.getById(id).subscribe(lesson => this.lesson = lesson);
+  }
+
+  showTabContent(content) {
+    this.tabContent = content;
   }
 }

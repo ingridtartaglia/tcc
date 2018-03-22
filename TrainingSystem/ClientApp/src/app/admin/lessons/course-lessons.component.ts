@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Lesson } from '../../../shared/models/lesson.model';
-import { LessonService } from '../../../shared/services/lesson.service';
+import { Lesson } from '../../shared/models/lesson.model';
+import { LessonService } from '../../shared/services/lesson.service';
 
 @Component({
   selector: 'app-course-lessons',

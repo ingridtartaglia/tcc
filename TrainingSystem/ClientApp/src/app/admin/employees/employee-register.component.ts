@@ -5,11 +5,11 @@ import { Register } from '../../shared/models/register.model';
 import { EmployeeService } from '../../shared/services/employee.service';
 
 @Component({
-  selector: 'app-employees-register',
-  templateUrl: './employees-register.component.html',
-  styleUrls: ['./employees-register.component.css']
+  selector: 'app-employee-register',
+  templateUrl: './employee-register.component.html',
+  styleUrls: ['./employee-register.component.css']
 })
-export class EmployeesRegisterComponent implements OnInit {
+export class EmployeeRegisterComponent implements OnInit {
   register: Register;
 
   constructor(private router: Router,

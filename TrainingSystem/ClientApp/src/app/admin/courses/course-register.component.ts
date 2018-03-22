@@ -6,11 +6,11 @@ import { Course } from '../../shared/models/course.model';
 import { CourseService } from '../../shared/services/course.service';
 
 @Component({
-  selector: 'app-courses-register',
-  templateUrl: './courses-register.component.html',
-  styleUrls: ['./courses-register.component.css']
+  selector: 'app-course-register',
+  templateUrl: './course-register.component.html',
+  styleUrls: ['./course-register.component.css']
 })
-export class CoursesRegisterComponent implements OnInit {
+export class CourseRegisterComponent implements OnInit {
   course: Course;
 
   constructor(private router: Router,
@@ -20,7 +20,7 @@ export class CoursesRegisterComponent implements OnInit {
     this.course = new Course();
   }
 
-  registerCourse() {
+  addCourse() {
     this.courseService.create(this.course)
       .subscribe(
         data => {

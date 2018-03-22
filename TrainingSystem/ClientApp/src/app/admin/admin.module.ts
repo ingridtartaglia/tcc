@@ -7,14 +7,16 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
 import { HomeComponent } from './home/home.component';
 import { EmployeesListComponent } from './employees/employees-list.component';
-import { EmployeesRegisterComponent } from './employees/employees-register.component';
-import { EmployeesDetailComponent } from './employees/employees-detail.component';
-import { CoursesRegisterComponent } from './courses/courses-register.component';
+import { EmployeeRegisterComponent } from './employees/employee-register.component';
+import { EmployeeDetailComponent } from './employees/employee-detail.component';
 import { CoursesListComponent } from './courses/courses-list.component';
-import { CoursesDetailComponent } from './courses/courses-detail.component';
-import { LessonDetailComponent } from './courses/lessons/lesson-detail.component';
-import { CourseLessonsComponent } from './courses/lessons/course-lessons.component';
-import { LessonVideosComponent } from './courses/lessons/lesson-videos.component';
+import { CourseRegisterComponent } from './courses/course-register.component';
+import { CourseDetailComponent } from './courses/course-detail.component';
+import { CourseLessonsComponent } from './lessons/course-lessons.component';
+import { LessonDetailComponent } from './lessons/lesson-detail.component';
+import { LessonVideosComponent } from './videos/lesson-videos.component';
+import { LessonExamComponent } from './exams/lesson-exam.component';
+import { CourseMaterialsComponent } from './materials/course-materials.component';
 
 @NgModule({
   imports: [
@@ -28,14 +30,16 @@ import { LessonVideosComponent } from './courses/lessons/lesson-videos.component
     HomeComponent,
     AdminComponent,
     EmployeesListComponent,
-    EmployeesRegisterComponent,
-    EmployeesDetailComponent,
-    CoursesRegisterComponent,
+    EmployeeRegisterComponent,
+    EmployeeDetailComponent,
     CoursesListComponent,
-    CoursesDetailComponent,
-    LessonDetailComponent,
+    CourseRegisterComponent,
+    CourseDetailComponent,
     CourseLessonsComponent,
-    LessonVideosComponent
+    LessonDetailComponent,
+    LessonVideosComponent,
+    LessonExamComponent,
+    CourseMaterialsComponent
   ]
 })
 export class AdminModule { }

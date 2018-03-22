@@ -1,0 +1,44 @@
+<div class="container-fluid" *ngIf="lesson">
+  <div class="row">
+    <div class="col-xs-12">
+      <h3>Detalhes da unidade</h3>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <p>
+            <strong>Nome:</strong> {{ lesson.name }}
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <ul class="nav nav-tabs nav-justified">
+            <li role="presentation"
+              [ngClass]="{'active': tabContent === 'videos'}">
+              <a (click)="showTabContent('videos')">
+                Vídeos
+              </a>
+            </li>
+            <li role="presentation"
+              [ngClass]="{'active': tabContent === 'exam'}">
+              <a (click)="showTabContent('exam')">
+                Avaliação
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <app-lesson-videos
+        *ngIf="tabContent === 'videos'"
+        [videos]="lesson.videos"
+        [lessonId]="lesson.lessonId">
+      </app-lesson-videos>
+
+      <app-lesson-exam
+        *ngIf="tabContent === 'exam'">
+      </app-lesson-exam>
+    </div>
+  </div>
+</div>
