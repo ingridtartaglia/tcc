@@ -53,7 +53,8 @@
           type="text"
           class="form-control"
           name="newMaterialName"
-          [(ngModel)]="newMaterial.name" #newMaterialName="ngModel" required />
+          [(ngModel)]="newMaterial.name"
+          #newMaterialName="ngModel" required />
         <div
           *ngIf="newMaterialName.touched && !newMaterialName.valid"
           class="help-block">
@@ -61,18 +62,26 @@
         </div>
       </div>
 
-      <div class="form-group">
+      <div
+        class="form-group"
+        [ngClass]="{ 'has-error': !isFileTypeSupported && uploader.files.length > 0 }">
         <label for="file">Upload*</label>
         <input
           type="file"
           id="file"
           name="file"
           #uploader
-          (change)="fileChange(uploader.files)" />
+          accept="application/msword,application/vnd.ms-powerpoint,application/pdf"
+          (change)="fileChange(uploader.files)" required />
+        <div
+          *ngIf="!isFileTypeSupported && uploader.files.length > 0"
+          class="help-block">
+          Tipo de arquivo não suportado
+        </div>
       </div>
 
       <button
-        [disabled]="!f.valid"
+        [disabled]="!f.valid || !fileSelected || !isFileTypeSupported && uploader.files.length > 0"
         type="submit"
         class="btn btn-primary">
         Salvar

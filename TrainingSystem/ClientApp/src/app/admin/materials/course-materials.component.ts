@@ -14,6 +14,8 @@ export class CourseMaterialsComponent implements OnInit {
   @Input() courseId: number;
   isMaterialFormVisible: Boolean = false;
   newMaterial: Material;
+  fileSelected: Boolean = false;
+  isFileTypeSupported: Boolean = false;
 
   constructor(private materialService: MaterialService, private router: Router) { }
 
@@ -52,7 +54,16 @@ export class CourseMaterialsComponent implements OnInit {
 
   fileChange(files: FileList) {
     if (files && files[0].size > 0) {
+      if (files[0].type === 'application/msword'
+      || files[0].type === 'application/vnd.ms-powerpoint'
+      || files[0].type === 'application/pdf') {
+        this.isFileTypeSupported = true;
+      } else {
+        this.isFileTypeSupported = false;
+      }
+
       this.newMaterial.file = files[0];
+      this.fileSelected = true;
     }
   }
 
