@@ -52,7 +52,9 @@
       </app-course-lessons>
 
       <app-course-materials
-        *ngIf="tabContent === 'materials'">
+        *ngIf="tabContent === 'materials'"
+        [materials]="course.materials"
+        [courseId]="course.courseId">
       </app-course-materials>
     </div>
   </div>

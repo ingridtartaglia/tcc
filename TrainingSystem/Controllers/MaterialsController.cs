@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TrainingSystem.Data;
 using TrainingSystem.Models;
+using TrainingSystem.ViewModels;
 
 namespace TrainingSystem.Controllers
 {
@@ -15,10 +18,12 @@ namespace TrainingSystem.Controllers
     public class MaterialsController : Controller
     {
         private readonly TrainingSystemContext _context;
+        private readonly IHostingEnvironment _environment;
 
-        public MaterialsController(TrainingSystemContext context)
+        public MaterialsController(TrainingSystemContext context, IHostingEnvironment environment)
         {
             _context = context;
+            _environment = environment;
         }
 
         // GET: api/Materials
@@ -86,12 +91,26 @@ namespace TrainingSystem.Controllers
 
         // POST: api/Materials
         [HttpPost]
-        public async Task<IActionResult> PostMaterial([FromBody] Material material)
+        public async Task<IActionResult> PostMaterial([FromForm] MaterialViewModel materialVm)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+
+            var filePath = Path.Combine(_environment.ContentRootPath, @"Uploads", materialVm.File.FileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await materialVm.File.CopyToAsync(stream);
+            }
+
+            var material = new Material
+            {
+                Name = materialVm.Name,
+                FileName = materialVm.File.FileName,
+                CourseId = materialVm.CourseId
+            };
 
             _context.Material.Add(material);
             await _context.SaveChangesAsync();

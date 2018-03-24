@@ -95,6 +95,7 @@ namespace TrainingSystem.Controllers
             {
                 return BadRequest(ModelState);
             }
+            
             var filePath = Path.Combine(_environment.ContentRootPath, @"Uploads", videoVm.File.FileName);
 
             using (var stream = new FileStream(filePath, FileMode.Create))
