@@ -133,6 +133,9 @@ namespace TrainingSystem.Controllers
                 return NotFound();
             }
 
+            var filePath = Path.Combine(_environment.ContentRootPath, @"Uploads", material.FileName);
+            System.IO.File.Delete(filePath);
+
             _context.Material.Remove(material);
             await _context.SaveChangesAsync();
 

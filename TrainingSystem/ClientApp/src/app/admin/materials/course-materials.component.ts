@@ -34,11 +34,20 @@ export class CourseMaterialsComponent implements OnInit {
         },
         error => {
           console.error();
-        });
+        }
+      );
   }
 
   deleteMaterial(id: number) {
-    return this.materialService.delete(id).subscribe();
+    this.materialService.delete(id)
+      .subscribe(
+        data => {
+          console.log('sucesso');
+        },
+        error => {
+          console.error();
+        }
+      );
   }
 
   fileChange(files: FileList) {

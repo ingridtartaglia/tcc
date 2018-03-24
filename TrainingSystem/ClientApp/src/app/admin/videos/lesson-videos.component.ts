@@ -34,11 +34,20 @@ export class LessonVideosComponent implements OnInit {
         },
         error => {
           console.error();
-        });
+        }
+      );
   }
 
   deleteVideo(id: number) {
-    return this.videoService.delete(id).subscribe();
+    this.videoService.delete(id)
+      .subscribe(
+        data => {
+          console.log('sucesso');
+        },
+        error => {
+          console.error();
+        }
+      );
   }
 
   fileChange(files: FileList) {
