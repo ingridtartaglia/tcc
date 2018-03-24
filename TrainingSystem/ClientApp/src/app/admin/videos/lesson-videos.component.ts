@@ -40,4 +40,10 @@ export class LessonVideosComponent implements OnInit {
   deleteVideo(id: number) {
     return this.videoService.delete(id).subscribe();
   }
+
+  fileChange(files: FileList) {
+    if (files && files[0].size > 0) {
+      this.newVideo.file = files[0];
+    }
+  }
 }

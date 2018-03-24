@@ -3,4 +3,5 @@ export class Video {
   name: string;
   fileName: string;
   lessonId: number;
+  file: File;
 }
