@@ -7,7 +7,7 @@ namespace TrainingSystem.Models
     {
         public int QuestionId { get; set; }
         [Required]
-        public string QuestionName { get; set; }
+        public string Name { get; set; }
 
         public int ExamId { get; set; }
         public Exam Exam { get; set; }

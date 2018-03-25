@@ -25,6 +25,7 @@ export class MaterialService {
 
     return this.http.post('/api/Materials', formData);
   }
+
   delete(materialId: number): Observable<any> {
     return this.http.delete(`/api/Materials/${materialId}`);
   }

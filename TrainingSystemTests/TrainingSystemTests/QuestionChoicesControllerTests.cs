@@ -50,7 +50,7 @@ namespace TrainingSystem.Tests.ControllerTests
             var question = new Question() {
                 ExamId = 1,
                 QuestionId = 1,
-                QuestionName = "Quem foi o primeiro programador?"
+                Name = "Quem foi o primeiro programador?"
             };
             var questionChoice1 = new QuestionChoice() {
                 QuestionId = 1,
@@ -114,7 +114,7 @@ namespace TrainingSystem.Tests.ControllerTests
             var question = new Question() {
                 ExamId = 1,
                 QuestionId = 1,
-                QuestionName = "Quem foi o primeiro programador?"
+                Name = "Quem foi o primeiro programador?"
             };
             var questionChoice1 = new QuestionChoice() {
                 QuestionId = 1,
@@ -166,7 +166,7 @@ namespace TrainingSystem.Tests.ControllerTests
             var question = new Question() {
                 ExamId = 1,
                 QuestionId = 1,
-                QuestionName = "Quem foi o primeiro programador?"
+                Name = "Quem foi o primeiro programador?"
             };
             var questionChoice1 = new QuestionChoice() {
                 QuestionId = 1,
@@ -218,7 +218,7 @@ namespace TrainingSystem.Tests.ControllerTests
             var question = new Question() {
                 ExamId = 1,
                 QuestionId = 1,
-                QuestionName = "Quem foi o primeiro programador?"
+                Name = "Quem foi o primeiro programador?"
             };
             var questionChoiceToAdd = new QuestionChoice() {
                 QuestionId = 1,
@@ -271,7 +271,7 @@ namespace TrainingSystem.Tests.ControllerTests
             var question = new Question() {
                 ExamId = 1,
                 QuestionId = 1,
-                QuestionName = "Quem foi o primeiro programador?"
+                Name = "Quem foi o primeiro programador?"
             };
             var questionChoiceToAdd = new QuestionChoice() {
                 QuestionId = 1,
@@ -324,7 +324,7 @@ namespace TrainingSystem.Tests.ControllerTests
             var question = new Question() {
                 ExamId = 1,
                 QuestionId = 1,
-                QuestionName = "Quem foi o primeiro programador?"
+                Name = "Quem foi o primeiro programador?"
             };
             var questionChoice = new QuestionChoice() {
                 QuestionId = 1,
@@ -380,7 +380,7 @@ namespace TrainingSystem.Tests.ControllerTests
             var question = new Question() {
                 ExamId = 1,
                 QuestionId = 1,
-                QuestionName = "Quem foi o primeiro programador?"
+                Name = "Quem foi o primeiro programador?"
             };
             var questionChoice = new QuestionChoice() {
                 QuestionId = 1,
@@ -439,7 +439,7 @@ namespace TrainingSystem.Tests.ControllerTests
             var question = new Question() {
                 ExamId = 1,
                 QuestionId = 1,
-                QuestionName = "Quem foi o primeiro programador?"
+                Name = "Quem foi o primeiro programador?"
             };
             var questionChoice = new QuestionChoice() {
                 QuestionId = 1,
@@ -498,7 +498,7 @@ namespace TrainingSystem.Tests.ControllerTests
             var question = new Question() {
                 ExamId = 1,
                 QuestionId = 1,
-                QuestionName = "Quem foi o primeiro programador?"
+                Name = "Quem foi o primeiro programador?"
             };
             var questionChoice = new QuestionChoice() {
                 QuestionId = 1,

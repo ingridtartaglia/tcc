@@ -1,5 +1,73 @@
 <div class="row">
   <div class="col-xs-12">
-    avaliação em breve
+    <div *ngIf="exam; else noExam">
+      <div *ngIf="questions; else noQuestions">
+
+      </div>
+      <ng-template #noQuestions>
+        Sem questões disponíveis no momento.
+      </ng-template>
+    </div>
+    <ng-template #noExam>
+      <p>Essa unidade ainda não possui avaliação.</p>
+    </ng-template>
+
+    <button
+      *ngIf="!exam"
+      (click)="addExam()"
+      class="btn btn-primary pull-right">
+      Adicionar avaliação
+    </button>
+
+    <button
+      *ngIf="exam"
+      (click)="showQuestionForm()"
+      class="btn btn-primary pull-right">
+      Adicionar questão
+    </button>
+  </div>
+</div>
+
+<div class="row" *ngIf="isQuestionFormVisible">
+  <div class="col-xs-12">
+    <h2>Questões</h2>
+
+    <form
+      #f="ngForm"
+      name="form"
+      (ngSubmit)="f.form.valid && addQuestion()"
+      novalidate>
+      <div
+        class="form-group"
+        [ngClass]="{ 'has-error': newQuestionName.touched && !newQuestionName.valid }">
+        <label for="newQuestionName">Pergunta*</label>
+        <input
+          type="text"
+          class="form-control"
+          name="newQuestionName"
+          [(ngModel)]="newQuestion.name"
+          #newQuestionName="ngModel"
+          required />
+        <div
+          *ngIf="newQuestionName.touched && !newQuestionName.valid"
+          class="help-block">
+          Pergunta obrigatória
+        </div>
+      </div>
+
+      <button
+        [disabled]="!f.valid"
+        type="submit"
+        class="btn btn-primary">
+        Salvar
+      </button>
+    </form>
+
+    <!-- <button
+      *ngIf="exam"
+      (click)="showQuestionForm()"
+      class="btn btn-primary pull-right">
+      Adicionar questão
+    </button> -->
   </div>
 </div>

@@ -1,7 +1,11 @@
 import { QuestionChoice } from './question-choice.model';
 
 export class Question {
+  constructor(examId: number) {
+    this.examId = examId;
+  }
+  examId: number;
   questionId: number;
-  questionName: string;
-  questionChoices: QuestionChoice[];
+  name: string;
+  choice: QuestionChoice[];
 }

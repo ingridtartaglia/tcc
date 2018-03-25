@@ -1,5 +1,9 @@
 export class QuestionChoice {
+  constructor(questionId: number) {
+    this.questionId = questionId;
+  }
+  questionId: number;
   questionChoiceId: number;
-  questionChoiceName: string;
+  name: string;
   isCorrect: boolean;
 }

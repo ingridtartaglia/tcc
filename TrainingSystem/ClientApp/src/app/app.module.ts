@@ -18,6 +18,7 @@ import { LessonService } from './shared/services/lesson.service';
 import { VideoService } from './shared/services/video.service';
 import { ExamService } from './shared/services/exam.service';
 import { MaterialService } from './shared/services/material.service';
+import { QuestionService } from './shared/services/question.service';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { MaterialService } from './shared/services/material.service';
     VideoService,
     ExamService,
     MaterialService,
+    QuestionService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,

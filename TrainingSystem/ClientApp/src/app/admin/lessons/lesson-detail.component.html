@@ -38,7 +38,10 @@
       </app-lesson-videos>
 
       <app-lesson-exam
-        *ngIf="tabContent === 'exam'">
+        *ngIf="tabContent === 'exam'"
+        [exam]="lesson.exam"
+        [lessonId]="lesson.lessonId"
+        (updateLessonDetail)="updateLessonDetail()">
       </app-lesson-exam>
     </div>
   </div>

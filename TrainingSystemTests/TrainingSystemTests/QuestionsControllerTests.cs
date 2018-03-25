@@ -49,11 +49,11 @@ namespace TrainingSystemTests.TrainingSystemTests
             };
             var question1 = new Question() {
                 ExamId = 1,
-                QuestionName = "Quem foi o primeiro programador?"
+                Name = "Quem foi o primeiro programador?"
             };
             var question2 = new Question() {
                 ExamId = 1,
-                QuestionName = "Qual é o significado da sigla HTML?"
+                Name = "Qual é o significado da sigla HTML?"
             };
             _dbContext.Course.Add(course);
             _dbContext.Lesson.Add(lesson);
@@ -99,7 +99,7 @@ namespace TrainingSystemTests.TrainingSystemTests
             };
             var question = new Question() {
                 ExamId = 1,
-                QuestionName = "Quem foi o primeiro programador?"
+                Name = "Quem foi o primeiro programador?"
             };
             _dbContext.Course.Add(course);
             _dbContext.Lesson.Add(lesson);
@@ -144,7 +144,7 @@ namespace TrainingSystemTests.TrainingSystemTests
             };
             var question = new Question() {
                 ExamId = 1,
-                QuestionName = "Quem foi o primeiro programador?"
+                Name = "Quem foi o primeiro programador?"
             };
             _dbContext.Course.Add(course);
             _dbContext.Lesson.Add(lesson);
@@ -189,7 +189,7 @@ namespace TrainingSystemTests.TrainingSystemTests
             };
             var questionToAdd = new Question() {
                 ExamId = 1,
-                QuestionName = "Quem foi o primeiro programador?"
+                Name = "Quem foi o primeiro programador?"
             };
             _dbContext.Course.Add(course);
             _dbContext.Lesson.Add(lesson);
@@ -211,7 +211,7 @@ namespace TrainingSystemTests.TrainingSystemTests
             // Assert
             Assert.Equal((int)HttpStatusCode.Created, response.StatusCode);
             ((Question)response.Value).QuestionId.Should().NotBe(0);
-            ((Question)response.Value).QuestionName.Should().Be("Quem foi o primeiro programador?");
+            ((Question)response.Value).Name.Should().Be("Quem foi o primeiro programador?");
         }
 
         [Fact]
@@ -235,7 +235,7 @@ namespace TrainingSystemTests.TrainingSystemTests
             };
             var questionToAdd = new Question() {
                 ExamId = 1,
-                QuestionName = ""
+                Name = ""
             };
             _dbContext.Course.Add(course);
             _dbContext.Lesson.Add(lesson);
@@ -250,14 +250,14 @@ namespace TrainingSystemTests.TrainingSystemTests
             var controller = new QuestionsController(_dbContext) {
                 ObjectValidator = objectValidator.Object
             };
-            controller.ModelState.AddModelError("QuestionName", "The QuestionName field is required");
+            controller.ModelState.AddModelError("Name", "The Name field is required");
 
             // Act
             var response = (BadRequestObjectResult)controller.PostQuestion(questionToAdd).Result;
 
             // Assert
             Assert.Equal((int)HttpStatusCode.BadRequest, response.StatusCode);
-            ((SerializableError)response.Value).ContainsKey("QuestionName").Should().BeTrue();
+            ((SerializableError)response.Value).ContainsKey("Name").Should().BeTrue();
         }
 
         [Fact]
@@ -282,7 +282,7 @@ namespace TrainingSystemTests.TrainingSystemTests
             var question = new Question() {
                 ExamId = 1,
                 QuestionId = 1,
-                QuestionName = "Quem foi o primeiro programador?"
+                Name = "Quem foi o primeiro programador?"
             };
             _dbContext.Course.Add(course);
             _dbContext.Lesson.Add(lesson);
@@ -291,7 +291,7 @@ namespace TrainingSystemTests.TrainingSystemTests
             _dbContext.SaveChanges();
 
             var questionToUpdate = _dbContext.Question.FirstOrDefaultAsync(q => q.QuestionId == 1).Result;
-            questionToUpdate.QuestionName = "O que é um banco de dados?";
+            questionToUpdate.Name = "O que é um banco de dados?";
 
             var objectValidator = new Mock<IObjectModelValidator>();
             objectValidator.Setup(o => o.Validate(It.IsAny<ActionContext>(),
@@ -330,7 +330,7 @@ namespace TrainingSystemTests.TrainingSystemTests
             };
             var question = new Question() {
                 ExamId = 1,
-                QuestionName = "Quem foi o primeiro programador?"
+                Name = "Quem foi o primeiro programador?"
             };
             _dbContext.Course.Add(course);
             _dbContext.Lesson.Add(lesson);
@@ -341,7 +341,7 @@ namespace TrainingSystemTests.TrainingSystemTests
             var questionToUpdate = new Question() {
                 ExamId = 1,
                 QuestionId = 50,
-                QuestionName = "O que é um banco de dados?"
+                Name = "O que é um banco de dados?"
             };
 
             var objectValidator = new Mock<IObjectModelValidator>();
@@ -381,7 +381,7 @@ namespace TrainingSystemTests.TrainingSystemTests
             };
             var question = new Question() {
                 ExamId = 1,
-                QuestionName = "Quem foi o primeiro programador?"
+                Name = "Quem foi o primeiro programador?"
             };
             _dbContext.Course.Add(course);
             _dbContext.Lesson.Add(lesson);
@@ -392,7 +392,7 @@ namespace TrainingSystemTests.TrainingSystemTests
             var questionToUpdate = new Question() {
                 ExamId = 1,
                 QuestionId = 1,
-                QuestionName = "O que é um banco de dados?"
+                Name = "O que é um banco de dados?"
             };
             var objectValidator = new Mock<IObjectModelValidator>();
             objectValidator.Setup(o => o.Validate(It.IsAny<ActionContext>(),
@@ -432,7 +432,7 @@ namespace TrainingSystemTests.TrainingSystemTests
             var question = new Question() {
                 ExamId = 1,
                 QuestionId = 1,
-                QuestionName = "Quem foi o primeiro programador?"
+                Name = "Quem foi o primeiro programador?"
             };
             _dbContext.Course.Add(course);
             _dbContext.Lesson.Add(lesson);

@@ -25,6 +25,7 @@ export class VideoService {
 
     return this.http.post('/api/Videos', formData);
   }
+
   delete(videoId: number): Observable<any> {
     return this.http.delete(`/api/Videos/${videoId}`);
   }
