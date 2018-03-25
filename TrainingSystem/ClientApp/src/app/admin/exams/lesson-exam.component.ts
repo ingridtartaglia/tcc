@@ -59,12 +59,12 @@ export class LessonExamComponent implements OnInit {
   }
 
   addQuestion() {
-    if (this.newQuestion.choices.filter(choice => choice.isCorrect).length > 1) {
+    if (this.newQuestion.questionChoices.filter(choice => choice.isCorrect).length > 1) {
       this.showAnswerErrorMessage = true;
       return;
     }
 
-    if (this.newQuestion.choices.filter(choice => choice.isCorrect).length === 0) {
+    if (this.newQuestion.questionChoices.filter(choice => choice.isCorrect).length === 0) {
       this.showAnswerErrorMessage = true;
       return;
     }

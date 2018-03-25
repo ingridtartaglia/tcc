@@ -1,8 +1,25 @@
 <div class="row">
   <div class="col-xs-12">
     <div *ngIf="exam; else noExam">
-      <div *ngIf="questions; else noQuestions">
-
+      <div *ngIf="exam.questions.length > 0; else noQuestions">
+        <ol>
+          <li *ngFor="let question of exam.questions">
+            <p>
+              {{ question.name }}
+              <a (click)="deleteQuestion(question.questionId)">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              </a>
+            </p>
+            <ol>
+              <li
+                type="a"
+                *ngFor="let questionChoice of question.questionChoices"
+                [ngClass]="{'text-success': questionChoice.isCorrect }">
+                {{ questionChoice.name }}
+              </li>
+            </ol>
+          </li>
+        </ol>
       </div>
       <ng-template #noQuestions>
         Sem questões disponíveis no momento.
@@ -63,7 +80,7 @@
             type="text"
             class="form-control"
             name="firstQuestionChoice"
-            [(ngModel)]="newQuestion.choices[0].name"
+            [(ngModel)]="newQuestion.questionChoices[0].name"
             #firstQuestionChoice="ngModel"
             required />
           <div
@@ -76,7 +93,7 @@
               <input
                 type="checkbox"
                 name="firstQuestionChoiceOption"
-                [(ngModel)]="newQuestion.choices[0].isCorrect">
+                [(ngModel)]="newQuestion.questionChoices[0].isCorrect">
                 Resposta correta
             </label>
           </div>
@@ -90,7 +107,7 @@
           type="text"
           class="form-control"
           name="secondQuestionChoice"
-          [(ngModel)]="newQuestion.choices[1].name"
+          [(ngModel)]="newQuestion.questionChoices[1].name"
           #secondQuestionChoice="ngModel"
           required />
         <div
@@ -103,7 +120,7 @@
             <input
               type="checkbox"
               name="firstQuestionChoiceOption"
-              [(ngModel)]="newQuestion.choices[1].isCorrect">
+              [(ngModel)]="newQuestion.questionChoices[1].isCorrect">
               Resposta correta
           </label>
         </div>
@@ -117,7 +134,7 @@
           type="text"
           class="form-control"
           name="thirdQuestionChoice"
-          [(ngModel)]="newQuestion.choices[2].name"
+          [(ngModel)]="newQuestion.questionChoices[2].name"
           #thirdQuestionChoice="ngModel"
           required />
         <div
@@ -130,7 +147,7 @@
             <input
               type="checkbox"
               name="firstQuestionChoiceOption"
-              [(ngModel)]="newQuestion.choices[2].isCorrect">
+              [(ngModel)]="newQuestion.questionChoices[2].isCorrect">
               Resposta correta
           </label>
         </div>
