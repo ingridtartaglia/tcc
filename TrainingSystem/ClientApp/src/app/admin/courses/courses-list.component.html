@@ -3,7 +3,7 @@
     <div class="col-xs-12">
       <h2>Lista de cursos</h2>
 
-      <div class="table-responsive">
+      <div class="table-responsive" *ngIf="courses.length > 0; else noCourses">
         <table class="table">
           <thead>
             <tr>
@@ -30,6 +30,17 @@
           </tbody>
         </table>
       </div>
+      <ng-template #noCourses>
+        <p>
+          Sem cursos no momento.
+        </p>
+      </ng-template>
+
+      <button
+        [routerLink]="['/admin/courses/add']"
+        class="btn btn-primary pull-right">
+        Adicionar curso
+      </button>
     </div>
   </div>
 </div>

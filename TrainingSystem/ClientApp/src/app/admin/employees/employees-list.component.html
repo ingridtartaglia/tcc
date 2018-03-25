@@ -3,7 +3,7 @@
     <div class="col-xs-12">
       <h2>Lista de usuários</h2>
 
-      <div class="table-responsive">
+      <div class="table-responsive" *ngIf="employees.length > 0; else noEmployees">
         <table class="table">
           <thead>
             <tr>
@@ -25,6 +25,17 @@
           </tbody>
         </table>
       </div>
+      <ng-template #noEmployees>
+        <p>
+          Sem usuários no momento.
+        </p>
+      </ng-template>
+
+      <button
+        [routerLink]="['/admin/employees/add']"
+        class="btn btn-primary pull-right">
+        Adicionar usuário
+      </button>
     </div>
   </div>
 </div>
