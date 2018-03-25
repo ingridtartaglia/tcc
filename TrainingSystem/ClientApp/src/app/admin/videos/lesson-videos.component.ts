@@ -14,6 +14,8 @@ export class LessonVideosComponent implements OnInit {
   @Input() lessonId: number;
   isVideoFormVisible: Boolean = false;
   newVideo: Video;
+  fileSelected: Boolean = false;
+  isFileTypeSupported: Boolean = false;
 
   constructor(private videoService: VideoService, private router: Router) { }
 
@@ -34,10 +36,34 @@ export class LessonVideosComponent implements OnInit {
         },
         error => {
           console.error();
-        });
+        }
+      );
   }
 
   deleteVideo(id: number) {
-    return this.videoService.delete(id).subscribe();
+    this.videoService.delete(id)
+      .subscribe(
+        data => {
+          console.log('sucesso');
+        },
+        error => {
+          console.error();
+        }
+      );
+  }
+
+  fileChange(files: FileList) {
+    if (files && files[0].size > 0) {
+      if (files[0].type === 'video/mp4'
+        || files[0].type === 'video/x-m4v'
+        || files[0].type === 'video/*') {
+        this.isFileTypeSupported = true;
+      } else {
+        this.isFileTypeSupported = false;
+      }
+
+      this.newVideo.file = files[0];
+      this.fileSelected = true;
+    }
   }
 }

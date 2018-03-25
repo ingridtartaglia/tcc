@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { Lesson } from '../../shared/models/lesson.model';
 import { Video } from '../../shared/models/video.model';
+import { Lesson } from '../../shared/models/lesson.model';
 import { LessonService } from '../../shared/services/lesson.service';
 
 @Component({
