@@ -11,9 +11,10 @@ using TrainingSystem.Data;
 namespace TrainingSystem.Migrations
 {
     [DbContext(typeof(TrainingSystemContext))]
-    partial class TrainingSystemContextModelSnapshot : ModelSnapshot
+    [Migration("20180325213747_Question")]
+    partial class Question
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -314,7 +315,7 @@ namespace TrainingSystem.Migrations
 
                     b.Property<bool>("IsCorrect");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("QuestionChoiceName")
                         .IsRequired();
 
                     b.Property<int>("QuestionId");

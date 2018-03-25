@@ -23,5 +23,5 @@ export class QuestionService {
 
   delete(questionId: number): Observable<any> {
     return this.http.delete(`/api/Questions/${questionId}`);
-
+  }
 }

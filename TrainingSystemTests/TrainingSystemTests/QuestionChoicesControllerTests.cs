@@ -54,17 +54,17 @@ namespace TrainingSystem.Tests.ControllerTests
             };
             var questionChoice1 = new QuestionChoice() {
                 QuestionId = 1,
-                QuestionChoiceName = "Ada Lovelace",
+                Name = "Ada Lovelace",
                 IsCorrect = true
             };
             var questionChoice2 = new QuestionChoice() {
                 QuestionId = 1,
-                QuestionChoiceName = "Bill Gates",
+                Name = "Bill Gates",
                 IsCorrect = false
             };
             var questionChoice3 = new QuestionChoice() {
                 QuestionId = 1,
-                QuestionChoiceName = "Steve Jobs",
+                Name = "Steve Jobs",
                 IsCorrect = false
             };
             _dbContext.Course.Add(course);
@@ -118,7 +118,7 @@ namespace TrainingSystem.Tests.ControllerTests
             };
             var questionChoice1 = new QuestionChoice() {
                 QuestionId = 1,
-                QuestionChoiceName = "Ada Lovelace",
+                Name = "Ada Lovelace",
                 IsCorrect = true
             };
             _dbContext.Course.Add(course);
@@ -170,7 +170,7 @@ namespace TrainingSystem.Tests.ControllerTests
             };
             var questionChoice1 = new QuestionChoice() {
                 QuestionId = 1,
-                QuestionChoiceName = "Ada Lovelace",
+                Name = "Ada Lovelace",
                 IsCorrect = true
             };
             _dbContext.Course.Add(course);
@@ -222,7 +222,7 @@ namespace TrainingSystem.Tests.ControllerTests
             };
             var questionChoiceToAdd = new QuestionChoice() {
                 QuestionId = 1,
-                QuestionChoiceName = "Grace Hopper",
+                Name = "Grace Hopper",
                 IsCorrect = false
             };
             _dbContext.Course.Add(course);
@@ -246,7 +246,7 @@ namespace TrainingSystem.Tests.ControllerTests
             // Assert
             Assert.Equal((int)HttpStatusCode.Created, response.StatusCode);
             ((QuestionChoice)response.Value).QuestionChoiceId.Should().NotBe(0);
-            ((QuestionChoice)response.Value).QuestionChoiceName.Should().Be("Grace Hopper");
+            ((QuestionChoice)response.Value).Name.Should().Be("Grace Hopper");
         }
 
         [Fact]
@@ -275,7 +275,7 @@ namespace TrainingSystem.Tests.ControllerTests
             };
             var questionChoiceToAdd = new QuestionChoice() {
                 QuestionId = 1,
-                QuestionChoiceName = "",
+                Name = "",
                 IsCorrect = true
             };
             _dbContext.Course.Add(course);
@@ -292,14 +292,14 @@ namespace TrainingSystem.Tests.ControllerTests
             var controller = new QuestionChoicesController(_dbContext) {
                 ObjectValidator = objectValidator.Object
             };
-            controller.ModelState.AddModelError("QuestionChoiceName", "The QuestionChoiceName field is required");
+            controller.ModelState.AddModelError("Name", "The Name field is required");
 
             // Act
             var response = (BadRequestObjectResult)controller.PostQuestionChoice(questionChoiceToAdd).Result;
 
             // Assert
             Assert.Equal((int)HttpStatusCode.BadRequest, response.StatusCode);
-            ((SerializableError)response.Value).ContainsKey("QuestionChoiceName").Should().BeTrue();
+            ((SerializableError)response.Value).ContainsKey("Name").Should().BeTrue();
         }
 
         [Fact]
@@ -329,7 +329,7 @@ namespace TrainingSystem.Tests.ControllerTests
             var questionChoice = new QuestionChoice() {
                 QuestionId = 1,
                 QuestionChoiceId = 1,
-                QuestionChoiceName = "Ada Lovelace",
+                Name = "Ada Lovelace",
                 IsCorrect = true
             };
             _dbContext.Course.Add(course);
@@ -340,7 +340,7 @@ namespace TrainingSystem.Tests.ControllerTests
             _dbContext.SaveChanges();
 
             var questionChoiceToUpdate = _dbContext.QuestionChoice.FirstOrDefaultAsync(q => q.QuestionChoiceId == 1).Result;
-            questionChoiceToUpdate.QuestionChoiceName = "Ada";
+            questionChoiceToUpdate.Name = "Ada";
 
             var objectValidator = new Mock<IObjectModelValidator>();
             objectValidator.Setup(o => o.Validate(It.IsAny<ActionContext>(),
@@ -385,7 +385,7 @@ namespace TrainingSystem.Tests.ControllerTests
             var questionChoice = new QuestionChoice() {
                 QuestionId = 1,
                 QuestionChoiceId = 1,
-                QuestionChoiceName = "Ada Lovelace",
+                Name = "Ada Lovelace",
                 IsCorrect = true
             };
             _dbContext.Course.Add(course);
@@ -398,7 +398,7 @@ namespace TrainingSystem.Tests.ControllerTests
             var questionChoiceToUpdate = new QuestionChoice() {
                 QuestionId = 1,
                 QuestionChoiceId = 50,
-                QuestionChoiceName = "Ada Lovelace",
+                Name = "Ada Lovelace",
                 IsCorrect = true
             };
             var objectValidator = new Mock<IObjectModelValidator>();
@@ -444,7 +444,7 @@ namespace TrainingSystem.Tests.ControllerTests
             var questionChoice = new QuestionChoice() {
                 QuestionId = 1,
                 QuestionChoiceId = 1,
-                QuestionChoiceName = "Ada Lovelace",
+                Name = "Ada Lovelace",
                 IsCorrect = true
             };
             _dbContext.Course.Add(course);
@@ -457,7 +457,7 @@ namespace TrainingSystem.Tests.ControllerTests
             var questionChoiceToUpdate = new QuestionChoice() {
                 QuestionId = 1,
                 QuestionChoiceId = 1,
-                QuestionChoiceName = "Ada Lovelace",
+                Name = "Ada Lovelace",
                 IsCorrect = true
             };
             var objectValidator = new Mock<IObjectModelValidator>();
@@ -503,7 +503,7 @@ namespace TrainingSystem.Tests.ControllerTests
             var questionChoice = new QuestionChoice() {
                 QuestionId = 1,
                 QuestionChoiceId = 1,
-                QuestionChoiceName = "Ada Lovelace",
+                Name = "Ada Lovelace",
                 IsCorrect = true
             };
             _dbContext.Course.Add(course);

@@ -18,6 +18,7 @@ export class LessonExamComponent implements OnInit {
   questions: Question[];
   newQuestion: Question;
   isQuestionFormVisible: Boolean = false;
+  showAnswerErrorMessage: Boolean = false;
 
   constructor(private examService: ExamService, private questionService: QuestionService) { }
 
@@ -58,6 +59,16 @@ export class LessonExamComponent implements OnInit {
   }
 
   addQuestion() {
+    if (this.newQuestion.choices.filter(choice => choice.isCorrect).length > 1) {
+      this.showAnswerErrorMessage = true;
+      return;
+    }
+
+    if (this.newQuestion.choices.filter(choice => choice.isCorrect).length === 0) {
+      this.showAnswerErrorMessage = true;
+      return;
+    }
+
     this.questionService.create(this.newQuestion)
       .subscribe(
         data => {
