@@ -13,7 +13,7 @@
           <tr *ngFor="let material of materials">
             <td>{{ material.name }}</td>
             <td>
-              <a href="" (click)="deleteMaterial(material.materialId)">
+              <a (click)="deleteMaterial(material.materialId)">
                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
               </a>
             </td>

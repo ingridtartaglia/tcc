@@ -13,10 +13,10 @@
           <tr *ngFor="let lesson of lessons">
             <td>{{ lesson.name }}</td>
             <td>
-              <a href="" [routerLink]="['/admin/courses', lesson.courseId, 'lessons', lesson.lessonId]">
+              <a [routerLink]="['/admin/courses', lesson.courseId, 'lessons', lesson.lessonId]">
                 <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
               </a>
-              <a href="" (click)="deleteLesson(lesson.lessonId)">
+              <a (click)="deleteLesson(lesson.lessonId)">
                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
               </a>
             </td>

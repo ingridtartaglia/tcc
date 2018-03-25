@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Course } from '../../shared/models/course.model';
 import { CourseService } from '../../shared/services/course.service';
@@ -11,7 +12,7 @@ import { CourseService } from '../../shared/services/course.service';
 export class CoursesListComponent implements OnInit {
   courses: Course[];
 
-  constructor(private courseService: CourseService) { }
+  constructor(private router: Router, private courseService: CourseService) { }
 
   ngOnInit() {
     this.getCoursesList();
@@ -22,7 +23,14 @@ export class CoursesListComponent implements OnInit {
   }
 
   deleteCourse(id: number) {
-    return this.courseService.delete(id).subscribe();
+    this.courseService.delete(id).subscribe(
+      data => {
+        console.log(data);
+      },
+      error => {
+        console.error();
+      }
+    );
   }
 
 }

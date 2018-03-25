@@ -19,10 +19,10 @@
               <td>{{ course.instructor }}</td>
               <td>{{ course.category }}</td>
               <td>
-                <a href="" [routerLink]="['/admin/courses', course.courseId]">
+                <a [routerLink]="['/admin/courses', course.courseId]">
                   <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
                 </a>
-                <a href="" (click)="deleteCourse(course.courseId)">
+                <a (click)="deleteCourse(course.courseId)">
                   <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                 </a>
               </td>

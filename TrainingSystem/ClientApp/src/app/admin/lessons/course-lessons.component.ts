@@ -38,6 +38,13 @@ export class CourseLessonsComponent implements OnInit {
   }
 
   deleteLesson(id: number) {
-    return this.lessonService.delete(id).subscribe();
+    this.lessonService.delete(id).subscribe(
+      data => {
+        console.log(data);
+      },
+      error => {
+        console.error();
+      }
+    );
   }
 }
