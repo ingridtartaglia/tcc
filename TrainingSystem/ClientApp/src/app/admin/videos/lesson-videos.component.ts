@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Video } from '../../shared/models/video.model';
@@ -12,6 +12,7 @@ import { VideoService } from '../../shared/services/video.service';
 export class LessonVideosComponent implements OnInit {
   @Input() videos: Video[];
   @Input() lessonId: number;
+  @Output() updateLessonDetail = new EventEmitter<any>();
   isVideoFormVisible: Boolean = false;
   newVideo: Video;
   fileSelected: Boolean = false;
@@ -20,8 +21,7 @@ export class LessonVideosComponent implements OnInit {
   constructor(private videoService: VideoService, private router: Router) { }
 
   ngOnInit() {
-    this.newVideo = new Video();
-    this.newVideo.lessonId = this.lessonId;
+    this.newVideo = new Video(this.lessonId);
   }
 
   showVideoForm() {
@@ -32,7 +32,9 @@ export class LessonVideosComponent implements OnInit {
     this.videoService.create(this.newVideo)
       .subscribe(
         data => {
-          console.log('sucesso');
+          this.newVideo = new Video(this.lessonId);
+          this.isVideoFormVisible = false;
+          this.updateLessonDetail.emit();
         },
         error => {
           console.error();
@@ -44,7 +46,7 @@ export class LessonVideosComponent implements OnInit {
     this.videoService.delete(id)
       .subscribe(
         data => {
-          console.log('sucesso');
+          this.updateLessonDetail.emit();
         },
         error => {
           console.error();

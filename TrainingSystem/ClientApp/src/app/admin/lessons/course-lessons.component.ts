@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Lesson } from '../../shared/models/lesson.model';
@@ -12,14 +12,14 @@ import { LessonService } from '../../shared/services/lesson.service';
 export class CourseLessonsComponent implements OnInit {
   @Input() lessons: Lesson[];
   @Input() courseId: number;
+  @Output() updateCourseDetail = new EventEmitter<any>();
   isLessonFormVisible: Boolean = false;
   newLesson: Lesson;
 
   constructor(private lessonService: LessonService, private router: Router) { }
 
   ngOnInit() {
-    this.newLesson = new Lesson();
-    this.newLesson.courseId = this.courseId;
+    this.newLesson = new Lesson(this.courseId);
   }
 
   showLessonForm() {
@@ -40,7 +40,7 @@ export class CourseLessonsComponent implements OnInit {
   deleteLesson(id: number) {
     this.lessonService.delete(id).subscribe(
       data => {
-        console.log(data);
+        this.updateCourseDetail.emit();
       },
       error => {
         console.error();

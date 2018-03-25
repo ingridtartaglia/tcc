@@ -28,4 +28,8 @@ export class CourseDetailComponent implements OnInit {
   showTabContent(content) {
     this.tabContent = content;
   }
+
+  updateCourseDetail() {
+    this.getCourse();
+  }
 }

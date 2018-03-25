@@ -30,4 +30,8 @@ export class LessonDetailComponent implements OnInit {
   showTabContent(content) {
     this.tabContent = content;
   }
+
+  updateLessonDetail() {
+    this.getLesson();
+  }
 }

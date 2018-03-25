@@ -33,7 +33,8 @@
       <app-lesson-videos
         *ngIf="tabContent === 'videos'"
         [videos]="lesson.videos"
-        [lessonId]="lesson.lessonId">
+        [lessonId]="lesson.lessonId"
+        (updateLessonDetail)="updateLessonDetail()">
       </app-lesson-videos>
 
       <app-lesson-exam

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Material } from '../../shared/models/material.model';
@@ -12,6 +12,7 @@ import { MaterialService } from '../../shared/services/material.service';
 export class CourseMaterialsComponent implements OnInit {
   @Input() materials: Material[];
   @Input() courseId: number;
+  @Output() updateCourseDetail = new EventEmitter<any>();
   isMaterialFormVisible: Boolean = false;
   newMaterial: Material;
   fileSelected: Boolean = false;
@@ -20,8 +21,7 @@ export class CourseMaterialsComponent implements OnInit {
   constructor(private materialService: MaterialService, private router: Router) { }
 
   ngOnInit() {
-    this.newMaterial = new Material();
-    this.newMaterial.courseId = this.courseId;
+    this.newMaterial = new Material(this.courseId);
   }
 
   showMaterialForm() {
@@ -32,7 +32,9 @@ export class CourseMaterialsComponent implements OnInit {
     this.materialService.create(this.newMaterial)
       .subscribe(
         data => {
-          console.log('sucesso');
+          this.newMaterial = new Material(this.courseId);
+          this.isMaterialFormVisible = false;
+          this.updateCourseDetail.emit();
         },
         error => {
           console.error();
@@ -44,7 +46,7 @@ export class CourseMaterialsComponent implements OnInit {
     this.materialService.delete(id)
       .subscribe(
         data => {
-          console.log('sucesso');
+          this.updateCourseDetail.emit();
         },
         error => {
           console.error();
