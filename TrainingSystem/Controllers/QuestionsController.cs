@@ -25,7 +25,9 @@ namespace TrainingSystem.Controllers
         [HttpGet]
         public IEnumerable<Question> GetQuestions()
         {
-            return _context.Question.Include(q => q.Exam);
+            return _context.Question
+                .Include(q => q.Exam)
+                .Include(q => q.QuestionChoices);
         }
 
         // GET: api/Questions/5
@@ -39,6 +41,7 @@ namespace TrainingSystem.Controllers
 
             var question = await _context.Question
                 .Include(q => q.Exam)
+                .Include(q => q.QuestionChoices)
                 .SingleOrDefaultAsync(q => q.QuestionId == id);
 
             if (question == null)

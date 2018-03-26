@@ -6,7 +6,7 @@ namespace TrainingSystem.Models
     {
         public int QuestionChoiceId { get; set; }
         [Required]
-        public string QuestionChoiceName { get; set; }
+        public string Name { get; set; }
         [Required]
         public bool IsCorrect { get; set; }
 

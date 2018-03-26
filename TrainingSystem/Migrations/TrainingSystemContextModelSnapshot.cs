@@ -260,7 +260,8 @@ namespace TrainingSystem.Migrations
 
                     b.Property<int>("CourseId");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.HasKey("LessonId");
 
@@ -296,7 +297,7 @@ namespace TrainingSystem.Migrations
 
                     b.Property<int>("ExamId");
 
-                    b.Property<string>("QuestionName")
+                    b.Property<string>("Name")
                         .IsRequired();
 
                     b.HasKey("QuestionId");
@@ -313,7 +314,7 @@ namespace TrainingSystem.Migrations
 
                     b.Property<bool>("IsCorrect");
 
-                    b.Property<string>("QuestionChoiceName")
+                    b.Property<string>("Name")
                         .IsRequired();
 
                     b.Property<int>("QuestionId");
@@ -458,7 +459,7 @@ namespace TrainingSystem.Migrations
             modelBuilder.Entity("TrainingSystem.Models.QuestionChoice", b =>
                 {
                     b.HasOne("TrainingSystem.Models.Question", "Question")
-                        .WithMany()
+                        .WithMany("QuestionChoices")
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

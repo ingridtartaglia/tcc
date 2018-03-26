@@ -28,7 +28,9 @@ namespace TrainingSystem.Controllers
             return _context.Lesson
                 .Include(l => l.Course)
                 .Include(l => l.Videos)
-                .Include(l => l.Exam);
+                .Include(l => l.Exam)
+                    .ThenInclude(e => e.Questions)
+                        .ThenInclude(q => q.QuestionChoices);
         }
 
         // GET: api/Lessons/5
@@ -44,6 +46,8 @@ namespace TrainingSystem.Controllers
                 .Include(l => l.Course)
                 .Include(l => l.Videos)
                 .Include(l => l.Exam)
+                .ThenInclude(e => e.Questions)
+                .ThenInclude(q => q.QuestionChoices)
                 .SingleOrDefaultAsync(l => l.LessonId == id);
 
             if (lesson == null)

@@ -1,0 +1,34 @@
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { TagInputModule } from 'ngx-chips';
+
+import { Course } from '../../shared/models/course.model';
+import { CourseService } from '../../shared/services/course.service';
+
+@Component({
+  selector: 'app-course-register',
+  templateUrl: './course-register.component.html',
+  styleUrls: ['./course-register.component.css']
+})
+export class CourseRegisterComponent implements OnInit {
+  course: Course;
+
+  constructor(private router: Router,
+    private courseService: CourseService) { }
+
+  ngOnInit() {
+    this.course = new Course();
+  }
+
+  addCourse() {
+    this.courseService.create(this.course)
+      .subscribe(
+        data => {
+          this.router.navigate([`/admin/courses/${data.courseId}`]);
+        },
+        error => {
+          console.error();
+        });
+  }
+
+}
