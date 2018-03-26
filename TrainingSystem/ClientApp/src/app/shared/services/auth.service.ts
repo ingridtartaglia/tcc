@@ -12,7 +12,13 @@ export class AuthService {
     return this.loggedIn.asObservable();
   }
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    if (localStorage.getItem('auth_token')) {
+      this.loggedIn.next(true);
+    } else {
+      this.loggedIn.next(false);
+    }
+  }
 
   login(email: string, password: string): Observable<any> {
     return this.http.post<any>('/api/Auth', { email: email, password: password })
