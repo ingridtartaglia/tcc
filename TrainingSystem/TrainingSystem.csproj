@@ -38,10 +38,6 @@
     <None Remove="bin\**" />
     <None Remove="obj\**" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Models\CourseSubscription.cs" />
-  </ItemGroup>
   
   <ItemGroup>
     <Folder Include="ClientApp\src\app\employee\" />

@@ -9,7 +9,14 @@ namespace TrainingSystem.Data
         public TrainingSystemContext(DbContextOptions<TrainingSystemContext> options) : base(options)
         {
         }
+
+        protected override void OnModelCreating(ModelBuilder builder) {
+            base.OnModelCreating(builder);
+            builder.Entity<CourseSubscription>().HasKey(a => new { a.CourseId, a.EmployeeId });
+        }
+        
         public DbSet<TrainingSystem.Models.Course> Course { get; set; }
+        public DbSet<TrainingSystem.Models.CourseSubscription> CourseSubscription { get; set; }
         public DbSet<TrainingSystem.Models.QuestionChoice> QuestionChoice { get; set; }
         public DbSet<TrainingSystem.Models.Employee> Employee { get; set; }
         public DbSet<TrainingSystem.Models.Exam> Exam { get; set; }
