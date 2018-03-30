@@ -43,6 +43,9 @@ namespace TrainingSystem.Controllers
 
             var course = await _context.Course
                 .Include(c => c.Lessons)
+                    .ThenInclude(l => l.Videos)
+                .Include(c => c.Lessons)
+                    .ThenInclude(l => l.Exam)
                 .Include(c => c.Materials)
                 .Include(c => c.Keywords)
                 .Include(c => c.Ratings)

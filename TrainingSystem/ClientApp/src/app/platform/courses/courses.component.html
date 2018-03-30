@@ -1,0 +1,65 @@
+<div class="row" *ngIf="course">
+  <div class="col-xs-12">
+
+    <div class="row">
+      <div class="col-xs-12">
+        <h2>Detalhes do curso</h2>
+        <p>
+          <strong>Nome:</strong> {{ course.name }}
+        </p>
+        <p *ngIf="course.description">
+          <strong>Descrição:</strong> {{ course.description }}
+        </p>
+        <p>
+          <strong>Instrutor:</strong> {{ course.instructor }}
+        </p>
+        <p>
+          <strong>Categoria:</strong> {{ course.category }}
+        </p>
+        <p *ngIf="course.keywords.length > 0">
+          <strong>Palavras-chave:</strong>
+          <span *ngFor="let keyword of course.keywords">
+            {{ keyword.name }}
+          </span>
+        </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <h2>Conteúdo do curso</h2>
+
+        <accordion>
+          <accordion-group
+            *ngFor="let lesson of course.lessons"
+            heading="{{ lesson.name }}">
+            <ol *ngIf="lesson.videos">
+              <li *ngFor="let video of lesson.videos">
+                {{ video.name }}
+              </li>
+              <li *ngIf="lesson.exam">
+                Atividade avaliativa
+              </li>
+            </ol>
+          </accordion-group>
+          <accordion-group
+            heading="Materiais complementares">
+            <ul *ngIf="course.materials">
+              <li *ngFor="let material of course.materials">
+                {{ material.name }}
+              </li>
+            </ul>
+          </accordion-group>
+        </accordion>
+
+      </div>
+    </div>
+
+    <!-- <div class="row">
+      <div class="col-xs-12">
+        <p>É muito importante que você deixe uma nota para este curso.</p>
+      </div>
+    </div> -->
+
+  </div>
+</div>

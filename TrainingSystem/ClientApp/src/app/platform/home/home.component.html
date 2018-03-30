@@ -40,7 +40,7 @@
         <tbody>
           <tr *ngFor="let userCourse of userCourses">
             <td>
-              <a [routerLink]="">
+              <a [routerLink]="['/platform/courses', userCourse.courseId]">
                 {{ userCourse.course.name }}
               </a>
             </td>
