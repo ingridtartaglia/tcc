@@ -3,7 +3,7 @@ import { Employee } from './employee.model';
 
 export class CourseSubscription {
   courseId: number;
-  courses: Course[];
+  course: Course;
   employeeId: number;
-  employees: Employee[];
+  employee: Employee;
 }

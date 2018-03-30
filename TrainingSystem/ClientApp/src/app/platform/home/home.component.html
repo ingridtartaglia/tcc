@@ -1,0 +1,59 @@
+<div class="row" *ngIf="courses">
+  <div class="col-xs-12">
+
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title">Cursos da plataforma</h3>
+      </div>
+      <table class="table">
+        <tbody>
+          <tr *ngFor="let course of courses">
+            <td>
+              <a [routerLink]="['/platform/courses', course.courseId]">
+                {{ course.name }}
+              </a>
+            </td>
+            <td>
+              <button
+                type="button"
+                class="btn btn-primary btn-xs"
+                (click)="subscribeCourse(course.courseId)">
+                Inscrever-se
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="row" *ngIf="userCourses">
+  <div class="col-xs-12">
+
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title">Seus cursos</h3>
+      </div>
+      <table class="table"
+        *ngIf="userCourses.length > 0; else noUserCourses">
+        <tbody>
+          <tr *ngFor="let userCourse of userCourses">
+            <td>
+              <a [routerLink]="">
+                {{ userCourse.course.name }}
+              </a>
+            </td>
+            <!-- <td>porcentagem de vídeos assistidos aqui</td> -->
+          </tr>
+        </tbody>
+      </table>
+      <ng-template #noUserCourses>
+        <div class="panel-body">
+          Você ainda não se inscreveu em nenhum curso.
+        </div>
+      </ng-template>
+    </div>
+
+  </div>
+</div>

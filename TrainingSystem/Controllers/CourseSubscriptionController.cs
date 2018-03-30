@@ -48,9 +48,16 @@ namespace TrainingSystem.Controllers
         }
 
         // POST: api/CourseSubscriptions/5
-        [HttpPost]
-        public async Task<IActionResult> PostSubscription([FromBody] CourseSubscription courseSubscription)
+        [HttpPost("CourseSubscriptions")]
+        public async Task<IActionResult> PostSubscription([FromBody] int id)
         {
+            string email = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = _userManager.FindByEmailAsync(email).Result;
+            var employee = _context.Employee.SingleOrDefault(e => e.AppUserId == user.Id);
+            var courseSubscription = new CourseSubscription();
+            courseSubscription.CourseId = id;
+            courseSubscription.EmployeeId = employee.EmployeeId;
+
             _context.CourseSubscription.Add(courseSubscription);
             await _context.SaveChangesAsync();
 
@@ -58,7 +65,7 @@ namespace TrainingSystem.Controllers
         }
 
         // DELETE: api/CourseSubscriptions/5
-        [HttpDelete("{id}")]
+        [HttpDelete("CourseSubscriptions/{id}")]
         public async Task<IActionResult> DeleteSubscription([FromRoute] int id)
         {
             var user = _userManager.GetUserAsync(User).Result;

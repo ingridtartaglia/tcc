@@ -17,8 +17,8 @@ export class SubscriptionService {
     return this.http.get<CourseSubscription[]>('/api/Subscription/CourseSubscriptions');
   }
 
-  create(courseSubscription: CourseSubscription): Observable<any> {
-    return this.http.post('/api/Subscription/CourseSubscriptions', courseSubscription);
+  create(courseId: number): Observable<any> {
+    return this.http.post('/api/Subscription/CourseSubscriptions', courseId);
   }
 
   delete(courseId: number): Observable<any> {
