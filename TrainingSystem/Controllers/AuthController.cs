@@ -18,12 +18,14 @@ namespace TrainingSystem.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly IJwtFactory _jwtFactory;
         private readonly JwtIssuerOptions _jwtOptions;
+        private readonly SignInManager<AppUser> _signInManager;
 
-        public AuthController(UserManager<AppUser> userManager, IJwtFactory jwtFactory, IOptions<JwtIssuerOptions> jwtOptions)
+        public AuthController(UserManager<AppUser> userManager, IJwtFactory jwtFactory, IOptions<JwtIssuerOptions> jwtOptions, SignInManager<AppUser> signInManager)
         {
             _userManager = userManager;
             _jwtFactory = jwtFactory;
             _jwtOptions = jwtOptions.Value;
+            _signInManager = signInManager;
         }
 
         /// <summary>
@@ -66,7 +68,8 @@ namespace TrainingSystem.Controllers
             if (userToVerify == null) return null;
 
             // check the credentials
-            if (_userManager.CheckPasswordAsync(userToVerify, password).Result)
+            var result = _signInManager.CheckPasswordSignInAsync(userToVerify, password, false).Result;
+            if (result.Succeeded)
             {
                 var role = _userManager.GetRolesAsync(userToVerify).Result.FirstOrDefault();
                 return _jwtFactory.GenerateClaimsIdentity(userName, userToVerify.Id, role);

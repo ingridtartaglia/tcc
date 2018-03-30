@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -28,9 +30,11 @@ namespace TrainingSystem.Controllers
         [HttpGet("UserSubscriptions")]
         public IEnumerable<CourseSubscription> GetUserSubscriptions()
         {
-            var user = _userManager.GetUserAsync(User).Result;
+            string email = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = _userManager.FindByEmailAsync(email).Result;
+            var employee = _context.Employee.SingleOrDefault(e => e.AppUserId == user.Id);
             return _context.CourseSubscription
-                .Where(cs => cs.Employee.AppUserId == user.Id)
+                .Where(cs => cs.EmployeeId == employee.EmployeeId)
                 .Include(c => c.Course);
         }
 

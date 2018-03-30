@@ -37,6 +37,7 @@ namespace TrainingSystem
         {
             services.AddDbContext<TrainingSystemContext>(options => options.UseSqlServer(Configuration.GetConnectionString("TrainingSystemDatabase")));
             services.AddSingleton<IJwtFactory, JwtFactory>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             // jwt wire up
             // Get options from app settings
@@ -84,9 +85,21 @@ namespace TrainingSystem
                 options.AddPolicy("Employee", policy => policy.RequireClaim("rol", "Employee"));
             });
 
-            var builder = services.AddIdentity<AppUser, IdentityRole>();
+            // add identity
+            var builder = services.AddIdentityCore<AppUser>(o =>
+            {
+                // configure identity options
+                o.Password.RequireDigit = false;
+                o.Password.RequireLowercase = false;
+                o.Password.RequireUppercase = false;
+                o.Password.RequireNonAlphanumeric = false;
+                o.Password.RequiredLength = 6;
+            });
             builder = new IdentityBuilder(builder.UserType, typeof(IdentityRole), builder.Services);
             builder.AddEntityFrameworkStores<TrainingSystemContext>().AddDefaultTokenProviders();
+            builder.AddRoleValidator<RoleValidator<IdentityRole>>();
+            builder.AddRoleManager<RoleManager<IdentityRole>>();
+            builder.AddSignInManager<SignInManager<AppUser>>();
 
             services.AddMvc().AddJsonOptions(options =>
             {
