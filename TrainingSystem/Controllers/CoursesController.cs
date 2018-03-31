@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TrainingSystem.Data;
 using TrainingSystem.Models;
+using TrainingSystem.ViewModels;
 
 namespace TrainingSystem.Controllers
 {
@@ -15,21 +18,45 @@ namespace TrainingSystem.Controllers
     public class CoursesController : Controller
     {
         private readonly TrainingSystemContext _context;
+        private readonly UserManager<AppUser> _userManager;
 
-        public CoursesController(TrainingSystemContext context)
+        public CoursesController(TrainingSystemContext context, UserManager<AppUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: api/Courses
         [HttpGet]
-        public IEnumerable<Course> GetCourses()
+        public IEnumerable<CourseViewModel> GetCourses()
         {
-            return _context.Course
+            var courses = _context.Course
                 .Include(c => c.Lessons)
-                .Include(c => c.Materials)
-                .Include(c => c.Keywords)
-                .Include(c => c.Ratings);
+                    .ThenInclude(l => l.Videos)
+                .Include(c => c.Ratings)
+                .ToList();
+
+            string email = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = _userManager.FindByEmailAsync(email).Result;
+
+            var subscriptions = new List<int>();
+            if (_userManager.IsInRoleAsync(user, "Employee").Result)
+            {
+                var employee = _context.Employee.SingleOrDefault(e => e.AppUserId == user.Id);
+                subscriptions = _context.CourseSubscription
+                                            .Where(cs => cs.EmployeeId == employee.EmployeeId)
+                                            .Select(cs => cs.CourseId)
+                                            .ToList();
+            }
+
+            var vms = new List<CourseViewModel>();
+            courses.ForEach(c => {
+                var vm = new CourseViewModel(c);
+                vm.IsSubscribed = subscriptions.Contains(c.CourseId);
+                vms.Add(vm);
+            });
+
+            return vms;
         }
 
         // GET: api/Courses/5
@@ -40,7 +67,7 @@ namespace TrainingSystem.Controllers
             {
                 return BadRequest(ModelState);
             }
-
+            
             var course = await _context.Course
                 .Include(c => c.Lessons)
                     .ThenInclude(l => l.Videos)
@@ -56,7 +83,28 @@ namespace TrainingSystem.Controllers
                 return NotFound();
             }
 
-            return Ok(course);
+            string email = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = _userManager.FindByEmailAsync(email).Result;
+
+            if(_userManager.IsInRoleAsync(user, "Admin").Result) {
+                return Ok(course);
+            }
+
+            var employee = _context.Employee.SingleOrDefault(e => e.AppUserId == user.Id);
+            var isSubscribed = _context.CourseSubscription
+                                       .Any(cs => cs.CourseId == id && cs.EmployeeId == employee.EmployeeId);
+            
+            
+            var vm = new CourseViewModel(course);
+            vm.IsSubscribed = isSubscribed;
+
+            if(!isSubscribed) {
+                // If user is not subscribed dont send him file info
+                vm.Materials.ForEach(m => m.FileName = null);
+                vm.Lessons.ForEach(l => l.Videos.ForEach(v => v.FileName = null));
+            }
+
+            return Ok(vm);
         }
 
         // PUT: api/Courses/5
