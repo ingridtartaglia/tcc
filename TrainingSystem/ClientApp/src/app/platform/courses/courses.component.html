@@ -77,11 +77,11 @@
       </div>
     </div>
 
-    <!-- <div class="row">
-      <div class="col-xs-12">
-        <p>É muito importante que você deixe uma nota para este curso.</p>
-      </div>
-    </div> -->
+    <app-course-rating
+      [isSubscribed]="course.isSubscribed"
+      [courseId]="course.courseId"
+      [ratings]="course.ratings">
+    </app-course-rating>
 
   </div>
 </div>

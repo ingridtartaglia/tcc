@@ -1,5 +1,9 @@
 export class Rating {
+  constructor(courseId: number) {
+    this.courseId = courseId;
+  }
   ratingId: number;
-  name: string;
+  courseId: number;
+  grade: string;
   comment: string;
 }
