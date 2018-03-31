@@ -9,6 +9,9 @@ export class Course {
   category: string;
   instructor: string;
   description: string;
+  isSubscribed: boolean;
+  videosCount: number;
+  courseRating: number;
   keywords: Keyword[];
   lessons: Lesson[];
   materials: Material[];

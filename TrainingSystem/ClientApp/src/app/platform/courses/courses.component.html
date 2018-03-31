@@ -22,12 +22,19 @@
             {{ keyword.name }}
           </span>
         </p>
+
+        <button
+          *ngIf="!course.isSubscribed"
+          (click)="subscribeCourse(course.courseId)"
+          class="btn btn-primary pull-right">
+          Inscrever-se
+        </button>
       </div>
     </div>
 
     <div class="row">
       <div class="col-xs-12">
-        <h2>Conteúdo do curso</h2>
+        <h3>Conteúdo do curso</h3>
 
         <accordion>
           <accordion-group
@@ -35,7 +42,14 @@
             heading="{{ lesson.name }}">
             <ol *ngIf="lesson.videos">
               <li *ngFor="let video of lesson.videos">
-                {{ video.name }}
+                <a
+                  *ngIf="course.isSubscribed; else noSubscribed"
+                  href="Uploads/{{ video.fileName }}">
+                  {{ video.name }}
+                </a>
+                <ng-template #noSubscribed>
+                  {{ video.name }}
+                </ng-template>
               </li>
               <li *ngIf="lesson.exam">
                 Atividade avaliativa
@@ -46,7 +60,15 @@
             heading="Materiais complementares">
             <ul *ngIf="course.materials">
               <li *ngFor="let material of course.materials">
-                {{ material.name }}
+                <a
+                  *ngIf="course.isSubscribed; else noSubscribed"
+                  href="Uploads/{{ material.fileName }}"
+                  target="_blank">
+                  {{ material.name }}
+                </a>
+                <ng-template #noSubscribed>
+                  {{ material.name }}
+                </ng-template>
               </li>
             </ul>
           </accordion-group>

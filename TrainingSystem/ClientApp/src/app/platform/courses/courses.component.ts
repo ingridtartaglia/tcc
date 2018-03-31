@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { Course } from '../../shared/models/course.model';
 import { CourseService } from '../../shared/services/course.service';
+import { SubscriptionService } from '../../shared/services/subscription.service';
 
 @Component({
   selector: 'app-courses',
@@ -12,7 +13,9 @@ import { CourseService } from '../../shared/services/course.service';
 export class CoursesComponent implements OnInit {
   course: Course;
 
-  constructor(private courseService: CourseService, private route: ActivatedRoute) { }
+  constructor(private courseService: CourseService,
+    private subscriptionService: SubscriptionService,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.getCourse();
@@ -23,4 +26,14 @@ export class CoursesComponent implements OnInit {
     this.courseService.getById(id).subscribe(course => this.course = course);
   }
 
+  subscribeCourse(courseId: number) {
+    this.subscriptionService.create(courseId)
+      .subscribe(
+        data => {
+          this.getCourse();
+        },
+        error => {
+          console.error();
+        });
+  }
 }
