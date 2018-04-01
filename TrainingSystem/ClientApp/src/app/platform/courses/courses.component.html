@@ -44,7 +44,7 @@
               <li *ngFor="let video of lesson.videos">
                 <a
                   *ngIf="course.isSubscribed; else noSubscribed"
-                  href="Uploads/{{ video.fileName }}">
+                  [routerLink]="['/platform/courses', course.courseId, 'videos', video.videoId]">
                   {{ video.name }}
                 </a>
                 <ng-template #noSubscribed>

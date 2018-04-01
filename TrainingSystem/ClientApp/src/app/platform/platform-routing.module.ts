@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { PlatformComponent } from './platform.component';
 import { HomeComponent } from './home/home.component';
 import { CoursesComponent } from './courses/courses.component';
+import { CourseVideoComponent } from './courses/course-video.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,7 @@ const routes: Routes = [
     children: [
       { path: '', component: HomeComponent },
       { path: 'courses/:courseId', component: CoursesComponent },
+      { path: 'courses/:courseId/videos/:videoId', component: CourseVideoComponent },
     ]
   }
 ];

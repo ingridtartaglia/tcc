@@ -1,0 +1,69 @@
+<div class="row" *ngIf="course">
+  <div class="col-xs-12">
+
+    <div class="row">
+      <div class="col-xs-12">
+        <h2>
+          {{ course.name }}
+          <button
+            type="button"
+            class="btn btn-primary pull-right"
+            (click)="isSidebarCollapsed = !isSidebarCollapsed">
+            Ver playlist
+          </button>
+        </h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-lg-4" [collapse]="isSidebarCollapsed">
+        <aside>
+          <ol>
+            <li *ngFor="let lesson of course.lessons">
+              {{ lesson.name }}
+              <ol *ngIf="lesson">
+                <li *ngFor="let video of lesson.videos">
+                  <a [routerLink]="['/platform/courses', course.courseId, 'videos', video.videoId]">
+                    {{ video.name }}
+                  </a>
+                </li>
+                <li *ngIf="lesson.exam">
+                  Atividade avaliativa
+                </li>
+              </ol>
+            </li>
+            <li *ngIf="course.materials">
+              Materiais complementares
+              <ul>
+                <li *ngFor="let material of course.materials">
+                  <a href="Uploads/{{ material.fileName }}" target="_blank">
+                    {{ material.name }}
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ol>
+        </aside>
+      </div>
+
+      <div class="col-xs-12 col-lg-8" *ngIf="currentVideo">
+        <div>
+          <vg-buffering></vg-buffering>
+
+          <vg-player (onPlayerReady)="onPlayerReady($event)">
+            <video
+              style="width: 100%; height: 100%;"
+              [vgMedia]="media"
+              #media
+              id="singleVideo"
+              preload="auto"
+              [src]="'Uploads/' + currentVideo.fileName"
+              controls>
+            </video>
+          </vg-player>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
