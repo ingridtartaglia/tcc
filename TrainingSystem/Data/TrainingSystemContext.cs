@@ -13,6 +13,7 @@ namespace TrainingSystem.Data
         protected override void OnModelCreating(ModelBuilder builder) {
             base.OnModelCreating(builder);
             builder.Entity<CourseSubscription>().HasKey(a => new { a.CourseId, a.EmployeeId });
+            builder.Entity<VideoWatch>().HasKey(a => new { a.VideoId, a.EmployeeId });
         }
         
         public DbSet<TrainingSystem.Models.Course> Course { get; set; }
@@ -26,5 +27,6 @@ namespace TrainingSystem.Data
         public DbSet<TrainingSystem.Models.Question> Question { get; set; }
         public DbSet<TrainingSystem.Models.Rating> Rating { get; set; }
         public DbSet<TrainingSystem.Models.Video> Video { get; set; }
+        public DbSet<TrainingSystem.Models.VideoWatch> VideoWatch { get; set; }
     }
 }

@@ -2,6 +2,7 @@ import { Keyword } from './keyword.model';
 import { Lesson } from './lesson.model';
 import { Material } from './material.model';
 import { Rating } from './rating.model';
+import { VideoWatch } from './video-watch.model';
 
 export class Course {
   courseId: number;
@@ -16,4 +17,5 @@ export class Course {
   lessons: Lesson[];
   materials: Material[];
   ratings: Rating[];
+  videoWatch: VideoWatch[];
 }

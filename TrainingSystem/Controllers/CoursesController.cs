@@ -93,11 +93,14 @@ namespace TrainingSystem.Controllers
             var employee = _context.Employee.SingleOrDefault(e => e.AppUserId == user.Id);
             var isSubscribed = _context.CourseSubscription
                                        .Any(cs => cs.CourseId == id && cs.EmployeeId == employee.EmployeeId);
-            
+            var videoWatch = _context.VideoWatch
+                                     .Where(vw => vw.EmployeeId == employee.EmployeeId)
+                                     .ToList();
             
             var vm = new CourseViewModel(course);
             vm.IsSubscribed = isSubscribed;
-
+            vm.VideoWatch = videoWatch;
+            
             if(!isSubscribed) {
                 // If user is not subscribed dont send him file info
                 vm.Materials.ForEach(m => m.FileName = null);

@@ -1,3 +1,5 @@
+import { VideoWatch } from "./video-watch.model";
+
 export class Video {
   constructor(lessonId: number) {
     this.lessonId = lessonId;
@@ -7,4 +9,5 @@ export class Video {
   fileName: string;
   lessonId: number;
   file: File;
+  videoWatch: VideoWatch;
 }

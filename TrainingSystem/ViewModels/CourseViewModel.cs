@@ -32,7 +32,7 @@ namespace TrainingSystem.ViewModels
         public List<Lesson> Lessons { get; set; }
         public List<Material> Materials { get; set; }
         public List<Rating> Ratings { get; set; }
-
+        public List<VideoWatch> VideoWatch { get; set; }
         public bool IsSubscribed { get; set; }
         public decimal? WatchedVideosPercentage { get; set; }
         public int VideosCount { get; set; }
