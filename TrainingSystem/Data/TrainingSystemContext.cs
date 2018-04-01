@@ -9,7 +9,15 @@ namespace TrainingSystem.Data
         public TrainingSystemContext(DbContextOptions<TrainingSystemContext> options) : base(options)
         {
         }
+
+        protected override void OnModelCreating(ModelBuilder builder) {
+            base.OnModelCreating(builder);
+            builder.Entity<CourseSubscription>().HasKey(a => new { a.CourseId, a.EmployeeId });
+            builder.Entity<VideoWatch>().HasKey(a => new { a.VideoId, a.EmployeeId });
+        }
+        
         public DbSet<TrainingSystem.Models.Course> Course { get; set; }
+        public DbSet<TrainingSystem.Models.CourseSubscription> CourseSubscription { get; set; }
         public DbSet<TrainingSystem.Models.QuestionChoice> QuestionChoice { get; set; }
         public DbSet<TrainingSystem.Models.Employee> Employee { get; set; }
         public DbSet<TrainingSystem.Models.Exam> Exam { get; set; }
@@ -19,5 +27,6 @@ namespace TrainingSystem.Data
         public DbSet<TrainingSystem.Models.Question> Question { get; set; }
         public DbSet<TrainingSystem.Models.Rating> Rating { get; set; }
         public DbSet<TrainingSystem.Models.Video> Video { get; set; }
+        public DbSet<TrainingSystem.Models.VideoWatch> VideoWatch { get; set; }
     }
 }

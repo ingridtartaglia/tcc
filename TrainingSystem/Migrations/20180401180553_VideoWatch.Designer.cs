@@ -11,8 +11,8 @@ using TrainingSystem.Data;
 namespace TrainingSystem.Migrations
 {
     [DbContext(typeof(TrainingSystemContext))]
-    [Migration("20180305021155_Initial")]
-    partial class Initial
+    [Migration("20180401180553_VideoWatch")]
+    partial class VideoWatch
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -205,6 +205,19 @@ namespace TrainingSystem.Migrations
                     b.ToTable("Course");
                 });
 
+            modelBuilder.Entity("TrainingSystem.Models.CourseSubscription", b =>
+                {
+                    b.Property<int>("CourseId");
+
+                    b.Property<int>("EmployeeId");
+
+                    b.HasKey("CourseId", "EmployeeId");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("CourseSubscription");
+                });
+
             modelBuilder.Entity("TrainingSystem.Models.Employee", b =>
                 {
                     b.Property<int>("EmployeeId")
@@ -261,7 +274,8 @@ namespace TrainingSystem.Migrations
 
                     b.Property<int>("CourseId");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.HasKey("LessonId");
 
@@ -297,7 +311,7 @@ namespace TrainingSystem.Migrations
 
                     b.Property<int>("ExamId");
 
-                    b.Property<string>("QuestionName")
+                    b.Property<string>("Name")
                         .IsRequired();
 
                     b.HasKey("QuestionId");
@@ -314,7 +328,7 @@ namespace TrainingSystem.Migrations
 
                     b.Property<bool>("IsCorrect");
 
-                    b.Property<string>("QuestionChoiceName")
+                    b.Property<string>("Name")
                         .IsRequired();
 
                     b.Property<int>("QuestionId");
@@ -335,7 +349,7 @@ namespace TrainingSystem.Migrations
 
                     b.Property<int>("CourseId");
 
-                    b.Property<int>("Name");
+                    b.Property<int>("Grade");
 
                     b.HasKey("RatingId");
 
@@ -362,6 +376,21 @@ namespace TrainingSystem.Migrations
                     b.HasIndex("LessonId");
 
                     b.ToTable("Video");
+                });
+
+            modelBuilder.Entity("TrainingSystem.Models.VideoWatch", b =>
+                {
+                    b.Property<int>("VideoId");
+
+                    b.Property<int>("EmployeeId");
+
+                    b.Property<bool>("IsCompleted");
+
+                    b.HasKey("VideoId", "EmployeeId");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("VideoWatch");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -406,6 +435,19 @@ namespace TrainingSystem.Migrations
                     b.HasOne("TrainingSystem.Models.AppUser")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("TrainingSystem.Models.CourseSubscription", b =>
+                {
+                    b.HasOne("TrainingSystem.Models.Course", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("TrainingSystem.Models.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -459,7 +501,7 @@ namespace TrainingSystem.Migrations
             modelBuilder.Entity("TrainingSystem.Models.QuestionChoice", b =>
                 {
                     b.HasOne("TrainingSystem.Models.Question", "Question")
-                        .WithMany()
+                        .WithMany("QuestionChoices")
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -477,6 +519,19 @@ namespace TrainingSystem.Migrations
                     b.HasOne("TrainingSystem.Models.Lesson", "Lesson")
                         .WithMany("Videos")
                         .HasForeignKey("LessonId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("TrainingSystem.Models.VideoWatch", b =>
+                {
+                    b.HasOne("TrainingSystem.Models.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("TrainingSystem.Models.Video", "Video")
+                        .WithMany()
+                        .HasForeignKey("VideoId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

@@ -5,11 +5,10 @@ using System.Threading.Tasks;
 
 namespace TrainingSystem.Models
 {
-    public class Rating
+    public class CourseSubscription
     {
-        public int RatingId { get; set; }
-        public int Grade { get; set; }
-        public string Comment { get; set; }
+        public int EmployeeId { get; set; }
+        public Employee Employee { get; set; }
 
         public int CourseId { get; set; }
         public Course Course { get; set; }

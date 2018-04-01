@@ -40,11 +40,11 @@ namespace TrainingSystem.Tests.ControllerTests
             };
             var rating1 = new Rating() {
                 CourseId = 1,
-                Name = 5
+                Grade = 5
             };
             var rating2 = new Rating() {
                 CourseId = 1,
-                Name = 4
+                Grade = 4
             };
             _dbContext.Course.Add(course);
             _dbContext.Rating.Add(rating1);
@@ -79,7 +79,7 @@ namespace TrainingSystem.Tests.ControllerTests
             };
             var rating = new Rating() {
                 CourseId = 1,
-                Name = 5
+                Grade = 5
             };
             _dbContext.Course.Add(course);
             _dbContext.Rating.Add(rating);
@@ -113,7 +113,7 @@ namespace TrainingSystem.Tests.ControllerTests
             };
             var rating = new Rating() {
                 CourseId = 1,
-                Name = 5
+                Grade = 5
             };
             _dbContext.Course.Add(course);
             _dbContext.Rating.Add(rating);
@@ -150,7 +150,7 @@ namespace TrainingSystem.Tests.ControllerTests
 
             var ratingToAdd = new Rating() {
                 CourseId = 1,
-                Name = 5
+                Grade = 5
             };
 
             var objectValidator = new Mock<IObjectModelValidator>();
@@ -168,7 +168,7 @@ namespace TrainingSystem.Tests.ControllerTests
             // Assert
             Assert.Equal((int)HttpStatusCode.Created, response.StatusCode);
             ((Rating)response.Value).RatingId.Should().NotBe(0);
-            ((Rating)response.Value).Name.Should().Be(5);
+            ((Rating)response.Value).Grade.Should().Be(5);
         }
 
         [Fact]
@@ -184,14 +184,14 @@ namespace TrainingSystem.Tests.ControllerTests
             var rating = new Rating() {
                 RatingId = 1,
                 CourseId = 1,
-                Name = 5
+                Grade = 5
             };
             _dbContext.Course.Add(course);
             _dbContext.Rating.Add(rating);
             _dbContext.SaveChanges();
 
             var ratingToUpdate = _dbContext.Rating.FirstOrDefaultAsync(r => r.RatingId == 1).Result;
-            ratingToUpdate.Name = 4;
+            ratingToUpdate.Grade = 4;
 
             var objectValidator = new Mock<IObjectModelValidator>();
             objectValidator.Setup(o => o.Validate(It.IsAny<ActionContext>(),
@@ -221,7 +221,7 @@ namespace TrainingSystem.Tests.ControllerTests
             };
             var rating = new Rating() {
                 CourseId = 1,
-                Name = 5
+                Grade = 5
             };
             _dbContext.Course.Add(course);
             _dbContext.Rating.Add(rating);
@@ -230,7 +230,7 @@ namespace TrainingSystem.Tests.ControllerTests
             var ratingToUpdate = new Rating() {
                 CourseId = 1,
                 RatingId = 50,
-                Name = 5
+                Grade = 5
             };
             var objectValidator = new Mock<IObjectModelValidator>();
             objectValidator.Setup(o => o.Validate(It.IsAny<ActionContext>(),
@@ -260,7 +260,7 @@ namespace TrainingSystem.Tests.ControllerTests
             };
             var rating = new Rating() {
                 CourseId = 1,
-                Name = 5
+                Grade = 5
             };
             _dbContext.Course.Add(course);
             _dbContext.Rating.Add(rating);
@@ -269,7 +269,7 @@ namespace TrainingSystem.Tests.ControllerTests
             var ratingToUpdate = new Rating() {
                 CourseId = 1,
                 RatingId = 1,
-                Name = 5
+                Grade = 5
             };
             var objectValidator = new Mock<IObjectModelValidator>();
             objectValidator.Setup(o => o.Validate(It.IsAny<ActionContext>(),
@@ -299,7 +299,7 @@ namespace TrainingSystem.Tests.ControllerTests
             };
             var rating = new Rating() {
                 CourseId = 1,
-                Name = 5
+                Grade = 5
             };
             _dbContext.Course.Add(course);
             _dbContext.Rating.Add(rating);

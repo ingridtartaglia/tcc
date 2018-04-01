@@ -11,8 +11,8 @@ using TrainingSystem.Data;
 namespace TrainingSystem.Migrations
 {
     [DbContext(typeof(TrainingSystemContext))]
-    [Migration("20180325213747_Question")]
-    partial class Question
+    [Migration("20180331160251_RatingGrade")]
+    partial class RatingGrade
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -205,6 +205,19 @@ namespace TrainingSystem.Migrations
                     b.ToTable("Course");
                 });
 
+            modelBuilder.Entity("TrainingSystem.Models.CourseSubscription", b =>
+                {
+                    b.Property<int>("CourseId");
+
+                    b.Property<int>("EmployeeId");
+
+                    b.HasKey("CourseId", "EmployeeId");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("CourseSubscription");
+                });
+
             modelBuilder.Entity("TrainingSystem.Models.Employee", b =>
                 {
                     b.Property<int>("EmployeeId")
@@ -315,7 +328,7 @@ namespace TrainingSystem.Migrations
 
                     b.Property<bool>("IsCorrect");
 
-                    b.Property<string>("QuestionChoiceName")
+                    b.Property<string>("Name")
                         .IsRequired();
 
                     b.Property<int>("QuestionId");
@@ -336,7 +349,7 @@ namespace TrainingSystem.Migrations
 
                     b.Property<int>("CourseId");
 
-                    b.Property<int>("Name");
+                    b.Property<int>("Grade");
 
                     b.HasKey("RatingId");
 
@@ -407,6 +420,19 @@ namespace TrainingSystem.Migrations
                     b.HasOne("TrainingSystem.Models.AppUser")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("TrainingSystem.Models.CourseSubscription", b =>
+                {
+                    b.HasOne("TrainingSystem.Models.Course", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("TrainingSystem.Models.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

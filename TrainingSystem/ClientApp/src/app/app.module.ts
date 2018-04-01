@@ -19,6 +19,10 @@ import { VideoService } from './shared/services/video.service';
 import { ExamService } from './shared/services/exam.service';
 import { MaterialService } from './shared/services/material.service';
 import { QuestionService } from './shared/services/question.service';
+import { SubscriptionService } from './shared/services/subscription.service';
+import { RatingService } from './shared/services/rating.service';
+import { VideoWatchService } from './shared/services/video-watch.service';
+
 
 @NgModule({
   declarations: [
@@ -43,6 +47,9 @@ import { QuestionService } from './shared/services/question.service';
     ExamService,
     MaterialService,
     QuestionService,
+    SubscriptionService,
+    RatingService,
+    VideoWatchService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,

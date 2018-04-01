@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace TrainingSystem.Migrations
 {
-    public partial class Initial : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -219,7 +219,7 @@ namespace TrainingSystem.Migrations
                     LessonId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CourseId = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -275,6 +275,30 @@ namespace TrainingSystem.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CourseSubscription",
+                columns: table => new
+                {
+                    CourseId = table.Column<int>(nullable: false),
+                    EmployeeId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CourseSubscription", x => new { x.CourseId, x.EmployeeId });
+                    table.ForeignKey(
+                        name: "FK_CourseSubscription_Course_CourseId",
+                        column: x => x.CourseId,
+                        principalTable: "Course",
+                        principalColumn: "CourseId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CourseSubscription_Employee_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employee",
+                        principalColumn: "EmployeeId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Exam",
                 columns: table => new
                 {
@@ -321,7 +345,7 @@ namespace TrainingSystem.Migrations
                     QuestionId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ExamId = table.Column<int>(nullable: false),
-                    QuestionName = table.Column<string>(nullable: false)
+                    Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -341,7 +365,7 @@ namespace TrainingSystem.Migrations
                     QuestionChoiceId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     IsCorrect = table.Column<bool>(nullable: false),
-                    QuestionChoiceName = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
                     QuestionId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -393,6 +417,11 @@ namespace TrainingSystem.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CourseSubscription_EmployeeId",
+                table: "CourseSubscription",
+                column: "EmployeeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Employee_AppUserId",
@@ -459,7 +488,7 @@ namespace TrainingSystem.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Employee");
+                name: "CourseSubscription");
 
             migrationBuilder.DropTable(
                 name: "Keyword");
@@ -480,10 +509,13 @@ namespace TrainingSystem.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Employee");
 
             migrationBuilder.DropTable(
                 name: "Question");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Exam");
