@@ -65,6 +65,16 @@ namespace TrainingSystem.Controllers
             string email = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var user = _userManager.FindByEmailAsync(email).Result;
             var employee = _context.Employee.SingleOrDefault(e => e.AppUserId == user.Id);
+
+            // checking if this user is already approved for this exam
+            var lastExam = _context.UserExam
+                                   .OrderByDescending(e => e.SubmissionDate)
+                                   .FirstOrDefault(e => e.EmployeeId == employee.EmployeeId);
+            
+            if (lastExam != null && lastExam.IsApproved) {
+                return BadRequest("User is already approved in this exam");
+            }
+
             userExam.EmployeeId = employee.EmployeeId;
 
             // check if user is approved

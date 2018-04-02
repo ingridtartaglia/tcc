@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -11,6 +12,7 @@ namespace TrainingSystem.Models
         public int ExamId { get; set; }
         public Exam Exam { get; set; }
         public List<UserExamChoice> UserExamChoices { get; set; }
-        public bool IsApproved { get; set; } 
+        public bool IsApproved { get; set; }
+        public DateTime SubmissionDate { get; set; }
     }
 }
