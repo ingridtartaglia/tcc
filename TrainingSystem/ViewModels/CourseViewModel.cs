@@ -33,10 +33,27 @@ namespace TrainingSystem.ViewModels
         public List<Material> Materials { get; set; }
         public List<Rating> Ratings { get; set; }
         public List<VideoWatch> VideoWatch { get; set; }
+        public List<UserExam> UserExams { get; set; }
         public bool IsSubscribed { get; set; }
-        public decimal? WatchedVideosPercentage { get; set; }
+        public decimal? WatchedVideosPercentage { 
+            get { 
+                if (VideoWatch == null) {
+                    return 0;
+                }
+                return (VideoWatch.Count(vw => vw.IsCompleted) / VideosCount) * 100;
+            }
+        }
+        public decimal? ApprovedExamsPercentage {
+            get {
+                if (UserExams == null) {
+                    return 0;
+                }
+                return (UserExams.Count(ue => ue.IsApproved) / ExamsCount) * 100;
+            }
+        }
         public int VideosCount { get; set; }
+        public int ExamsCount { get; set; }
         public double? CourseRating { get; set; }
-        public bool IsCompleted { get; set; }
+        public bool IsCompleted => ApprovedExamsPercentage == 100 && WatchedVideosPercentage == 100;
     }
 }
