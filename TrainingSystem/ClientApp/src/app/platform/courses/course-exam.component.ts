@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { Question } from '../../shared/models/question.model';
 import { Exam } from '../../shared/models/exam.model';
 import { ExamService } from '../../shared/services/exam.service';
 import { QuestionService } from '../../shared/services/question.service';
+import { UserExam } from '../../shared/models/user-exam.model';
+import { UserExamService } from '../../shared/services/user-exam.service';
 
 @Component({
   selector: 'app-course-exam',
@@ -13,10 +14,11 @@ import { QuestionService } from '../../shared/services/question.service';
 })
 export class CourseExamComponent implements OnInit {
   exam: Exam;
-  questions: Question[];
+  newUserExam: UserExam;
+  selectedChoices: object;
 
   constructor(private examService: ExamService,
-    private questionService: QuestionService,
+    private userExamService: UserExamService,
     private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -29,6 +31,17 @@ export class CourseExamComponent implements OnInit {
   }
 
   submitExam() {
+    this.newUserExam = new UserExam(this.exam.examId);
+    this.exam.questions.forEach((question, index) => this.newUserExam.userExamChoices[index].questionChoiceId = question.choiceId);
 
+    this.userExamService.create(this.newUserExam)
+      .subscribe(
+        data => {
+          console.log(data);
+        },
+        error => {
+          console.error();
+        }
+      );
   }
 }
