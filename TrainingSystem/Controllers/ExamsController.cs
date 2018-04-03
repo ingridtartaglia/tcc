@@ -42,6 +42,7 @@ namespace TrainingSystem.Controllers
             var exam = await _context.Exam
                 .Include(e => e.Lesson)
                 .Include(e => e.Questions)
+                    .ThenInclude(q => q.QuestionChoices)
                 .SingleOrDefaultAsync(e => e.ExamId == id);
 
             if (exam == null)

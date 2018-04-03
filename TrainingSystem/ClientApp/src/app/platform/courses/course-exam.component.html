@@ -1,0 +1,41 @@
+<div class="row" *ngIf="exam">
+  <div class="col-xs-12">
+    <h2>Atividade avaliativa</h2>
+
+    <p class="lead">Responda as questões a seguir:</p>
+
+    <form
+      #f="ngForm"
+      name="form"
+      (ngSubmit)="f.form.valid && submitExam()"
+      novalidate>
+
+      <ol>
+        <li *ngFor="let question of exam.questions">
+          <p>
+            {{ question.name }}
+          </p>
+          <div
+            class="radio"
+            *ngFor="let questionChoice of question.questionChoices">
+            <label>
+              <input
+                type="radio"
+                name="optionsRadios"
+                id="optionsRadios1"
+                value="option1">
+                {{ questionChoice.name }}
+            </label>
+          </div>
+        </li>
+      </ol>
+
+      <button
+        [disabled]="!f.valid"
+        type="submit"
+        class="btn btn-primary pull-right">
+        Enviar
+      </button>
+    </form>
+  </div>
+</div>

@@ -28,7 +28,9 @@
                   </a>
                 </li>
                 <li *ngIf="lesson.exam">
-                  Atividade avaliativa
+                  <a [routerLink]="['/platform/courses', course.courseId, 'exams', lesson.exam.examId]">
+                    Atividade avaliativa
+                  </a>
                 </li>
               </ol>
             </li>

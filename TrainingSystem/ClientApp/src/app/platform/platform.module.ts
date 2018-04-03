@@ -13,6 +13,7 @@ import { HomeComponent } from './home/home.component';
 import { CoursesComponent } from './courses/courses.component';
 import { CourseRatingComponent } from './courses/course-rating.component';
 import { CourseVideoComponent } from './courses/course-video.component';
+import { CourseExamComponent } from './courses/course-exam.component';
 
 @NgModule({
   imports: [
@@ -34,7 +35,8 @@ import { CourseVideoComponent } from './courses/course-video.component';
     HomeComponent,
     CoursesComponent,
     CourseRatingComponent,
-    CourseVideoComponent
+    CourseVideoComponent,
+    CourseExamComponent
   ]
 })
 export class PlatformModule { }
