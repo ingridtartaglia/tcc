@@ -45,7 +45,7 @@ namespace TrainingSystem.ViewModels
         }
         public decimal? ApprovedExamsPercentage {
             get {
-                if (UserExams == null) {
+                if (UserExams == null || ExamsCount == 0) {
                     return 0;
                 }
                 return (UserExams.Count(ue => ue.IsApproved) / ExamsCount) * 100;

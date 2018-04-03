@@ -17,7 +17,8 @@ namespace TrainingSystem.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     EmployeeId = table.Column<int>(nullable: false),
                     ExamId = table.Column<int>(nullable: false),
-                    IsApproved = table.Column<bool>(nullable: false)
+                    IsApproved = table.Column<bool>(nullable: false),
+                    SubmissionDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -40,12 +41,14 @@ namespace TrainingSystem.Migrations
                 name: "UserExamChoice",
                 columns: table => new
                 {
+                    UserExamChoiceId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     QuestionChoiceId = table.Column<int>(nullable: false),
-                    UserExamId = table.Column<int>(nullable: false)
+                    UserExamId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserExamChoice", x => new { x.QuestionChoiceId, x.UserExamId });
+                    table.PrimaryKey("PK_UserExamChoice", x => x.UserExamChoiceId);
                     table.ForeignKey(
                         name: "FK_UserExamChoice_QuestionChoice_QuestionChoiceId",
                         column: x => x.QuestionChoiceId,
@@ -57,7 +60,7 @@ namespace TrainingSystem.Migrations
                         column: x => x.UserExamId,
                         principalTable: "UserExam",
                         principalColumn: "UserExamId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -69,6 +72,11 @@ namespace TrainingSystem.Migrations
                 name: "IX_UserExam_ExamId",
                 table: "UserExam",
                 column: "ExamId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserExamChoice_QuestionChoiceId",
+                table: "UserExamChoice",
+                column: "QuestionChoiceId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserExamChoice_UserExamId",

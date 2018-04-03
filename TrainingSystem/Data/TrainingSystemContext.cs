@@ -14,7 +14,10 @@ namespace TrainingSystem.Data
             base.OnModelCreating(builder);
             builder.Entity<CourseSubscription>().HasKey(a => new { a.CourseId, a.EmployeeId });
             builder.Entity<VideoWatch>().HasKey(a => new { a.VideoId, a.EmployeeId });
-            builder.Entity<UserExamChoice>().HasKey(a => new { a.QuestionChoiceId, a.UserExamId });
+            builder.Entity<UserExamChoice>()
+                .HasOne(e=> e.UserExam)
+                .WithMany(e => e.UserExamChoices)
+                .HasForeignKey(e => e.UserExamId);
         }
         
         public DbSet<TrainingSystem.Models.Course> Course { get; set; }

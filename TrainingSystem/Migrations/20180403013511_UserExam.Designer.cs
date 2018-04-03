@@ -11,7 +11,7 @@ using TrainingSystem.Data;
 namespace TrainingSystem.Migrations
 {
     [DbContext(typeof(TrainingSystemContext))]
-    [Migration("20180401221815_UserExam")]
+    [Migration("20180403013511_UserExam")]
     partial class UserExam
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -369,6 +369,8 @@ namespace TrainingSystem.Migrations
 
                     b.Property<bool>("IsApproved");
 
+                    b.Property<DateTime>("SubmissionDate");
+
                     b.HasKey("UserExamId");
 
                     b.HasIndex("EmployeeId");
@@ -380,11 +382,16 @@ namespace TrainingSystem.Migrations
 
             modelBuilder.Entity("TrainingSystem.Models.UserExamChoice", b =>
                 {
+                    b.Property<int>("UserExamChoiceId")
+                        .ValueGeneratedOnAdd();
+
                     b.Property<int>("QuestionChoiceId");
 
-                    b.Property<int>("UserExamId");
+                    b.Property<int?>("UserExamId");
 
-                    b.HasKey("QuestionChoiceId", "UserExamId");
+                    b.HasKey("UserExamChoiceId");
+
+                    b.HasIndex("QuestionChoiceId");
 
                     b.HasIndex("UserExamId");
 
@@ -569,8 +576,7 @@ namespace TrainingSystem.Migrations
 
                     b.HasOne("TrainingSystem.Models.UserExam", "UserExam")
                         .WithMany("UserExamChoices")
-                        .HasForeignKey("UserExamId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserExamId");
                 });
 
             modelBuilder.Entity("TrainingSystem.Models.Video", b =>
