@@ -76,6 +76,7 @@ namespace TrainingSystem.Controllers
             }
 
             userExam.EmployeeId = employee.EmployeeId;
+            userExam.SubmissionDate = DateTime.Now;
 
             // check if user is approved
             var rightQuestionsCount = 0;

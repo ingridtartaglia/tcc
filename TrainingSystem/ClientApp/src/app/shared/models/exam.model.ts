@@ -1,4 +1,5 @@
 import { Question } from './question.model';
+import { Lesson } from './lesson.model';
 
 export class Exam {
   constructor(lessonId: number) {
@@ -6,5 +7,6 @@ export class Exam {
   }
   lessonId: number;
   examId: number;
+  lesson: Lesson;
   questions: Question[];
 }

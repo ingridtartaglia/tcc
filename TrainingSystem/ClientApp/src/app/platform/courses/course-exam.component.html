@@ -1,4 +1,4 @@
-<div class="row" *ngIf="exam">
+<div class="row" *ngIf="exam && !isExamSubmitted">
   <div class="col-xs-12">
     <h2>Atividade avaliativa</h2>
 
@@ -21,9 +21,9 @@
             <label>
               <input
                 type="radio"
-                name="optionsRadios"
-                id="optionsRadios1"
-                value="option1">
+                name="{{ question.questionId }}"
+                [value]="questionChoice.questionChoiceId"
+                [(ngModel)]="question.choiceId">
                 {{ questionChoice.name }}
             </label>
           </div>
@@ -37,5 +37,41 @@
         Enviar
       </button>
     </form>
+  </div>
+</div>
+
+<div class="row" *ngIf="!isApproved && isExamSubmitted">
+  <div class="col-xs-12">
+    <p class="lead">
+      Infelizmente você não conseguiu passar nesta atividade.
+    </p>
+
+    <button
+      [routerLink]="['/platform/courses', exam.lesson.courseId]"
+      type="button"
+      class="btn btn-primary">
+      Voltar para o curso
+    </button>
+    <button
+      (click)="reload()"
+      type="button"
+      class="btn btn-primary">
+      Refazer questões
+    </button>
+  </div>
+</div>
+
+<div class="row" *ngIf="isApproved && isExamSubmitted">
+  <div class="col-xs-12">
+    <p class="lead">
+      Parabéns! Você conseguiu a aprovação nesta atividade!
+    </p>
+
+    <button
+      [routerLink]="['/platform/courses', exam.lesson.courseId]"
+      type="button"
+      class="btn btn-primary">
+      Voltar para o curso
+    </button>
   </div>
 </div>

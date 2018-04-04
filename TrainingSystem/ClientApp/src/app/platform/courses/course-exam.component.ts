@@ -16,6 +16,8 @@ export class CourseExamComponent implements OnInit {
   exam: Exam;
   newUserExam: UserExam;
   selectedChoices: object;
+  isExamSubmitted: boolean;
+  isApproved: boolean;
 
   constructor(private examService: ExamService,
     private userExamService: UserExamService,
@@ -37,11 +39,16 @@ export class CourseExamComponent implements OnInit {
     this.userExamService.create(this.newUserExam)
       .subscribe(
         data => {
-          console.log(data);
+          this.isExamSubmitted = true;
+          this.isApproved = data.isApproved;
         },
         error => {
           console.error();
         }
       );
+  }
+
+  reload() {
+    window.location.reload();
   }
 }
