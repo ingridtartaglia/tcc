@@ -20,6 +20,7 @@ namespace TrainingSystem.ViewModels
 
             VideosCount = course.Lessons == null ? 0 : course.Lessons.Sum(l => l.Videos.Count());
             CourseRating = course.Ratings.Any() ? (double?)course.Ratings.Average(r => r.Grade) : null;
+            ExamsCount = course.Lessons == null ? 0 : course.Lessons.Count(l => l.Exam != null);
         }
 
         public int CourseId { get; set; }

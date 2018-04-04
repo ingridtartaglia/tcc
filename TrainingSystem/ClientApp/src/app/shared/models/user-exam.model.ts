@@ -3,7 +3,7 @@ import { UserExamChoice } from './user-exam-choice.model';
 export class UserExam {
   constructor(examId: number) {
     this.examId = examId;
-    this.userExamChoices = [new UserExamChoice(), new UserExamChoice(), new UserExamChoice()];
+    this.userExamChoices = [];
   }
   userExamId: number;
   employeeId: number;
