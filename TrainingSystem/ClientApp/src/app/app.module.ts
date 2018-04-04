@@ -50,7 +50,7 @@ import { UserExamService } from './shared/services/user-exam.service';
     SubscriptionService,
     RatingService,
     VideoWatchService,
-    UserExamService
+    UserExamService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,

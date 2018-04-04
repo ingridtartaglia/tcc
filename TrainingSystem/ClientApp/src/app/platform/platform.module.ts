@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AccordionModule, RatingModule, TabsModule, CollapseModule } from 'ngx-bootstrap';
+import { AccordionModule, RatingModule, TabsModule, CollapseModule, AlertModule } from 'ngx-bootstrap';
 import { VgCoreModule } from 'videogular2/core';
 import { VgControlsModule } from 'videogular2/controls';
 import { VgOverlayPlayModule } from 'videogular2/overlay-play';
@@ -25,6 +25,7 @@ import { CourseExamComponent } from './courses/course-exam.component';
     RatingModule.forRoot(),
     TabsModule.forRoot(),
     CollapseModule.forRoot(),
+    AlertModule.forRoot(),
     VgCoreModule,
     VgControlsModule,
     VgOverlayPlayModule,

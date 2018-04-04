@@ -81,11 +81,11 @@ namespace TrainingSystem.Controllers
             // check if user is approved
             var rightQuestionsCount = 0;
             foreach (var userChoice in userExam.UserExamChoices) {
-                // for each answers given by the user, check in the database if it´s the correct one
+                // for each answers given by the user, check in the database if it's the correct one
                 var choice = _context.QuestionChoice
                         .SingleOrDefault(qc => qc.QuestionChoiceId == userChoice.QuestionChoiceId);
                 
-                // if it´s correct add to count
+                // if it's correct add to count
                 if(choice.IsCorrect) {
                     rightQuestionsCount++;
                 }
