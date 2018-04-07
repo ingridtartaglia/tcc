@@ -11,6 +11,7 @@ export class Course {
   instructor: string;
   description: string;
   isSubscribed: boolean;
+  isCompleted: boolean;
   videosCount: number;
   courseRating: number;
   keywords: Keyword[];

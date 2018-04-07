@@ -9,4 +9,6 @@ export class Question {
   questionId: number;
   name: string;
   questionChoices: QuestionChoice[];
+
+  choiceId: number;
 }

@@ -92,14 +92,23 @@ namespace TrainingSystem.Controllers
 
             var employee = _context.Employee.SingleOrDefault(e => e.AppUserId == user.Id);
             var isSubscribed = _context.CourseSubscription
-                                       .Any(cs => cs.CourseId == id && cs.EmployeeId == employee.EmployeeId);
+                                       .Any(cs => cs.CourseId == id && 
+                                                  cs.EmployeeId == employee.EmployeeId);
+            var videoIds = course.Lessons.SelectMany(l=> l.Videos.Select(v => v.VideoId)).ToList();
             var videoWatch = _context.VideoWatch
-                                     .Where(vw => vw.EmployeeId == employee.EmployeeId)
+                                     .Where(vw => vw.EmployeeId == employee.EmployeeId &&
+                                                  videoIds.Contains(vw.VideoId))
                                      .ToList();
-            
+            var examIds = course.Lessons.Where(l => l.Exam != null).Select(l => l.Exam.ExamId).ToList();
+            var userExams = _context.UserExam
+                                    .Where(ue => ue.EmployeeId == employee.EmployeeId &&
+                                                 examIds.Contains(ue.ExamId))
+                                    .ToList();
+
             var vm = new CourseViewModel(course);
             vm.IsSubscribed = isSubscribed;
             vm.VideoWatch = videoWatch;
+            vm.UserExams = userExams;
             
             if(!isSubscribed) {
                 // If user is not subscribed dont send him file info

@@ -1,6 +1,15 @@
 <div class="row" *ngIf="course">
   <div class="col-xs-12">
 
+    <alert type="success" *ngIf="course.isCompleted">
+      <p class="lead">
+        <strong>Parabéns!</strong> Você foi aprovado neste curso!
+      </p>
+      <p>
+        Para obter o seu certificado de participação, <a href="#" class="alert-link">clique aqui</a>.
+      </p>
+    </alert>
+
     <div class="row">
       <div class="col-xs-12">
         <h2>Detalhes do curso</h2>
@@ -52,7 +61,14 @@
                 </ng-template>
               </li>
               <li *ngIf="lesson.exam">
-                Atividade avaliativa
+                <a
+                  *ngIf="course.isSubscribed && !course.isCompleted; else noSubscribed"
+                  [routerLink]="['/platform/courses', course.courseId, 'exams', lesson.exam.examId]">
+                  Atividade avaliativa
+                </a>
+                <ng-template #noSubscribed>
+                  Atividade avaliativa
+                </ng-template>
               </li>
             </ol>
           </accordion-group>
