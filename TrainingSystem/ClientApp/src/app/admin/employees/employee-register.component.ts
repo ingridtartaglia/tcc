@@ -1,0 +1,33 @@
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { Register } from '../../shared/models/register.model';
+import { EmployeeService } from '../../shared/services/employee.service';
+
+@Component({
+  selector: 'app-employee-register',
+  templateUrl: './employee-register.component.html',
+  styleUrls: ['./employee-register.component.css']
+})
+export class EmployeeRegisterComponent implements OnInit {
+  register: Register;
+
+  constructor(private router: Router,
+    private employeeService: EmployeeService) { }
+
+  ngOnInit() {
+    this.register = new Register();
+  }
+
+  registerEmployees() {
+    this.employeeService.create(this.register)
+      .subscribe(
+        data => {
+          this.router.navigate(['/admin/employees/list']);
+        },
+        error => {
+          console.error();
+        });
+  }
+
+}

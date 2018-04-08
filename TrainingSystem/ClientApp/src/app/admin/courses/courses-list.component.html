@@ -1,0 +1,46 @@
+<div class="container-fluid" *ngIf="courses">
+  <div class="row">
+    <div class="col-xs-12">
+      <h2>Lista de cursos</h2>
+
+      <div class="table-responsive" *ngIf="courses.length > 0; else noCourses">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Curso</th>
+              <th>Instrutor</th>
+              <th>Categoria</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let course of courses">
+              <td>{{ course.name }}</td>
+              <td>{{ course.instructor }}</td>
+              <td>{{ course.category }}</td>
+              <td>
+                <a [routerLink]="['/admin/courses', course.courseId]">
+                  <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
+                </a>
+                <a (click)="deleteCourse(course.courseId)">
+                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <ng-template #noCourses>
+        <p>
+          Sem cursos no momento.
+        </p>
+      </ng-template>
+
+      <button
+        [routerLink]="['/admin/courses/add']"
+        class="btn btn-primary pull-right">
+        Adicionar curso
+      </button>
+    </div>
+  </div>
+</div>

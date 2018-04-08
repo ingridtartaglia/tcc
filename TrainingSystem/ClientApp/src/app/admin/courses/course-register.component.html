@@ -1,0 +1,92 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12">
+      <h2>Cadastrar curso</h2>
+
+        <form
+          #f="ngForm"
+          name="form"
+          (ngSubmit)="f.form.valid && addCourse()"
+          novalidate>
+          <div class="form-group"
+            [ngClass]="{ 'has-error': name.touched && !name.valid }">
+            <label for="name">Nome do curso*</label>
+            <input
+              type="text"
+              class="form-control"
+              name="name"
+              [(ngModel)]="course.name"
+              #name="ngModel"
+              required />
+            <div *ngIf="name.touched && !name.valid"
+              class="help-block">
+              Nome obrigatório
+            </div>
+          </div>
+
+          <div class="form-group"
+            [ngClass]="{ 'has-error': category.touched && !category.valid }">
+            <label for="category">Categoria do curso*</label>
+            <input
+              type="text"
+              class="form-control"
+              name="category"
+              [(ngModel)]="course.category"
+              #category="ngModel"
+              required />
+            <div *ngIf="category.touched && !category.valid"
+              class="help-block">
+              Categoria obrigatória
+            </div>
+          </div>
+
+          <div class="form-group"
+            [ngClass]="{ 'has-error': instructor.touched && !instructor.valid }">
+            <label for="instructor">Nome do instrutor*</label>
+            <input
+              type="text"
+              class="form-control"
+              name="instructor"
+              [(ngModel)]="course.instructor"
+              #instructor="ngModel"
+              required />
+            <div *ngIf="instructor.touched && !instructor.valid"
+              class="help-block">
+              Instrutor obrigatório
+            </div>
+          </div>
+
+          <div class="form-group"
+            [ngClass]="{ 'has-error': description.touched && !description.valid }">
+            <label for="description">Descrição do curso</label>
+            <input
+              type="text"
+              class="form-control"
+              name="description"
+              [(ngModel)]="course.description"
+              #description="ngModel" />
+          </div>
+
+          <div class="form-group">
+            <label for="description">Palavras-chave</label>
+            <tag-input
+              [(ngModel)]="course.keywords"
+              [editable]="true"
+              [identifyBy]="'name'"
+              [displayBy]="'name'"
+              [ngModelOptions]="{standalone: true}"
+              secondaryPlaceholder="Adicione uma palavra aqui"
+              theme="minimal">
+            </tag-input>
+          </div>
+
+          <button
+            type="submit"
+            [disabled]="!f.valid"
+            class="btn btn-primary">
+            Cadastrar
+          </button>
+        </form>
+    </div>
+  </div>
+</div>

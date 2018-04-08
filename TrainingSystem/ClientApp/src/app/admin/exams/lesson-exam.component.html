@@ -1,0 +1,170 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div *ngIf="exam; else noExam">
+      <div *ngIf="exam.questions.length > 0; else noQuestions">
+        <ol>
+          <li *ngFor="let question of exam.questions">
+            <p>
+              {{ question.name }}
+              <a (click)="deleteQuestion(question.questionId)">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              </a>
+            </p>
+            <ol>
+              <li
+                type="a"
+                *ngFor="let questionChoice of question.questionChoices"
+                [ngClass]="{'text-success': questionChoice.isCorrect }">
+                {{ questionChoice.name }}
+              </li>
+            </ol>
+          </li>
+        </ol>
+      </div>
+      <ng-template #noQuestions>
+        Sem questões disponíveis no momento.
+      </ng-template>
+    </div>
+    <ng-template #noExam>
+      <p>Essa unidade ainda não possui avaliação.</p>
+    </ng-template>
+
+    <button
+      *ngIf="!exam"
+      (click)="addExam()"
+      class="btn btn-primary pull-right">
+      Adicionar avaliação
+    </button>
+
+    <button
+      *ngIf="exam"
+      (click)="showQuestionForm()"
+      class="btn btn-primary pull-right">
+      Adicionar questão
+    </button>
+  </div>
+</div>
+
+<div class="row" *ngIf="isQuestionFormVisible">
+  <div class="col-xs-12">
+    <h2>Questões</h2>
+
+    <form
+      #f="ngForm"
+      name="form"
+      (ngSubmit)="f.form.valid && addQuestion()"
+      novalidate>
+      <div
+        class="form-group"
+        [ngClass]="{ 'has-error': newQuestionName.touched && !newQuestionName.valid }">
+        <label for="newQuestionName">Pergunta*</label>
+        <input
+          type="text"
+          class="form-control"
+          name="newQuestionName"
+          [(ngModel)]="newQuestion.name"
+          #newQuestionName="ngModel"
+          required />
+        <div
+          *ngIf="newQuestionName.touched && !newQuestionName.valid"
+          class="help-block">
+          Pergunta obrigatória
+        </div>
+      </div>
+
+        <div
+          class="form-group"
+          [ngClass]="{ 'has-error': firstQuestionChoice.touched && !firstQuestionChoice.valid }">
+          <label for="firstQuestionChoice">Primeira alternativa</label>
+          <input
+            type="text"
+            class="form-control"
+            name="firstQuestionChoice"
+            [(ngModel)]="newQuestion.questionChoices[0].name"
+            #firstQuestionChoice="ngModel"
+            required />
+          <div
+            *ngIf="firstQuestionChoice.touched && !firstQuestionChoice.valid"
+            class="help-block">
+            Resposta obrigatória
+          </div>
+          <div class="checkbox">
+            <label>
+              <input
+                type="checkbox"
+                name="firstQuestionChoiceOption"
+                [(ngModel)]="newQuestion.questionChoices[0].isCorrect">
+                Resposta correta
+            </label>
+          </div>
+        </div>
+
+      <div
+        class="form-group"
+        [ngClass]="{ 'has-error': secondQuestionChoice.touched && !secondQuestionChoice.valid }">
+        <label for="secondQuestionChoice">Segunda alternativa</label>
+        <input
+          type="text"
+          class="form-control"
+          name="secondQuestionChoice"
+          [(ngModel)]="newQuestion.questionChoices[1].name"
+          #secondQuestionChoice="ngModel"
+          required />
+        <div
+          *ngIf="secondQuestionChoice.touched && !secondQuestionChoice.valid"
+          class="help-block">
+          Resposta obrigatória
+        </div>
+        <div class="checkbox">
+          <label>
+            <input
+              type="checkbox"
+              name="firstQuestionChoiceOption"
+              [(ngModel)]="newQuestion.questionChoices[1].isCorrect">
+              Resposta correta
+          </label>
+        </div>
+      </div>
+
+      <div
+        class="form-group"
+        [ngClass]="{ 'has-error': thirdQuestionChoice.touched && !thirdQuestionChoice.valid }">
+        <label for="thirdQuestionChoice">Terceira alternativa</label>
+        <input
+          type="text"
+          class="form-control"
+          name="thirdQuestionChoice"
+          [(ngModel)]="newQuestion.questionChoices[2].name"
+          #thirdQuestionChoice="ngModel"
+          required />
+        <div
+          *ngIf="thirdQuestionChoice.touched && !thirdQuestionChoice.valid"
+          class="help-block">
+          Resposta obrigatória
+        </div>
+        <div class="checkbox">
+          <label>
+            <input
+              type="checkbox"
+              name="firstQuestionChoiceOption"
+              [(ngModel)]="newQuestion.questionChoices[2].isCorrect">
+              Resposta correta
+          </label>
+        </div>
+      </div>
+
+      <p
+        class="text-danger"
+        *ngIf="showAnswerErrorMessage">
+        Esta pergunta deve possuir uma alternativa correta.
+      </p>
+
+      <button
+        [disabled]="!f.valid"
+        type="submit"
+        class="btn btn-primary">
+        Salvar
+      </button>
+    </form>
+  </div>
+</div>

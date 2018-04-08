@@ -1,0 +1,86 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div class="table-responsive"
+      *ngIf="videos.length > 0; else noVideos">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Lista de vídeos</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let video of videos">
+            <td>{{ video.name }}</td>
+            <td>
+              <a (click)="deleteVideo(video.videoId)">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <ng-template #noVideos>
+      <p>Sem vídeos cadastrados no momento.</p>
+    </ng-template>
+
+    <button
+      (click)="showVideoForm()"
+      class="btn btn-primary">
+      Adicionar vídeo
+    </button>
+  </div>
+</div>
+
+<div class="row" *ngIf="isVideoFormVisible">
+  <div class="col-xs-12">
+    <form
+      #f="ngForm"
+      name="form"
+      (ngSubmit)="f.form.valid && addVideo()"
+      novalidate>
+      <div class="form-group"
+        [ngClass]="{ 'has-error': newVideoName.touched && !newVideoName.valid }">
+        <label for="newVideoName">Nome do vídeo*</label>
+        <input
+          type="text"
+          class="form-control"
+          name="newVideoName"
+          [(ngModel)]="newVideo.name"
+          #newVideoName="ngModel"
+          required />
+        <div
+          *ngIf="newVideoName.touched && !newVideoName.valid"
+          class="help-block">
+          Nome obrigatório
+        </div>
+      </div>
+
+      <div
+        class="form-group"
+        [ngClass]="{ 'has-error': !isFileTypeSupported && uploader.files.length > 0 }">
+        <label for="file">Upload*</label>
+        <input
+          type="file"
+          id="file"
+          name="file"
+          accept="video/mp4,video/x-m4v,video/*"
+          #uploader
+          (change)="fileChange(uploader.files)" required />
+        <div
+          *ngIf="!isFileTypeSupported && uploader.files.length > 0"
+          class="help-block">
+          Tipo de arquivo não suportado
+        </div>
+      </div>
+
+      <button
+        [disabled]="!f.valid || !fileSelected || (!isFileTypeSupported && uploader.files.length > 0)"
+        type="submit"
+        class="btn btn-primary">
+        Salvar
+      </button>
+    </form>
+  </div>
+</div>
