@@ -1,0 +1,14 @@
+<div class="row" *ngIf="course">
+  <div class="col-xs-12">
+    <h3>Certificado de aprovação</h3>
+    <p class="lead">Certificamos que</p>
+    <h2>user</h2>
+    <p class="lead">concluiu com sucesso o curso {{ course.name }}.</p>
+  </div>
+</div>
+
+<div class="row" *ngIf="course">
+  <div class="col-xs-12">
+    <button>Gerar PDF</button>
+  </div>
+</div>

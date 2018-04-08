@@ -6,7 +6,9 @@
         <strong>Parabéns!</strong> Você foi aprovado neste curso!
       </p>
       <p>
-        Para obter o seu certificado de participação, <a href="#" class="alert-link">clique aqui</a>.
+        <a class="alert-link"
+          [routerLink]="['/platform/courses', course.courseId, 'certificate']">
+          Clique aqui</a> para visualizar o seu certificado de participação.
       </p>
     </alert>
 
