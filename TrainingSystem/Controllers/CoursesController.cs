@@ -109,6 +109,7 @@ namespace TrainingSystem.Controllers
             vm.IsSubscribed = isSubscribed;
             vm.VideoWatch = videoWatch;
             vm.UserExams = userExams;
+            vm.AppUser = user;
             
             if(!isSubscribed) {
                 // If user is not subscribed dont send him file info

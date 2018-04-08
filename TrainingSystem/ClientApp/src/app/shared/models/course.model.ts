@@ -3,6 +3,7 @@ import { Lesson } from './lesson.model';
 import { Material } from './material.model';
 import { Rating } from './rating.model';
 import { VideoWatch } from './video-watch.model';
+import { AppUser } from './app-user.model';
 
 export class Course {
   courseId: number;
@@ -19,4 +20,5 @@ export class Course {
   materials: Material[];
   ratings: Rating[];
   videoWatch: VideoWatch[];
+  appUser: AppUser;
 }
