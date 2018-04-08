@@ -1,4 +1,4 @@
-<div class="row" *ngIf="course">
+<div class="row" *ngIf="course" id="certificate">
   <div class="col-xs-12">
     <h3>Certificado de aprovação</h3>
     <p class="lead">Certificamos que</p>
@@ -9,6 +9,11 @@
 
 <div class="row" *ngIf="course">
   <div class="col-xs-12">
-    <button>Gerar PDF</button>
+    <button
+      (click)="download(course)"
+      type="submit"
+      class="btn btn-primary">
+      Gerar PDF
+    </button>
   </div>
 </div>
