@@ -14,6 +14,7 @@ import { CoursesComponent } from './courses/courses.component';
 import { CourseRatingComponent } from './courses/course-rating.component';
 import { CourseVideoComponent } from './courses/course-video.component';
 import { CourseExamComponent } from './courses/course-exam.component';
+import { CourseCertificateComponent } from './courses/course-certificate.component';
 
 @NgModule({
   imports: [
@@ -37,7 +38,8 @@ import { CourseExamComponent } from './courses/course-exam.component';
     CoursesComponent,
     CourseRatingComponent,
     CourseVideoComponent,
-    CourseExamComponent
+    CourseExamComponent,
+    CourseCertificateComponent
   ]
 })
 export class PlatformModule { }

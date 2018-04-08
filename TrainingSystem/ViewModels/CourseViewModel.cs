@@ -35,6 +35,7 @@ namespace TrainingSystem.ViewModels
         public List<Rating> Ratings { get; set; }
         public List<VideoWatch> VideoWatch { get; set; }
         public List<UserExam> UserExams { get; set; }
+        public AppUser AppUser { get; set; }
         public bool IsSubscribed { get; set; }
         public decimal? WatchedVideosPercentage { 
             get { 
