@@ -2,6 +2,14 @@
   <div class="row">
     <div class="col-xs-12">
       <button *ngIf="isLoggedIn | async" type="button" class="btn btn-primary" (click)="logout()">Logout</button>
+
+      <alert
+        *ngFor="let alert of alerts"
+        [type]="alert.type"
+        [dismissible]="dismissible">
+        {{ alert.message }}
+      </alert>
+
       <router-outlet></router-outlet>
     </div>
   </div>
