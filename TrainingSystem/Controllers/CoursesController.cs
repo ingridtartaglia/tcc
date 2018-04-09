@@ -120,6 +120,48 @@ namespace TrainingSystem.Controllers
             return Ok(vm);
         }
 
+        // GET: api/Courses/User/5
+        [HttpGet("User/{id}")]
+        public async Task<IActionResult> GetUserCourses([FromRoute] int id)
+        {
+            var courseSubscriptions = _context.CourseSubscription
+                .Where(cs => cs.EmployeeId == id);
+
+            var courses = new List<CourseViewModel>();
+
+            foreach (var courseSubscription in courseSubscriptions)
+            {
+                var course = await _context.Course
+                    .Include(c => c.Lessons)
+                        .ThenInclude(l => l.Videos)
+                    .Include(c => c.Lessons)
+                        .ThenInclude(l => l.Exam)
+                    .Include(c => c.Materials)
+                    .Include(c => c.Keywords)
+                    .Include(c => c.Ratings)
+                    .SingleOrDefaultAsync(c => c.CourseId == courseSubscription.CourseId);    
+
+                var employee = _context.Employee.SingleOrDefault(e => e.EmployeeId == id);
+                var videoIds = course.Lessons.SelectMany(l => l.Videos.Select(v => v.VideoId)).ToList();
+                var videoWatch = _context.VideoWatch
+                                        .Where(vw => vw.EmployeeId == employee.EmployeeId &&
+                                                    videoIds.Contains(vw.VideoId))
+                                        .ToList();
+                var examIds = course.Lessons.Where(l => l.Exam != null).Select(l => l.Exam.ExamId).ToList();
+                var userExams = _context.UserExam
+                                        .Where(ue => ue.EmployeeId == employee.EmployeeId &&
+                                                    examIds.Contains(ue.ExamId))
+                                        .ToList();
+
+                var vm = new CourseViewModel(course);
+                vm.VideoWatch = videoWatch;
+                vm.UserExams = userExams;
+                courses.Add(vm);
+            }
+
+            return Ok(courses);
+        }
+
         // PUT: api/Courses/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCourse([FromRoute] int id, [FromBody] Course newCourse)

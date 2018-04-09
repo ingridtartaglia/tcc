@@ -14,6 +14,7 @@ export class Course {
   isSubscribed: boolean;
   isCompleted: boolean;
   videosCount: number;
+  examsCount: number;
   courseRating: number;
   keywords: Keyword[];
   lessons: Lesson[];
@@ -21,4 +22,6 @@ export class Course {
   ratings: Rating[];
   videoWatch: VideoWatch[];
   appUser: AppUser;
+  watchedVideosPercentage: number;
+  approvedExamsPercentage: number;
 }

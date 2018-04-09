@@ -39,7 +39,7 @@ namespace TrainingSystem.ViewModels
         public bool IsSubscribed { get; set; }
         public decimal? WatchedVideosPercentage { 
             get { 
-                if (VideoWatch == null) {
+                if (VideoWatch == null || VideosCount == 0) {
                     return 0;
                 }
                 return (VideoWatch.Count(vw => vw.IsCompleted) / VideosCount) * 100;
