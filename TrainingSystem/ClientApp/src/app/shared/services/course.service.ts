@@ -17,6 +17,10 @@ export class CourseService {
     return this.http.get<Course>(`/api/Courses/${courseId}`);
   }
 
+  getUserCourses(userId: number): Observable<Course[]> {
+    return this.http.get<Course[]>(`/api/Courses/User/${userId}`);
+  }
+
   create(course: Course): Observable<any> {
     return this.http.post('/api/Courses', course);
   }
