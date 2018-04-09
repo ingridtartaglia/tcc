@@ -40,8 +40,13 @@ export class AlertService {
     this.alert('success', message);
   }
 
-  error(message: string) {
-    this.alert('danger', message);
+  error(res: any) {
+    for (const key in res.error) {
+      if (res.error.hasOwnProperty(key)) {
+        const error = res.error[key];
+        this.alert('danger', error[0]);
+      }
+    }
   }
 
   clearAlert() {
