@@ -16,6 +16,29 @@
           </p>
         </div>
       </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <h4>Relatório de atividades nos cursos inscritos</h4>
+
+          <accordion>
+            <accordion-group
+              *ngFor="let course of courses"
+              heading="{{ course.name }}">
+              <p>
+                <strong>Vídeos assistidos:</strong> {{ course.videosCount }} ({{ course.watchedVideosPercentage }}%)
+              </p>
+              <p>
+                <strong>Nota:</strong> {{ course.approvedExamsPercentage ? course.approvedExamsPercentage + '%' : '--' }}
+              </p>
+              <p>
+                <strong>Situação:</strong> {{ getUserStatusInCourse(course) }}
+              </p>
+            </accordion-group>
+          </accordion>
+
+        </div>
+      </div>
     </div>
   </div>
 </div>

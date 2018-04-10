@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { TagInputModule } from 'ngx-chips';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AccordionModule } from 'ngx-bootstrap';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
@@ -24,7 +25,8 @@ import { CourseMaterialsComponent } from './materials/course-materials.component
     TagInputModule,
     ReactiveFormsModule,
     FormsModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    AccordionModule.forRoot()
   ],
   declarations: [
     HomeComponent,
