@@ -9,6 +9,7 @@ import { AuthService } from '../shared/services/auth.service';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
+  isCollapsed = true;
 
   constructor(private router: Router,
     private authService: AuthService) { }

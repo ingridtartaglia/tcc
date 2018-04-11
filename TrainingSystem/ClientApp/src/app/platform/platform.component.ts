@@ -9,6 +9,8 @@ import { AuthService } from '../shared/services/auth.service';
   styleUrls: ['./platform.component.css']
 })
 export class PlatformComponent implements OnInit {
+  isCollapsed = true;
+
   constructor(private router: Router,
     private authService: AuthService) { }
 
