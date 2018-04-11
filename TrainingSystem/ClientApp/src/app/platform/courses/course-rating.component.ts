@@ -32,6 +32,7 @@ export class CourseRatingComponent implements OnInit {
       .subscribe(
         data => {
           this.getRatings();
+          this.alertService.success('Sua nota para este curso foi adicionada com sucesso!');
         },
         error => {
           this.alertService.error(error);

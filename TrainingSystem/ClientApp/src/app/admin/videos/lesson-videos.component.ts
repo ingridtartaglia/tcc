@@ -38,6 +38,7 @@ export class LessonVideosComponent implements OnInit {
           this.newVideo = new Video(this.lessonId);
           this.isVideoFormVisible = false;
           this.updateLessonDetail.emit();
+          this.alertService.success('Vídeo adicionado com sucesso!');
         },
         error => {
           this.alertService.error(error);
@@ -50,6 +51,7 @@ export class LessonVideosComponent implements OnInit {
       .subscribe(
         data => {
           this.updateLessonDetail.emit();
+          this.alertService.success('Vídeo deletado com sucesso!');
         },
         error => {
           this.alertService.error(error);

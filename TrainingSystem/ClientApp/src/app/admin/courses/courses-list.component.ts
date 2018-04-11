@@ -29,6 +29,7 @@ export class CoursesListComponent implements OnInit {
     this.courseService.delete(id).subscribe(
       data => {
         this.getCoursesList();
+        this.alertService.success('Curso deletado com sucesso!');
       },
       error => {
         this.alertService.error(error);

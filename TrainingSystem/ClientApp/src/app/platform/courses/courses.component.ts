@@ -33,6 +33,7 @@ export class CoursesComponent implements OnInit {
       .subscribe(
         data => {
           this.getCourse();
+          this.alertService.success('Sua inscrição neste curso foi realizada com sucesso!');
         },
         error => {
           this.alertService.error(error);

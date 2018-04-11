@@ -44,6 +44,7 @@ export class CourseLessonsComponent implements OnInit {
     this.lessonService.delete(id).subscribe(
       data => {
         this.updateCourseDetail.emit();
+        this.alertService.success('Unidade deletada com sucesso!');
       },
       error => {
         this.alertService.error(error);

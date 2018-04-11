@@ -38,6 +38,7 @@ export class CourseMaterialsComponent implements OnInit {
           this.newMaterial = new Material(this.courseId);
           this.isMaterialFormVisible = false;
           this.updateCourseDetail.emit();
+          this.alertService.success('Material adicionado com sucesso!');
         },
         error => {
           this.alertService.error(error);
@@ -50,6 +51,7 @@ export class CourseMaterialsComponent implements OnInit {
       .subscribe(
         data => {
           this.updateCourseDetail.emit();
+          this.alertService.success('Material deletado com sucesso!');
         },
         error => {
           this.alertService.error(error);

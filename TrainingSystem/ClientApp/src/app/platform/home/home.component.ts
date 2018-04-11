@@ -38,6 +38,7 @@ export class HomeComponent implements OnInit {
       .subscribe(
         data => {
           this.getUserCoursesList();
+          this.alertService.success('Sua inscrição neste curso foi realizada com sucesso!');
         },
         error => {
           this.alertService.error(error);

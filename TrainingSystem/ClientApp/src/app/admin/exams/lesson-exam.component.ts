@@ -50,6 +50,7 @@ export class LessonExamComponent implements OnInit {
       .subscribe(
         data => {
           this.updateLessonDetail.emit();
+          this.alertService.success('Prova deletada com sucesso!');
         },
         error => {
           this.alertService.error(error);
@@ -78,6 +79,7 @@ export class LessonExamComponent implements OnInit {
           this.newQuestion = new Question(this.exam.examId);
           this.isQuestionFormVisible = false;
           this.updateLessonDetail.emit();
+          this.alertService.success('Questão adicionada com sucesso!');
         },
         error => {
           this.alertService.error(error);
@@ -90,6 +92,7 @@ export class LessonExamComponent implements OnInit {
       .subscribe(
         data => {
           this.updateLessonDetail.emit();
+          this.alertService.success('Questão deletada com sucesso!');
         },
         error => {
           this.alertService.error(error);
