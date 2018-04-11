@@ -24,69 +24,6 @@ namespace TrainingSystem.Controllers
             _environment = environment;
         }
 
-        // GET: api/Videos
-        [HttpGet]
-        public IEnumerable<Video> GetVideos()
-        {
-            return _context.Video.Include(v => v.Lesson);
-        }
-
-        // GET: api/Videos/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetVideo([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var video = await _context.Video
-                .Include(v => v.Lesson)
-                .SingleOrDefaultAsync(v => v.VideoId == id);
-
-            if (video == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(video);
-        }
-
-        // PUT: api/Videos/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutVideo([FromRoute] int id, [FromBody] Video video)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != video.VideoId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(video).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!VideoExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
         // POST: api/Videos
         [HttpPost]
         public async Task<IActionResult> PostVideo([FromForm] VideoViewModel videoVm)

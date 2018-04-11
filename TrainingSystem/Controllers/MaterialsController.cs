@@ -26,69 +26,6 @@ namespace TrainingSystem.Controllers
             _environment = environment;
         }
 
-        // GET: api/Materials
-        [HttpGet]
-        public IEnumerable<Material> GetMaterials()
-        {
-            return _context.Material.Include(m => m.Course);
-        }
-
-        // GET: api/Materials/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetMaterial([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var material = await _context.Material
-                .Include(m => m.Course)
-                .SingleOrDefaultAsync(m => m.MaterialId == id);
-
-            if (material == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(material);
-        }
-
-        // PUT: api/Materials/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutMaterial([FromRoute] int id, [FromBody] Material material)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != material.MaterialId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(material).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!MaterialExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
         // POST: api/Materials
         [HttpPost]
         public async Task<IActionResult> PostMaterial([FromForm] MaterialViewModel materialVm)

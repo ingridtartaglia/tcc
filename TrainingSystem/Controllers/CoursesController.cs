@@ -162,41 +162,6 @@ namespace TrainingSystem.Controllers
             return Ok(courses);
         }
 
-        // PUT: api/Courses/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCourse([FromRoute] int id, [FromBody] Course newCourse)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != newCourse.CourseId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(newCourse).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CourseExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
         // POST: api/Courses
         [HttpPost]
         public async Task<IActionResult> PostCourse([FromBody] Course course)

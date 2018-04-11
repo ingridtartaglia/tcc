@@ -28,27 +28,6 @@ namespace TrainingSystem.Controllers
             return _context.Rating.Include(r => r.Course);
         }
 
-        // GET: api/Ratings/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetRating([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var rating = await _context.Rating
-                .Include(r => r.Course)
-                .SingleOrDefaultAsync(r => r.RatingId == id);
-
-            if (rating == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(rating);
-        }
-
         // PUT: api/Ratings/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutRating([FromRoute] int id, [FromBody] Rating rating)
@@ -82,42 +61,6 @@ namespace TrainingSystem.Controllers
             }
 
             return NoContent();
-        }
-
-        // POST: api/Ratings
-        [HttpPost]
-        public async Task<IActionResult> PostRating([FromBody] Rating rating)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            _context.Rating.Add(rating);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetRating", new { id = rating.RatingId }, rating);
-        }
-
-        // DELETE: api/Ratings/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteRating([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var rating = await _context.Rating.SingleOrDefaultAsync(r => r.RatingId == id);
-            if (rating == null)
-            {
-                return NotFound();
-            }
-
-            _context.Rating.Remove(rating);
-            await _context.SaveChangesAsync();
-
-            return Ok(rating);
         }
 
         private bool RatingExists(int id)

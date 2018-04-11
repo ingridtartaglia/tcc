@@ -38,15 +38,6 @@ namespace TrainingSystem.Controllers
                 .Include(c => c.Course);
         }
 
-        // GET: api/CourseSubscriptions
-        [HttpGet("CourseSubscriptions")]
-        public IEnumerable<CourseSubscription> GetCourseSubscriptions(int id)
-        {
-            return _context.CourseSubscription
-                .Where(cs => cs.CourseId == id)
-                .Include(e => e.Employee);
-        }
-
         // POST: api/CourseSubscriptions/5
         [HttpPost("CourseSubscriptions")]
         public async Task<IActionResult> PostSubscription([FromBody] int id)
@@ -64,22 +55,5 @@ namespace TrainingSystem.Controllers
             return Ok();
         }
 
-        // DELETE: api/CourseSubscriptions/5
-        [HttpDelete("CourseSubscriptions/{id}")]
-        public async Task<IActionResult> DeleteSubscription([FromRoute] int id)
-        {
-            var user = _userManager.GetUserAsync(User).Result;
-            var courseSubscription = await _context.CourseSubscription
-                .SingleOrDefaultAsync(cs => cs.Employee.AppUserId == user.Id && cs.CourseId == id);
-            if (courseSubscription == null)
-            {
-                return NotFound();
-            }
-
-            _context.CourseSubscription.Remove(courseSubscription);
-            await _context.SaveChangesAsync();
-
-            return Ok(courseSubscription);
-        }
     }
 }

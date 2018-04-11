@@ -53,7 +53,6 @@ namespace TrainingSystem.Controllers
         }
 
         // POST: api/Employees
-        //[Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> PostEmployee([FromBody] RegisterViewModel registerViewModel)
         {
@@ -96,28 +95,7 @@ namespace TrainingSystem.Controllers
 
             return CreatedAtAction("GetEmployee", new { id = employee.EmployeeId }, employee);
         }
-
-        // DELETE: api/Employees/5
-        [Authorize(Roles = "Admin")]
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteEmployee([FromRoute] int id)
-        {
-            if (!ModelState.IsValid) {
-                return BadRequest(ModelState);
-            }
-
-            var employee = await _context.Employee.SingleOrDefaultAsync(e => e.EmployeeId == id);
-            if (employee == null) {
-                return NotFound();
-            }
-
-            _context.Employee.Remove(employee);
-            await _userManager.DeleteAsync(employee.AppUser);
-            await _context.SaveChangesAsync();
-
-            return Ok(employee);
-        }
-
+        
         private bool EmployeeExists(int id)
         {
             return _context.Employee.Any(e => e.EmployeeId == id);
