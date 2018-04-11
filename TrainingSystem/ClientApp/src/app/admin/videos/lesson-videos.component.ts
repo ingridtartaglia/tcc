@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { Video } from '../../shared/models/video.model';
 import { VideoService } from '../../shared/services/video.service';
+import { AlertService } from '../../shared/services/alert.service';
 
 @Component({
   selector: 'app-lesson-videos',
@@ -18,7 +19,9 @@ export class LessonVideosComponent implements OnInit {
   fileSelected: Boolean = false;
   isFileTypeSupported: Boolean = false;
 
-  constructor(private videoService: VideoService, private router: Router) { }
+  constructor(private videoService: VideoService,
+    private alertService: AlertService,
+    private router: Router) { }
 
   ngOnInit() {
     this.newVideo = new Video(this.lessonId);
@@ -35,9 +38,10 @@ export class LessonVideosComponent implements OnInit {
           this.newVideo = new Video(this.lessonId);
           this.isVideoFormVisible = false;
           this.updateLessonDetail.emit();
+          this.alertService.success('Vídeo adicionado com sucesso!');
         },
         error => {
-          console.error();
+          this.alertService.error(error);
         }
       );
   }
@@ -47,9 +51,10 @@ export class LessonVideosComponent implements OnInit {
       .subscribe(
         data => {
           this.updateLessonDetail.emit();
+          this.alertService.success('Vídeo deletado com sucesso!');
         },
         error => {
-          console.error();
+          this.alertService.error(error);
         }
       );
   }

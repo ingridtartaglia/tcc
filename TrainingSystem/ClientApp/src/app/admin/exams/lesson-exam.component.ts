@@ -4,6 +4,7 @@ import { Exam } from '../../shared/models/exam.model';
 import { ExamService } from '../../shared/services/exam.service';
 import { Question } from '../../shared/models/question.model';
 import { QuestionService } from '../../shared/services/question.service';
+import { AlertService } from '../../shared/services/alert.service';
 
 @Component({
   selector: 'app-lesson-exam',
@@ -20,7 +21,9 @@ export class LessonExamComponent implements OnInit {
   isQuestionFormVisible: Boolean = false;
   showAnswerErrorMessage: Boolean = false;
 
-  constructor(private examService: ExamService, private questionService: QuestionService) { }
+  constructor(private examService: ExamService,
+    private alertService: AlertService,
+    private questionService: QuestionService) { }
 
   ngOnInit() {
     if (!this.exam) {
@@ -37,7 +40,7 @@ export class LessonExamComponent implements OnInit {
           this.updateLessonDetail.emit();
         },
         error => {
-          console.error();
+          this.alertService.error(error);
         }
       );
   }
@@ -47,9 +50,10 @@ export class LessonExamComponent implements OnInit {
       .subscribe(
         data => {
           this.updateLessonDetail.emit();
+          this.alertService.success('Prova deletada com sucesso!');
         },
         error => {
-          console.error();
+          this.alertService.error(error);
         }
       );
   }
@@ -75,9 +79,10 @@ export class LessonExamComponent implements OnInit {
           this.newQuestion = new Question(this.exam.examId);
           this.isQuestionFormVisible = false;
           this.updateLessonDetail.emit();
+          this.alertService.success('Questão adicionada com sucesso!');
         },
         error => {
-          console.error();
+          this.alertService.error(error);
         }
       );
   }
@@ -87,9 +92,10 @@ export class LessonExamComponent implements OnInit {
       .subscribe(
         data => {
           this.updateLessonDetail.emit();
+          this.alertService.success('Questão deletada com sucesso!');
         },
         error => {
-          console.error();
+          this.alertService.error(error);
         }
       );
   }

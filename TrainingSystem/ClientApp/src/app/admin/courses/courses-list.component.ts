@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { Course } from '../../shared/models/course.model';
 import { CourseService } from '../../shared/services/course.service';
+import { AlertService } from '../../shared/services/alert.service';
 
 @Component({
   selector: 'app-courses-list',
@@ -12,7 +13,9 @@ import { CourseService } from '../../shared/services/course.service';
 export class CoursesListComponent implements OnInit {
   courses: Course[];
 
-  constructor(private router: Router, private courseService: CourseService) { }
+  constructor(private router: Router,
+    private alertService: AlertService,
+    private courseService: CourseService) { }
 
   ngOnInit() {
     this.getCoursesList();
@@ -26,9 +29,10 @@ export class CoursesListComponent implements OnInit {
     this.courseService.delete(id).subscribe(
       data => {
         this.getCoursesList();
+        this.alertService.success('Curso deletado com sucesso!');
       },
       error => {
-        console.error();
+        this.alertService.error(error);
       }
     );
   }

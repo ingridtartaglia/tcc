@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { Register } from '../../shared/models/register.model';
 import { EmployeeService } from '../../shared/services/employee.service';
+import { AlertService } from '../../shared/services/alert.service';
 
 @Component({
   selector: 'app-employee-register',
@@ -13,6 +14,7 @@ export class EmployeeRegisterComponent implements OnInit {
   register: Register;
 
   constructor(private router: Router,
+    private alertService: AlertService,
     private employeeService: EmployeeService) { }
 
   ngOnInit() {
@@ -26,7 +28,7 @@ export class EmployeeRegisterComponent implements OnInit {
           this.router.navigate(['/admin/employees/list']);
         },
         error => {
-          console.error();
+          this.alertService.error(error);
         });
   }
 

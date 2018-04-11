@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { Lesson } from '../../shared/models/lesson.model';
 import { LessonService } from '../../shared/services/lesson.service';
+import { AlertService } from '../../shared/services/alert.service';
 
 @Component({
   selector: 'app-course-lessons',
@@ -16,7 +17,9 @@ export class CourseLessonsComponent implements OnInit {
   isLessonFormVisible: Boolean = false;
   newLesson: Lesson;
 
-  constructor(private lessonService: LessonService, private router: Router) { }
+  constructor(private lessonService: LessonService,
+    private alertService: AlertService,
+    private router: Router) { }
 
   ngOnInit() {
     this.newLesson = new Lesson(this.courseId);
@@ -33,7 +36,7 @@ export class CourseLessonsComponent implements OnInit {
           this.router.navigate([`/admin/courses/${data.courseId}/lessons/${data.lessonId}`]);
         },
         error => {
-          console.error();
+          this.alertService.error(error);
         });
   }
 
@@ -41,9 +44,10 @@ export class CourseLessonsComponent implements OnInit {
     this.lessonService.delete(id).subscribe(
       data => {
         this.updateCourseDetail.emit();
+        this.alertService.success('Unidade deletada com sucesso!');
       },
       error => {
-        console.error();
+        this.alertService.error(error);
       }
     );
   }
