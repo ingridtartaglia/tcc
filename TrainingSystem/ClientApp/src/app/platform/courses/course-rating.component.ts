@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { Rating } from '../../shared/models/rating.model';
 import { RatingService } from '../../shared/services/rating.service';
+import { AlertService } from '../../shared/services/alert.service';
 
 @Component({
   selector: 'app-course-rating',
@@ -14,7 +15,7 @@ export class CourseRatingComponent implements OnInit {
   @Input() ratings: Rating[];
   newRating: Rating;
 
-  constructor(private ratingService: RatingService) { }
+  constructor(private ratingService: RatingService, private alertService: AlertService) { }
 
   ngOnInit() {
     if (this.isSubscribed) {
@@ -33,7 +34,7 @@ export class CourseRatingComponent implements OnInit {
           this.getRatings();
         },
         error => {
-          console.error();
+          this.alertService.error(error);
         });
   }
 

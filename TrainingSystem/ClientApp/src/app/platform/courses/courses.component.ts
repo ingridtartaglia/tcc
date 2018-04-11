@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Course } from '../../shared/models/course.model';
 import { CourseService } from '../../shared/services/course.service';
 import { SubscriptionService } from '../../shared/services/subscription.service';
+import { AlertService } from '../../shared/services/alert.service';
 
 @Component({
   selector: 'app-courses',
@@ -14,6 +15,7 @@ export class CoursesComponent implements OnInit {
   course: Course;
 
   constructor(private courseService: CourseService,
+    private alertService: AlertService,
     private subscriptionService: SubscriptionService,
     private route: ActivatedRoute) { }
 
@@ -33,7 +35,7 @@ export class CoursesComponent implements OnInit {
           this.getCourse();
         },
         error => {
-          console.error();
+          this.alertService.error(error);
         });
   }
 }
