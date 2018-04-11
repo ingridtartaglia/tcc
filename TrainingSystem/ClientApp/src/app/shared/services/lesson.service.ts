@@ -9,10 +9,6 @@ export class LessonService {
 
   constructor(private http: HttpClient) { }
 
-  getAll(): Observable<Lesson[]> {
-    return this.http.get<Lesson[]>('/api/Lessons');
-  }
-
   getById(lessonId: number): Observable<Lesson> {
     return this.http.get<Lesson>(`/api/Lessons/${lessonId}`);
   }

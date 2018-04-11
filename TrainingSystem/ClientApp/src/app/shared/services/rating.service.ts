@@ -13,15 +13,8 @@ export class RatingService {
     return this.http.get<Rating[]>('/api/Ratings');
   }
 
-  getById(ratingId: number): Observable<Rating> {
-    return this.http.get<Rating>(`/api/Ratings/${ratingId}`);
-  }
-
   create(rating: Rating): Observable<any> {
     return this.http.post('/api/Ratings', rating);
   }
 
-  delete(ratingId: number): Observable<any> {
-    return this.http.delete(`/api/Ratings/${ratingId}`);
-  }
 }
