@@ -21,18 +21,6 @@ namespace TrainingSystem.Controllers
             _context = context;
         }
 
-        // GET: api/Lessons
-        [HttpGet]
-        public IEnumerable<Lesson> GetLessons()
-        {
-            return _context.Lesson
-                .Include(l => l.Course)
-                .Include(l => l.Videos)
-                .Include(l => l.Exam)
-                    .ThenInclude(e => e.Questions)
-                        .ThenInclude(q => q.QuestionChoices);
-        }
-
         // GET: api/Lessons/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetLesson([FromRoute] int id)
@@ -56,41 +44,6 @@ namespace TrainingSystem.Controllers
             }
 
             return Ok(lesson);
-        }
-
-        // PUT: api/Lessons/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutLesson([FromRoute] int id, [FromBody] Lesson lesson)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != lesson.LessonId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(lesson).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!LessonExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
         }
 
         // POST: api/Lessons

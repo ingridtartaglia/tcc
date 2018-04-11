@@ -9,14 +9,6 @@ export class QuestionService {
 
   constructor(private http: HttpClient) { }
 
-  getAll(): Observable<Question[]> {
-    return this.http.get<Question[]>('/api/Questions');
-  }
-
-  getById(questionId: number): Observable<Question> {
-    return this.http.get<Question>(`/api/Questions/${questionId}`);
-  }
-
   create(question: Question): Observable<any> {
     return this.http.post('/api/Questions', question);
   }

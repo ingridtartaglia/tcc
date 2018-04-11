@@ -4,6 +4,7 @@ import { Course } from '../../shared/models/course.model';
 import { CourseService } from '../../shared/services/course.service';
 import { SubscriptionService } from '../../shared/services/subscription.service';
 import { CourseSubscription } from '../../shared/models/course-subscription.model';
+import { AlertService } from '../../shared/services/alert.service';
 
 @Component({
   selector: 'app-home',
@@ -15,6 +16,7 @@ export class HomeComponent implements OnInit {
   userCourses: CourseSubscription[];
 
   constructor(private courseService: CourseService,
+    private alertService: AlertService,
     private subscriptionService: SubscriptionService) { }
 
   ngOnInit() {
@@ -36,9 +38,10 @@ export class HomeComponent implements OnInit {
       .subscribe(
         data => {
           this.getUserCoursesList();
+          this.alertService.success('Sua inscrição neste curso foi realizada com sucesso!');
         },
         error => {
-          console.error();
+          this.alertService.error(error);
         });
   }
 }

@@ -9,14 +9,6 @@ export class VideoService {
 
   constructor(private http: HttpClient) { }
 
-  getAll(): Observable<Video[]> {
-    return this.http.get<Video[]>('/api/Videos');
-  }
-
-  getById(videoId: number): Observable<Video> {
-    return this.http.get<Video>(`/api/Videos/${videoId}`);
-  }
-
   create(video: Video): Observable<any> {
     const formData = new FormData();
     formData.append('name', video.name);

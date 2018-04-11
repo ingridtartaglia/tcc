@@ -3,10 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 
 import { Exam } from '../../shared/models/exam.model';
 import { ExamService } from '../../shared/services/exam.service';
-import { QuestionService } from '../../shared/services/question.service';
 import { UserExam } from '../../shared/models/user-exam.model';
 import { UserExamService } from '../../shared/services/user-exam.service';
 import { UserExamChoice } from '../../shared/models/user-exam-choice.model';
+import { AlertService } from '../../shared/services/alert.service';
 
 @Component({
   selector: 'app-course-exam',
@@ -21,6 +21,7 @@ export class CourseExamComponent implements OnInit {
   isApproved: boolean;
 
   constructor(private examService: ExamService,
+    private alertService: AlertService,
     private userExamService: UserExamService,
     private route: ActivatedRoute) { }
 
@@ -46,7 +47,7 @@ export class CourseExamComponent implements OnInit {
           this.isApproved = data.isApproved;
         },
         error => {
-          console.error();
+          this.alertService.error(error);
         }
       );
   }

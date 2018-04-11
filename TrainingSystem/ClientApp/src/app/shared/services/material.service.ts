@@ -9,14 +9,6 @@ export class MaterialService {
 
   constructor(private http: HttpClient) { }
 
-  getAll(): Observable<Material[]> {
-    return this.http.get<Material[]>('/api/Materials');
-  }
-
-  getById(materialId: number): Observable<Material> {
-    return this.http.get<Material>(`/api/Materials/${materialId}`);
-  }
-
   create(material: Material): Observable<any> {
     const formData = new FormData();
     formData.append('name', material.name);

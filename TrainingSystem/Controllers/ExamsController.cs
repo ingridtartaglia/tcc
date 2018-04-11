@@ -21,16 +21,6 @@ namespace TrainingSystem.Controllers
             _context = context;
         }
 
-        // GET: api/Exams
-        [HttpGet]
-        public IEnumerable<Exam> GetExams()
-        {
-            return _context.Exam
-                .Include(e => e.Lesson)
-                .Include(e => e.Questions);
-        }
-
-        // GET: api/Exams/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetExam([FromRoute] int id)
         {
@@ -51,41 +41,6 @@ namespace TrainingSystem.Controllers
             }
 
             return Ok(exam);
-        }
-
-        // PUT: api/Exams/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutExam([FromRoute] int id, [FromBody] Exam exam)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != exam.ExamId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(exam).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ExamExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
         }
 
         // POST: api/Exams

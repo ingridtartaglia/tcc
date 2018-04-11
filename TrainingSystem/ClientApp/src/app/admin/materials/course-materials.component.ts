@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { Material } from '../../shared/models/material.model';
 import { MaterialService } from '../../shared/services/material.service';
+import { AlertService } from '../../shared/services/alert.service';
 
 @Component({
   selector: 'app-course-materials',
@@ -18,7 +19,9 @@ export class CourseMaterialsComponent implements OnInit {
   fileSelected: Boolean = false;
   isFileTypeSupported: Boolean = false;
 
-  constructor(private materialService: MaterialService, private router: Router) { }
+  constructor(private materialService: MaterialService,
+    private alertService: AlertService,
+    private router: Router) { }
 
   ngOnInit() {
     this.newMaterial = new Material(this.courseId);
@@ -35,9 +38,10 @@ export class CourseMaterialsComponent implements OnInit {
           this.newMaterial = new Material(this.courseId);
           this.isMaterialFormVisible = false;
           this.updateCourseDetail.emit();
+          this.alertService.success('Material adicionado com sucesso!');
         },
         error => {
-          console.error();
+          this.alertService.error(error);
         }
       );
   }
@@ -47,9 +51,10 @@ export class CourseMaterialsComponent implements OnInit {
       .subscribe(
         data => {
           this.updateCourseDetail.emit();
+          this.alertService.success('Material deletado com sucesso!');
         },
         error => {
-          console.error();
+          this.alertService.error(error);
         }
       );
   }

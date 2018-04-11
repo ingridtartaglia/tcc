@@ -26,38 +26,6 @@ namespace TrainingSystem.Controllers
             _userManager = userManager;
         }
 
-        // GET: api/UserExams
-        [HttpGet]
-        public IEnumerable<UserExam> GetUserExams()
-        {
-            string email = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var user = _userManager.FindByEmailAsync(email).Result;
-            var employee = _context.Employee.SingleOrDefault(e => e.AppUserId == user.Id);
-            return _context.UserExam
-                .Where(ue => ue.EmployeeId == employee.EmployeeId)
-                .Include(ue => ue.Exam);
-        }
-
-        // GET: api/UserExams/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetUserExam([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var userExam = await _context.UserExam
-                .SingleOrDefaultAsync(ue => ue.UserExamId == id);
-
-            if (userExam == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(userExam);
-        }
-
         // POST: api/UserExams
         [HttpPost]
         public async Task<IActionResult> PostUserExam([FromBody] UserExam userExam)

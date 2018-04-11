@@ -23,6 +23,7 @@ import { SubscriptionService } from './shared/services/subscription.service';
 import { RatingService } from './shared/services/rating.service';
 import { VideoWatchService } from './shared/services/video-watch.service';
 import { UserExamService } from './shared/services/user-exam.service';
+import { AlertService } from './shared/services/alert.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import { UserExamService } from './shared/services/user-exam.service';
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [
     AuthGuard,
@@ -51,6 +52,7 @@ import { UserExamService } from './shared/services/user-exam.service';
     RatingService,
     VideoWatchService,
     UserExamService,
+    AlertService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
