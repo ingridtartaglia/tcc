@@ -26,7 +26,7 @@ import { UserExamService } from './shared/services/user-exam.service';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
