@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from './shared/services/auth.service';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+
+import { AuthService } from './shared/services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -11,15 +11,9 @@ import { Observable } from 'rxjs/Observable';
 export class AppComponent implements OnInit {
   isLoggedIn: Observable<boolean>;
 
-  constructor(private router: Router,
-    private authService: AuthService) { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
     this.isLoggedIn = this.authService.isLoggedIn;
-  }
-
-  logout() {
-    this.authService.logout();
-    this.router.navigate(['/login']);
   }
 }
