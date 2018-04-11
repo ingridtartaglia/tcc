@@ -9,10 +9,6 @@ export class ExamService {
 
   constructor(private http: HttpClient) { }
 
-  getAll(): Observable<Exam[]> {
-    return this.http.get<Exam[]>('/api/Exams');
-  }
-
   getById(examId: number): Observable<Exam> {
     return this.http.get<Exam>(`/api/Exams/${examId}`);
   }

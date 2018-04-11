@@ -13,16 +13,8 @@ export class SubscriptionService {
     return this.http.get<CourseSubscription[]>('/api/Subscription/UserSubscriptions');
   }
 
-  getCourseSubscriptions(courseId: number): Observable<CourseSubscription[]> {
-    return this.http.get<CourseSubscription[]>('/api/Subscription/CourseSubscriptions');
-  }
-
   create(courseId: number): Observable<any> {
     return this.http.post('/api/Subscription/CourseSubscriptions', courseId);
-  }
-
-  delete(courseId: number): Observable<any> {
-    return this.http.delete(`/api/Subscription/CourseSubscriptions/${courseId}`);
   }
 
 }

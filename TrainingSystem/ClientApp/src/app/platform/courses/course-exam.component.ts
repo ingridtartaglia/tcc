@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 
 import { Exam } from '../../shared/models/exam.model';
 import { ExamService } from '../../shared/services/exam.service';
-import { QuestionService } from '../../shared/services/question.service';
 import { UserExam } from '../../shared/models/user-exam.model';
 import { UserExamService } from '../../shared/services/user-exam.service';
 import { UserExamChoice } from '../../shared/models/user-exam-choice.model';
