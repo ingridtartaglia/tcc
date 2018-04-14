@@ -1,0 +1,23 @@
+body {
+  padding-top: 70px;
+}
+
+.navbar {
+  background: #0275d8;
+  border: none;
+}
+
+.navbar-nav > li> a {
+  color: white;
+}
+
+li.active,
+.navbar-nav > li > a:hover {
+  background: #6ba4d6;
+}
+
+@media screen and (max-width: 768px) {
+  .navbar-toggle .icon-bar {
+    background: white;
+  }
+}

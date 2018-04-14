@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../shared/services/auth.service';
@@ -7,7 +7,8 @@ import { AlertService } from '../shared/services/alert.service';
 @Component({
   selector: 'app-platform',
   templateUrl: './platform.component.html',
-  styleUrls: ['./platform.component.css']
+  styleUrls: ['./platform.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class PlatformComponent implements OnInit {
   isCollapsed = true;
