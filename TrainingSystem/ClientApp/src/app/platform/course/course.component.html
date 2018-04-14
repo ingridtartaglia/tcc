@@ -76,7 +76,7 @@
         </accordion-group>
         <accordion-group
           heading="Materiais complementares">
-          <ul *ngIf="course.materials; else noMaterials">
+          <ul *ngIf="course.materials.length > 0; else noMaterials">
             <li *ngFor="let material of course.materials">
               <a
                 *ngIf="course.isSubscribed; else noSubscribed"
