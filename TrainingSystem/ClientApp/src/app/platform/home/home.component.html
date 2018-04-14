@@ -1,15 +1,18 @@
-<div class="row" *ngIf="courses">
+<div class="row home-text">
   <div class="col-xs-12">
+    <h3>Olá!</h3>
 
-    <h2>Olá!</h2>
+    <h4>Seja bem-vindo à sua plataforma de cursos online.</h4>
+  </div>
+</div>
 
-    <p class="lead">Seja bem-vindo à sua plataforma de cursos online.</p>
-
+<div class="row" *ngIf="courses && userCourses">
+  <div class="col-xs-12 col-lg-6">
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">Nossos cursos</h3>
       </div>
-      <table class="table">
+      <table class="table" *ngIf="courses.length > 0; else noCourses">
         <tbody>
           <tr *ngFor="let course of courses | slice:0:5">
             <td class="col-sm-11">
@@ -29,17 +32,20 @@
           </tr>
         </tbody>
       </table>
-      <div class="panel-footer" *ngIf="courses.length > 1">
+      <div class="panel-footer" *ngIf="courses.length > 5">
         <a>
           Ver lista completa de cursos
         </a>
       </div>
+      <ng-template #noCourses>
+        <div class="panel-body">
+          No momento ainda não temos cursos disponíveis :(
+        </div>
+      </ng-template>
     </div>
   </div>
-</div>
 
-<div class="row" *ngIf="userCourses">
-  <div class="col-xs-12">
+  <div class="col-xs-12 col-lg-6">
 
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -48,17 +54,16 @@
       <table class="table"
         *ngIf="userCourses.length > 0; else noUserCourses">
         <tbody>
-          <tr *ngFor="let userCourse of userCourses">
+          <tr *ngFor="let userCourse of userCourses | slice:0:5">
             <td>
               <a [routerLink]="['/platform/courses', userCourse.courseId]">
                 {{ userCourse.course.name }}
               </a>
             </td>
-            <!-- <td>porcentagem de vídeos assistidos aqui</td> -->
           </tr>
         </tbody>
       </table>
-      <div class="panel-footer" *ngIf="userCourses.length > 1">
+      <div class="panel-footer" *ngIf="userCourses.length > 5">
         <a>
           Ver todos os seus cursos
         </a>

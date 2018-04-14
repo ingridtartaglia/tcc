@@ -1,0 +1,50 @@
+<div class="container-fluid" *ngIf="courses">
+  <div class="row">
+    <div class="col-xs-12">
+      <h3>Todos os nossos cursos</h3>
+
+      <div class="table-responsive" *ngIf="courses.length > 0; else noCourses">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Curso</th>
+              <th>Instrutor</th>
+              <th>Categoria</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let course of courses">
+              <td>
+                <a [routerLink]="['/platform/courses', course.courseId]">
+                  {{ course.name }}
+                </a>
+              </td>
+              <td>
+                {{ course.instructor }}
+              </td>
+              <td>
+                {{ course.category }}
+              </td>
+              <td>
+                <button
+                  type="button"
+                  class="btn btn-success btn-xs"
+                  *ngIf="!course.isSubscribed"
+                  (click)="subscribeCourse(course.courseId)">
+                  Inscrever-se
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <ng-template #noCourses>
+        <p>
+          No momento ainda não temos cursos disponíveis :(
+        </p>
+      </ng-template>
+
+    </div>
+  </div>
+</div>

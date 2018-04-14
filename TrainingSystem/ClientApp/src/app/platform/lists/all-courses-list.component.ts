@@ -1,42 +1,40 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 
 import { Course } from '../../shared/models/course.model';
 import { CourseService } from '../../shared/services/course.service';
-import { SubscriptionService } from '../../shared/services/subscription.service';
 import { AlertService } from '../../shared/services/alert.service';
+import { SubscriptionService } from '../../shared/services/subscription.service';
 
 @Component({
-  selector: 'app-courses',
-  templateUrl: './courses.component.html',
-  styleUrls: ['./courses.component.css']
+  selector: 'app-all-courses-list',
+  templateUrl: './all-courses-list.component.html',
+  styleUrls: ['./all-courses-list.component.css']
 })
-export class CoursesComponent implements OnInit {
-  course: Course;
+export class AllCoursesListComponent implements OnInit {
+  courses: Course[];
 
   constructor(private courseService: CourseService,
     private alertService: AlertService,
-    private subscriptionService: SubscriptionService,
-    private route: ActivatedRoute) { }
+    private subscriptionService: SubscriptionService) { }
 
   ngOnInit() {
-    this.getCourse();
+    this.getCoursesList();
   }
 
-  getCourse() {
-    const id = this.route.snapshot.params.courseId;
-    this.courseService.getById(id).subscribe(course => this.course = course);
+  getCoursesList() {
+    return this.courseService.getAll().subscribe(courses => this.courses = courses);
   }
 
   subscribeCourse(courseId: number) {
     this.subscriptionService.create(courseId)
       .subscribe(
         data => {
-          this.getCourse();
           this.alertService.success('Sua inscrição neste curso foi realizada com sucesso!');
         },
         error => {
           this.alertService.error(error);
         });
   }
+
 }
+
