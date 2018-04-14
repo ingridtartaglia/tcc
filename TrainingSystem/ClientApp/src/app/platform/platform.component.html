@@ -10,14 +10,17 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <!-- <a class="navbar-brand" href="#">Sistema</a> -->
+      <a class="navbar-brand" [routerLink]="['/platform']">Sistema de treinamentos</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="app-navbar" [collapse]="isCollapsed">
       <ul class="nav navbar-nav">
         <li [routerLinkActive]="['active']">
-          <a [routerLink]="['/platform']">Cursos</a>
+          <a [routerLink]="['/platform/courses/list']">Cursos</a>
+        </li>
+        <li [routerLinkActive]="['active']">
+          <a [routerLink]="['/platform/courses/your-list']">Seus cursos</a>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">

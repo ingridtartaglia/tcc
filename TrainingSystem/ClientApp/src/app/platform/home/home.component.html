@@ -1,22 +1,26 @@
 <div class="row" *ngIf="courses">
   <div class="col-xs-12">
 
-    <div class="panel panel-info">
+    <h2>Olá!</h2>
+
+    <p class="lead">Seja bem-vindo à sua plataforma de cursos online.</p>
+
+    <div class="panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title">Cursos da plataforma</h3>
+        <h3 class="panel-title">Nossos cursos</h3>
       </div>
       <table class="table">
         <tbody>
-          <tr *ngFor="let course of courses">
-            <td>
+          <tr *ngFor="let course of courses | slice:0:5">
+            <td class="col-sm-11">
               <a [routerLink]="['/platform/courses', course.courseId]">
                 {{ course.name }}
               </a>
             </td>
-            <td>
+            <td class="col-sm-1">
               <button
                 type="button"
-                class="btn btn-primary btn-xs"
+                class="btn btn-success btn-xs pull-right"
                 *ngIf="!course.isSubscribed"
                 (click)="subscribeCourse(course.courseId)">
                 Inscrever-se
@@ -25,6 +29,11 @@
           </tr>
         </tbody>
       </table>
+      <div class="panel-footer" *ngIf="courses.length > 1">
+        <a>
+          Ver lista completa de cursos
+        </a>
+      </div>
     </div>
   </div>
 </div>
@@ -32,7 +41,7 @@
 <div class="row" *ngIf="userCourses">
   <div class="col-xs-12">
 
-    <div class="panel panel-info">
+    <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">Seus cursos</h3>
       </div>
@@ -49,6 +58,11 @@
           </tr>
         </tbody>
       </table>
+      <div class="panel-footer" *ngIf="userCourses.length > 1">
+        <a>
+          Ver todos os seus cursos
+        </a>
+      </div>
       <ng-template #noUserCourses>
         <div class="panel-body">
           Você ainda não se inscreveu em nenhum curso.
