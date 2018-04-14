@@ -11,7 +11,7 @@ import { AlertService } from '../../shared/services/alert.service';
 @Component({
   selector: 'app-course-exam',
   templateUrl: './course-exam.component.html',
-  styleUrls: ['./course-exam.component.css'],
+  styleUrls: ['./course-exam.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class CourseExamComponent implements OnInit {

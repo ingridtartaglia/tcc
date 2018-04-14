@@ -10,7 +10,7 @@ import { VideoWatchService } from '../../shared/services/video-watch.service';
 @Component({
   selector: 'app-course-video',
   templateUrl: './course-video.component.html',
-  styleUrls: ['./course-video.component.css'],
+  styleUrls: ['./course-video.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class CourseVideoComponent {

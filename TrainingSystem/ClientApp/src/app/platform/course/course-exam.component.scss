@@ -1,0 +1,29 @@
+.course-exam {
+  &__text {
+    margin: 30px 0;
+  }
+
+  &__result {
+    &--approved div,
+    &--not-approved div {
+      margin-top: 20px;
+      text-align: right;
+    }
+
+    &--approved h3,
+    &--not-approved h3 {
+      margin-top: 0;
+    }
+  }
+}
+
+form {
+  & > ol {
+    padding-left: 15px;
+    & > li {
+      margin-top: 20px;
+    }
+  }
+}
+
+

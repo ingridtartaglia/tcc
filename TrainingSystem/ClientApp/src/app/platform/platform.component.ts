@@ -7,7 +7,7 @@ import { AlertService } from '../shared/services/alert.service';
 @Component({
   selector: 'app-platform',
   templateUrl: './platform.component.html',
-  styleUrls: ['./platform.component.css'],
+  styleUrls: ['./platform.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
 export class PlatformComponent implements OnInit {

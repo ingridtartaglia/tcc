@@ -9,7 +9,7 @@ import { AlertService } from '../../shared/services/alert.service';
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
-  styleUrls: ['./course.component.css'],
+  styleUrls: ['./course.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
 export class CourseComponent implements OnInit {

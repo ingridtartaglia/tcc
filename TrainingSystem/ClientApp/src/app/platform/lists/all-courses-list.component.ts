@@ -8,7 +8,7 @@ import { SubscriptionService } from '../../shared/services/subscription.service'
 @Component({
   selector: 'app-all-courses-list',
   templateUrl: './all-courses-list.component.html',
-  styleUrls: ['./all-courses-list.component.css']
+  styleUrls: ['./all-courses-list.component.scss']
 })
 export class AllCoursesListComponent implements OnInit {
   courses: Course[];

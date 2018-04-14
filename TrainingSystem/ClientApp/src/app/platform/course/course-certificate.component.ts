@@ -9,7 +9,7 @@ import { CourseService } from '../../shared/services/course.service';
 @Component({
   selector: 'app-course-certificate',
   templateUrl: './course-certificate.component.html',
-  styleUrls: ['./course-certificate.component.css']
+  styleUrls: ['./course-certificate.component.scss']
 })
 export class CourseCertificateComponent implements OnInit {
   course: Course;

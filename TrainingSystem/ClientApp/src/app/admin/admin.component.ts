@@ -7,7 +7,7 @@ import { AlertService } from '../shared/services/alert.service';
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css'],
+  styleUrls: ['./admin.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
 export class AdminComponent implements OnInit {

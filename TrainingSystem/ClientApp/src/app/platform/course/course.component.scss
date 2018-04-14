@@ -1,0 +1,22 @@
+.course-section {
+  margin-bottom: 30px;
+}
+
+.panel-body {
+  & > ol:only-child,
+  & > ul:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.panel-group {
+  .panel + .panel {
+    margin-top: 10px;
+  }
+}
+
+span {
+  .label {
+    margin-right: 5px;
+  }
+}

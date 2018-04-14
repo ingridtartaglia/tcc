@@ -8,7 +8,7 @@ import { AlertService } from '../../shared/services/alert.service';
 @Component({
   selector: 'app-lesson-videos',
   templateUrl: './lesson-videos.component.html',
-  styleUrls: ['./lesson-videos.component.css']
+  styleUrls: ['./lesson-videos.component.scss']
 })
 export class LessonVideosComponent implements OnInit {
   @Input() videos: Video[];

@@ -8,7 +8,7 @@ import { LessonService } from '../../shared/services/lesson.service';
 @Component({
   selector: 'app-lesson-detail',
   templateUrl: './lesson-detail.component.html',
-  styleUrls: ['./lesson-detail.component.css']
+  styleUrls: ['./lesson-detail.component.scss']
 })
 export class LessonDetailComponent implements OnInit {
   lesson: Lesson;

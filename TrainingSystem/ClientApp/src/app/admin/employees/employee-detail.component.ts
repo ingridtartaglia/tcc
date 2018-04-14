@@ -9,7 +9,7 @@ import { Course } from '../../shared/models/course.model';
 @Component({
   selector: 'app-employee-detail',
   templateUrl: './employee-detail.component.html',
-  styleUrls: ['./employee-detail.component.css']
+  styleUrls: ['./employee-detail.component.scss']
 })
 export class EmployeeDetailComponent implements OnInit {
   employee: Employee;

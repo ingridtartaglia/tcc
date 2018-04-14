@@ -8,7 +8,7 @@ import { AlertService } from '../../shared/services/alert.service';
 @Component({
   selector: 'app-course-lessons',
   templateUrl: './course-lessons.component.html',
-  styleUrls: ['./course-lessons.component.css']
+  styleUrls: ['./course-lessons.component.scss']
 })
 export class CourseLessonsComponent implements OnInit {
   @Input() lessons: Lesson[];

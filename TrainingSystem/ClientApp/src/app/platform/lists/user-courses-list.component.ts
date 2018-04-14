@@ -6,7 +6,7 @@ import { AlertService } from '../../shared/services/alert.service';
 @Component({
   selector: 'app-user-courses-list',
   templateUrl: './user-courses-list.component.html',
-  styleUrls: ['./user-courses-list.component.css']
+  styleUrls: ['./user-courses-list.component.scss']
 })
 export class UserCoursesListComponent implements OnInit {
   userCourses: CourseSubscription[];
