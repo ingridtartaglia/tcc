@@ -1,0 +1,16 @@
+.course-section {
+  margin-bottom: 30px;
+}
+
+.panel-body > ol:only-child {
+  margin-bottom: 0;
+}
+
+.panel-group .panel + .panel {
+  margin-top: 10px;
+}
+
+/* .panel {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+} */

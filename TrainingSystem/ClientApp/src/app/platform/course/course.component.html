@@ -1,105 +1,107 @@
-<div class="row" *ngIf="course">
-  <div class="col-xs-12">
+<div *ngIf="course">
 
-    <alert type="success" *ngIf="course.isCompleted">
-      <p class="lead">
-        <strong>Parabéns!</strong> Você foi aprovado neste curso!
+  <alert type="success" *ngIf="course.isCompleted">
+    <p class="lead">
+      <strong>Parabéns!</strong> Você foi aprovado neste curso!
+    </p>
+    <p>
+      <a class="alert-link"
+        [routerLink]="['/platform/courses', course.courseId, 'certificate']">
+        Clique aqui</a> para visualizar o seu certificado de participação.
+    </p>
+  </alert>
+
+  <div class="row course-section">
+    <div class="col-xs-12">
+      <h3>Detalhes do curso</h3>
+
+      <p>
+        <strong>Nome:</strong> {{ course.name }}
+      </p>
+      <p *ngIf="course.description">
+        <strong>Descrição:</strong> {{ course.description }}
       </p>
       <p>
-        <a class="alert-link"
-          [routerLink]="['/platform/courses', course.courseId, 'certificate']">
-          Clique aqui</a> para visualizar o seu certificado de participação.
+        <strong>Instrutor:</strong> {{ course.instructor }}
       </p>
-    </alert>
+      <p>
+        <strong>Categoria:</strong> {{ course.category }}
+      </p>
+      <p *ngIf="course.keywords.length > 0">
+        <strong>Palavras-chave:</strong>
+        <span *ngFor="let keyword of course.keywords">
+          {{ keyword.name }}
+        </span>
+      </p>
 
-    <div class="row">
-      <div class="col-xs-12">
-        <h2>Detalhes do curso</h2>
-        <p>
-          <strong>Nome:</strong> {{ course.name }}
-        </p>
-        <p *ngIf="course.description">
-          <strong>Descrição:</strong> {{ course.description }}
-        </p>
-        <p>
-          <strong>Instrutor:</strong> {{ course.instructor }}
-        </p>
-        <p>
-          <strong>Categoria:</strong> {{ course.category }}
-        </p>
-        <p *ngIf="course.keywords.length > 0">
-          <strong>Palavras-chave:</strong>
-          <span *ngFor="let keyword of course.keywords">
-            {{ keyword.name }}
-          </span>
-        </p>
-
-        <button
-          *ngIf="!course.isSubscribed"
-          (click)="subscribeCourse(course.courseId)"
-          class="btn btn-primary pull-right">
-          Inscrever-se
-        </button>
-      </div>
+      <button
+        *ngIf="!course.isSubscribed"
+        (click)="subscribeCourse(course.courseId)"
+        class="btn btn-success">
+        Inscrever-se
+      </button>
     </div>
-
-    <div class="row">
-      <div class="col-xs-12">
-        <h3>Conteúdo do curso</h3>
-
-        <accordion>
-          <accordion-group
-            *ngFor="let lesson of course.lessons"
-            heading="{{ lesson.name }}">
-            <ol *ngIf="lesson.videos">
-              <li *ngFor="let video of lesson.videos">
-                <a
-                  *ngIf="course.isSubscribed; else noSubscribed"
-                  [routerLink]="['/platform/courses', course.courseId, 'videos', video.videoId]">
-                  {{ video.name }}
-                </a>
-                <ng-template #noSubscribed>
-                  {{ video.name }}
-                </ng-template>
-              </li>
-              <li *ngIf="lesson.exam">
-                <a
-                  *ngIf="course.isSubscribed && !course.isCompleted; else noSubscribed"
-                  [routerLink]="['/platform/courses', course.courseId, 'exams', lesson.exam.examId]">
-                  Atividade avaliativa
-                </a>
-                <ng-template #noSubscribed>
-                  Atividade avaliativa
-                </ng-template>
-              </li>
-            </ol>
-          </accordion-group>
-          <accordion-group
-            heading="Materiais complementares">
-            <ul *ngIf="course.materials">
-              <li *ngFor="let material of course.materials">
-                <a
-                  *ngIf="course.isSubscribed; else noSubscribed"
-                  href="Uploads/{{ material.fileName }}"
-                  target="_blank">
-                  {{ material.name }}
-                </a>
-                <ng-template #noSubscribed>
-                  {{ material.name }}
-                </ng-template>
-              </li>
-            </ul>
-          </accordion-group>
-        </accordion>
-
-      </div>
-    </div>
-
-    <app-course-rating
-      [isSubscribed]="course.isSubscribed"
-      [courseId]="course.courseId"
-      [ratings]="course.ratings">
-    </app-course-rating>
-
   </div>
+
+  <div class="row course-section">
+    <div class="col-xs-12">
+      <h3>Conteúdo do curso</h3>
+
+      <accordion>
+        <accordion-group
+          *ngFor="let lesson of course.lessons"
+          heading="{{ lesson.name }}">
+          <ol *ngIf="lesson.videos.length > 0">
+            <li *ngFor="let video of lesson.videos">
+              <a
+                *ngIf="course.isSubscribed; else noSubscribed"
+                [routerLink]="['/platform/courses', course.courseId, 'videos', video.videoId]">
+                {{ video.name }}
+              </a>
+              <ng-template #noSubscribed>
+                {{ video.name }}
+              </ng-template>
+            </li>
+            <li *ngIf="lesson.exam">
+              <a
+                *ngIf="course.isSubscribed && !course.isCompleted; else noSubscribed"
+                [routerLink]="['/platform/courses', course.courseId, 'exams', lesson.exam.examId]">
+                Atividade avaliativa
+              </a>
+              <ng-template #noSubscribed>
+                Atividade avaliativa
+              </ng-template>
+            </li>
+          </ol>
+        </accordion-group>
+        <accordion-group
+          heading="Materiais complementares">
+          <ul *ngIf="course.materials; else noMaterials">
+            <li *ngFor="let material of course.materials">
+              <a
+                *ngIf="course.isSubscribed; else noSubscribed"
+                href="Uploads/{{ material.fileName }}"
+                target="_blank">
+                {{ material.name }}
+              </a>
+              <ng-template #noSubscribed>
+                {{ material.name }}
+              </ng-template>
+            </li>
+          </ul>
+          <ng-template #noMaterials>
+            Este curso não possui material disponível.
+          </ng-template>
+        </accordion-group>
+      </accordion>
+
+    </div>
+  </div>
+
+  <app-course-rating
+    [isSubscribed]="course.isSubscribed"
+    [courseId]="course.courseId"
+    [ratings]="course.ratings">
+  </app-course-rating>
+
 </div>

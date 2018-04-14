@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Course } from '../../shared/models/course.model';
@@ -9,7 +9,8 @@ import { AlertService } from '../../shared/services/alert.service';
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
-  styleUrls: ['./course.component.css']
+  styleUrls: ['./course.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class CourseComponent implements OnInit {
   course: Course;
