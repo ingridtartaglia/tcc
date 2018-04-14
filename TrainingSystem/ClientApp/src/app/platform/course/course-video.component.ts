@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { VgAPI } from 'videogular2/core';
 
@@ -10,13 +10,14 @@ import { VideoWatchService } from '../../shared/services/video-watch.service';
 @Component({
   selector: 'app-course-video',
   templateUrl: './course-video.component.html',
-  styleUrls: ['./course-video.component.css']
+  styleUrls: ['./course-video.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class CourseVideoComponent {
   api: VgAPI;
   course: Course;
   currentVideo: Video;
-  isSidebarCollapsed: Boolean = true;
+  isSidebarCollapsed: Boolean = window.innerWidth > 992 ? false : true;
   videos: object = {};
   showCompletedMessage: Boolean = false;
 

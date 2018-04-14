@@ -1,22 +1,22 @@
 <div class="row" *ngIf="course">
   <div class="col-xs-12">
 
-    <div class="row">
+    <div class="row course-video__title">
       <div class="col-xs-12">
         <h2>
-          {{ course.name }}
+          {{ currentVideo.name }}
           <button
             type="button"
-            class="btn btn-primary pull-right"
+            class="btn btn-default pull-right"
             (click)="isSidebarCollapsed = !isSidebarCollapsed">
-            Ver playlist
+            {{ isSidebarCollapsed ? 'Ver' : 'Esconder' }} playlist
           </button>
         </h2>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-xs-12 col-lg-4" [collapse]="isSidebarCollapsed">
+      <div class="col-xs-12 col-md-4" [collapse]="isSidebarCollapsed">
         <aside>
           <ol>
             <li *ngFor="let lesson of course.lessons">
@@ -48,13 +48,15 @@
         </aside>
       </div>
 
-      <div class="col-xs-12 col-lg-8" *ngIf="currentVideo">
+      <div
+        class="col-xs-12"
+        [ngClass]="{'col-md-8': !isSidebarCollapsed}"
+        *ngIf="currentVideo">
         <div>
           <vg-buffering></vg-buffering>
 
           <vg-player (onPlayerReady)="onPlayerReady($event)">
             <video
-              style="width: 100%; height: 100%;"
               [vgMedia]="media"
               #media
               id="singleVideo"

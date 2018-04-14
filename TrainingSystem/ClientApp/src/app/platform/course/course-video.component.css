@@ -1,0 +1,35 @@
+.course-video__title {
+  margin-bottom: 30px;
+}
+
+video {
+  height: 100%;
+  width: 100%;
+}
+
+aside {
+  background: #F3F9FF;
+  padding: 20px 0;
+  margin-bottom: 20px;
+}
+
+aside > ol {
+  margin-bottom: 0;
+}
+
+aside > ol > li > ol,
+aside > ol > li > ul {
+  margin-bottom: 20px;
+  padding-left: 15px;
+}
+
+aside > ol > li > ol > li,
+aside > ol > li > ul > li {
+  margin: 5px 0;
+}
+
+@media screen and (max-width: 767px) {
+  .course-video__title {
+    margin-bottom: 10px;
+  }
+}

@@ -29,7 +29,9 @@
       </p>
       <p *ngIf="course.keywords.length > 0">
         <strong>Palavras-chave:</strong>
-        <span *ngFor="let keyword of course.keywords">
+        <span
+          class="label label-default"
+          *ngFor="let keyword of course.keywords">
           {{ keyword.name }}
         </span>
       </p>

@@ -19,7 +19,8 @@ body {
 }
 
 li.active,
-.navbar-nav > li > a:hover {
+.navbar-nav > li > a:hover,
+.navbar-nav > li > a:focus {
   background: #6ba4d6;
 }
 
