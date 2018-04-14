@@ -1,8 +1,11 @@
-<div class="row" *ngIf="exam && !isExamSubmitted">
+<!-- <div class="row" *ngIf="exam && !isExamSubmitted">
   <div class="col-xs-12">
-    <h2>Atividade avaliativa</h2>
+    <h3>Avaliação</h3>
 
-    <p class="lead">Responda as questões a seguir:</p>
+    <p class="course-exam__text">
+      Para ser aprovado neste curso, além de assistir a todos os vídeos,
+      é preciso fazer todas as atividades previstas e acertar pelo menos 70% das questões.
+    </p>
 
     <form
       #f="ngForm"
@@ -33,44 +36,54 @@
       <button
         [disabled]="!f.valid"
         type="submit"
-        class="btn btn-primary pull-right">
+        class="btn btn-success pull-right">
         Enviar
       </button>
     </form>
   </div>
-</div>
+</div> -->
 
-<div class="row" *ngIf="!isApproved && isExamSubmitted">
-  <div class="col-xs-12">
-    <p class="lead">
-      Infelizmente você não conseguiu passar nesta atividade.
-    </p>
+<div
+  class="alert alert-danger course-exam__result--not-approved"
+  *ngIf="!isApproved && isExamSubmitted">
 
+  <p class="lead">
+    Ops! Infelizmente você não conseguiu passar nesta atividade :(
+  </p>
+
+  <p>
+    Você pode voltar pro curso pra estudar mais um pouco ou tentar resolver
+    as questões novamente.
+  </p>
+
+  <div>
     <button
       [routerLink]="['/platform/courses', exam.lesson.courseId]"
       type="button"
-      class="btn btn-primary">
+      class="btn btn-default">
       Voltar para o curso
     </button>
     <button
       (click)="reload()"
       type="button"
-      class="btn btn-primary">
+      class="btn btn-success">
       Refazer questões
     </button>
   </div>
 </div>
 
-<div class="row" *ngIf="isApproved && isExamSubmitted">
-  <div class="col-xs-12">
-    <p class="lead">
-      Parabéns! Você conseguiu a aprovação nesta atividade!
-    </p>
+<div
+  class="alert alert-success course-exam__result--approved"
+  *ngIf="isApproved && isExamSubmitted">
+  <p class="lead">
+    <strong>Parabéns!</strong> Você conseguiu a aprovação nesta atividade!
+  </p>
 
+  <div>
     <button
       [routerLink]="['/platform/courses', exam.lesson.courseId]"
       type="button"
-      class="btn btn-primary">
+      class="btn btn-default">
       Voltar para o curso
     </button>
   </div>
