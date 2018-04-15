@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as jsPDF from 'jspdf';
 import * as html2canvas from 'html2canvas';
@@ -9,7 +9,8 @@ import { CourseService } from '../../shared/services/course.service';
 @Component({
   selector: 'app-course-certificate',
   templateUrl: './course-certificate.component.html',
-  styleUrls: ['./course-certificate.component.scss']
+  styleUrls: ['./course-certificate.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class CourseCertificateComponent implements OnInit {
   course: Course;
@@ -36,7 +37,7 @@ export class CourseCertificateComponent implements OnInit {
         const courseName = course.name.replace(/ /g, '_');
 
         // (image, format, xPosition, yPosition, width, height)
-        doc.addImage(img, 'png', 10, 10, width, height);
+        doc.addImage(img, 'png', 0, 0, width, height);
         doc.save(`Certificado_${course.appUser.firstName}_${courseName}.pdf`);
       });
   }

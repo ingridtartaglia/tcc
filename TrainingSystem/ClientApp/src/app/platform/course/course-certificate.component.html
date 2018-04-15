@@ -1,18 +1,20 @@
-<div class="row" *ngIf="course" id="certificate">
-  <div class="col-xs-12">
+<div *ngIf="course" id="certificate">
+  <div class="content">
     <h3>Certificado de aprovação</h3>
     <p class="lead">Certificamos que</p>
-    <h2>{{ course.appUser.firstName }} {{ course.appUser.lastName }}</h2>
-    <p class="lead">concluiu com sucesso o curso {{ course.name }}.</p>
+    <h2>
+      <i>{{ course.appUser.firstName }} {{ course.appUser.lastName }}</i>
+    </h2>
+    <p class="lead">concluiu com sucesso o curso "{{ course.name }}".</p>
   </div>
 </div>
 
-<div class="row" *ngIf="course">
+<div class="row certificate__button" *ngIf="course">
   <div class="col-xs-12">
     <button
       (click)="download(course)"
       type="submit"
-      class="btn btn-primary">
+      class="btn btn-success btn-lg pull-right">
       Gerar PDF
     </button>
   </div>
