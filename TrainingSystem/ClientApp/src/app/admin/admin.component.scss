@@ -1,3 +1,47 @@
 body {
   padding-top: 70px;
 }
+
+.admin-navbar {
+  &.navbar {
+    background: #285244;
+    border: none;
+
+    &-brand,
+    &-brand:focus,
+    &-brand:hover {
+      color: white;
+      font-size: 16px;
+    }
+
+    .navbar-brand {
+      color: white;
+    }
+  }
+
+  .navbar-nav {
+    & > li > a {
+      color: white;
+      &:hover,
+      &:focus {
+        background: #aabbb4;
+      }
+    }
+
+    @media screen and (min-width: 768px) {
+      margin-left: 50px;
+    }
+  }
+
+  li.active {
+    background: #aabbb4;
+  }
+
+  @media screen and (max-width: 767px) {
+    .navbar-toggle .icon-bar {
+      background: white;
+    }
+  }
+
+}
+
