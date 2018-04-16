@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Lesson } from '../../shared/models/lesson.model';
@@ -8,12 +8,14 @@ import { AlertService } from '../../shared/services/alert.service';
 @Component({
   selector: 'app-course-lessons',
   templateUrl: './course-lessons.component.html',
-  styleUrls: ['./course-lessons.component.scss']
+  styleUrls: ['./course-lessons.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class CourseLessonsComponent implements OnInit {
   @Input() lessons: Lesson[];
   @Input() courseId: number;
   @Output() updateCourseDetail = new EventEmitter<any>();
+  isLessonListVisible: Boolean = true;
   isLessonFormVisible: Boolean = false;
   newLesson: Lesson;
 
@@ -26,7 +28,13 @@ export class CourseLessonsComponent implements OnInit {
   }
 
   showLessonForm() {
+    this.isLessonListVisible = false;
     this.isLessonFormVisible = true;
+  }
+
+  backToLessonList() {
+    this.isLessonListVisible = true;
+    this.isLessonFormVisible = false;
   }
 
   addLesson() {
@@ -34,6 +42,7 @@ export class CourseLessonsComponent implements OnInit {
       .subscribe(
         data => {
           this.router.navigate([`/admin/courses/${data.courseId}/lessons/${data.lessonId}`]);
+          this.alertService.success('Unidade criada com sucesso!');
         },
         error => {
           this.alertService.error(error);

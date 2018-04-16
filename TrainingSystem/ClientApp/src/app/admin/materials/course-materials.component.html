@@ -1,11 +1,11 @@
-<div class="row">
+<div class="row" *ngIf="isMaterialListVisible">
   <div class="col-xs-12">
     <div class="table-responsive"
       *ngIf="materials.length > 0; else noMaterials">
       <table class="table">
         <thead>
           <tr>
-            <th>Nome do material</th>
+            <th>Materiais</th>
             <th>Ações</th>
           </tr>
         </thead>
@@ -14,7 +14,7 @@
             <td>{{ material.name }}</td>
             <td>
               <a (click)="deleteMaterial(material.materialId)">
-                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
               </a>
             </td>
           </tr>
@@ -27,7 +27,7 @@
 
     <button
       (click)="showMaterialForm()"
-      class="btn btn-primary pull-right">
+      class="btn btn-default pull-right">
       Adicionar material
     </button>
   </div>
@@ -49,7 +49,8 @@
           class="form-control"
           name="newMaterialName"
           [(ngModel)]="newMaterial.name"
-          #newMaterialName="ngModel" required />
+          #newMaterialName="ngModel"
+          required />
         <div
           *ngIf="newMaterialName.touched && !newMaterialName.valid"
           class="help-block">
@@ -67,20 +68,32 @@
           name="file"
           #uploader
           accept="application/msword,application/vnd.ms-powerpoint,application/pdf"
-          (change)="fileChange(uploader.files)" required />
+          (change)="fileChange(uploader.files)"
+          required />
         <div
           *ngIf="!isFileTypeSupported && uploader.files.length > 0"
           class="help-block">
           Tipo de arquivo não suportado
         </div>
+        <p class="help-block">
+          Tipos de arquivos suportados: .docx, .pptx ou .pdf. Tamanho máximo do arquivo: 30 MB.
+        </p>
       </div>
 
-      <button
-        [disabled]="!f.valid || !fileSelected || (!isFileTypeSupported && uploader.files.length > 0)"
-        type="submit"
-        class="btn btn-primary">
-        Salvar
-      </button>
+      <div class="form__button-container">
+        <button
+          type="button"
+          class="btn btn-default"
+          (click)="backToMaterialList()">
+          Voltar para a lista
+        </button>
+        <button
+          [disabled]="!f.valid || !fileSelected || (!isFileTypeSupported && uploader.files.length > 0)"
+          type="submit"
+          class="btn btn-success">
+          Salvar
+        </button>
+      </div>
     </form>
   </div>
 </div>

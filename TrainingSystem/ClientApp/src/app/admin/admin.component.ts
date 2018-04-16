@@ -13,7 +13,7 @@ import { AlertService } from '../shared/services/alert.service';
 export class AdminComponent implements OnInit {
   isCollapsed = true;
   dismissible = true;
-  alerts: any[];
+  alerts: any[] = [];
 
   constructor(private router: Router,
     private authService: AuthService,
