@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Employee } from '../../shared/models/employee.model';
@@ -9,7 +9,8 @@ import { Course } from '../../shared/models/course.model';
 @Component({
   selector: 'app-employee-detail',
   templateUrl: './employee-detail.component.html',
-  styleUrls: ['./employee-detail.component.scss']
+  styleUrls: ['./employee-detail.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class EmployeeDetailComponent implements OnInit {
   employee: Employee;
