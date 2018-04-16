@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Course } from '../../shared/models/course.model';
@@ -8,7 +8,8 @@ import { AlertService } from '../../shared/services/alert.service';
 @Component({
   selector: 'app-courses-list',
   templateUrl: './courses-list.component.html',
-  styleUrls: ['./courses-list.component.css']
+  styleUrls: ['./courses-list.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class CoursesListComponent implements OnInit {
   courses: Course[];

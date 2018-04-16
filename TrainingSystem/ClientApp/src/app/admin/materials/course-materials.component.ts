@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Material } from '../../shared/models/material.model';
@@ -8,12 +8,14 @@ import { AlertService } from '../../shared/services/alert.service';
 @Component({
   selector: 'app-course-materials',
   templateUrl: './course-materials.component.html',
-  styleUrls: ['./course-materials.component.css']
+  styleUrls: ['./course-materials.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class CourseMaterialsComponent implements OnInit {
   @Input() materials: Material[];
   @Input() courseId: number;
   @Output() updateCourseDetail = new EventEmitter<any>();
+  isMaterialListVisible: Boolean = true;
   isMaterialFormVisible: Boolean = false;
   newMaterial: Material;
   fileSelected: Boolean = false;
@@ -29,6 +31,12 @@ export class CourseMaterialsComponent implements OnInit {
 
   showMaterialForm() {
     this.isMaterialFormVisible = true;
+    this.isMaterialListVisible = false;
+  }
+
+  backToMaterialList() {
+    this.isMaterialListVisible = true;
+    this.isMaterialFormVisible = false;
   }
 
   addMaterial() {
@@ -36,8 +44,8 @@ export class CourseMaterialsComponent implements OnInit {
       .subscribe(
         data => {
           this.newMaterial = new Material(this.courseId);
-          this.isMaterialFormVisible = false;
           this.updateCourseDetail.emit();
+          this.backToMaterialList();
           this.alertService.success('Material adicionado com sucesso!');
         },
         error => {
@@ -61,9 +69,9 @@ export class CourseMaterialsComponent implements OnInit {
 
   fileChange(files: FileList) {
     if (files && files[0].size > 0) {
-      if (files[0].type === 'application/msword'
+      if ((files[0].type === 'application/msword'
       || files[0].type === 'application/vnd.ms-powerpoint'
-      || files[0].type === 'application/pdf') {
+      || files[0].type === 'application/pdf') && files[0].size < 31457280) {
         this.isFileTypeSupported = true;
       } else {
         this.isFileTypeSupported = false;

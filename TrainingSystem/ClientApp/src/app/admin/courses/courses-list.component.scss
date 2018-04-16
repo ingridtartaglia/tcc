@@ -1,0 +1,8 @@
+tbody {
+  td > a {
+    margin-right: 10px;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}

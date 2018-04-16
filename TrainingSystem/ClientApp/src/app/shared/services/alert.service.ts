@@ -33,6 +33,7 @@ export class AlertService {
   }
 
   alert(type: string, message: string) {
+    window.scroll(0, 0);
     this.subject.next(<Alert>{ type: type, message: message });
   }
 

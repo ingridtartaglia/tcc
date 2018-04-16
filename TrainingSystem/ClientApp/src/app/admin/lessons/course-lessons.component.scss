@@ -1,0 +1,15 @@
+tbody {
+  td > a {
+    margin-right: 10px;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+.form__button-container {
+  text-align: right;
+  button:first-of-type:not(:only-child) {
+    margin-right: 5px;
+  }
+}

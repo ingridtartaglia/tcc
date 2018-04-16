@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { TagInputModule } from 'ngx-chips';
 
@@ -9,7 +9,8 @@ import { AlertService } from '../../shared/services/alert.service';
 @Component({
   selector: 'app-course-register',
   templateUrl: './course-register.component.html',
-  styleUrls: ['./course-register.component.css']
+  styleUrls: ['./course-register.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class CourseRegisterComponent implements OnInit {
   course: Course;

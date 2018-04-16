@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Course } from '../../shared/models/course.model';
@@ -7,7 +7,8 @@ import { CourseService } from '../../shared/services/course.service';
 @Component({
   selector: 'app-course-detail',
   templateUrl: './course-detail.component.html',
-  styleUrls: ['./course-detail.component.css']
+  styleUrls: ['./course-detail.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class CourseDetailComponent implements OnInit {
   course: Course;

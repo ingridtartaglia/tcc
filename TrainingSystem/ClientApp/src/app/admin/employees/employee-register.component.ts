@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Register } from '../../shared/models/register.model';
@@ -8,7 +8,8 @@ import { AlertService } from '../../shared/services/alert.service';
 @Component({
   selector: 'app-employee-register',
   templateUrl: './employee-register.component.html',
-  styleUrls: ['./employee-register.component.css']
+  styleUrls: ['./employee-register.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class EmployeeRegisterComponent implements OnInit {
   register: Register;

@@ -1,0 +1,35 @@
+.course-rating {
+  li.active {
+    background: none;
+  }
+  ul.nav.nav-tabs {
+    margin-top: 20px;
+  }
+  &__user-grade {
+    display: block;
+  }
+}
+
+tab {
+  margin: 20px 15px;
+  div {
+    margin: 20px 0;
+  }
+}
+
+rating {
+  span {
+    font-size: 20px;
+  }
+}
+
+.bs-rating-star {
+  color: gray;
+  &.active {
+    color: orange;
+  }
+}
+
+textarea {
+  resize: vertical;
+}

@@ -1,0 +1,73 @@
+<div class="row" *ngIf="course">
+  <div class="col-xs-12">
+
+    <div class="row course-video__title">
+      <div class="col-xs-12">
+        <h2>
+          {{ currentVideo.name }}
+          <button
+            type="button"
+            class="btn btn-default pull-right"
+            (click)="isSidebarCollapsed = !isSidebarCollapsed">
+            {{ isSidebarCollapsed ? 'Ver' : 'Esconder' }} playlist
+          </button>
+        </h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-md-4" [collapse]="isSidebarCollapsed">
+        <aside>
+          <ol>
+            <li *ngFor="let lesson of course.lessons">
+              {{ lesson.name }}
+              <ol *ngIf="lesson">
+                <li *ngFor="let video of lesson.videos">
+                  <a [routerLink]="['/platform/courses', course.courseId, 'videos', video.videoId]">
+                    {{ video.name }}
+                  </a>
+                </li>
+                <li *ngIf="lesson.exam">
+                  <a [routerLink]="['/platform/courses', course.courseId, 'exams', lesson.exam.examId]">
+                    Atividade avaliativa
+                  </a>
+                </li>
+              </ol>
+            </li>
+            <li *ngIf="course.materials">
+              Materiais complementares
+              <ul>
+                <li *ngFor="let material of course.materials">
+                  <a href="Uploads/{{ material.fileName }}" target="_blank">
+                    {{ material.name }}
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ol>
+        </aside>
+      </div>
+
+      <div
+        class="col-xs-12"
+        [ngClass]="{'col-md-8': !isSidebarCollapsed}"
+        *ngIf="currentVideo">
+        <div>
+          <vg-buffering></vg-buffering>
+
+          <vg-player (onPlayerReady)="onPlayerReady($event)">
+            <video
+              [vgMedia]="media"
+              #media
+              id="singleVideo"
+              preload="auto"
+              [src]="'Uploads/' + currentVideo.fileName"
+              controls>
+            </video>
+          </vg-player>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

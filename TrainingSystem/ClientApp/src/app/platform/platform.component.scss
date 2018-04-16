@@ -1,0 +1,47 @@
+body {
+  padding-top: 70px;
+}
+
+.platform-navbar {
+  &.navbar {
+    background: #12518c;
+    border: none;
+
+    &-brand,
+    &-brand:focus,
+    &-brand:hover {
+      color: white;
+      font-size: 16px;
+    }
+
+    .navbar-brand {
+      color: white;
+    }
+  }
+
+  .navbar-nav {
+    & > li > a {
+      color: white;
+      &:hover,
+      &:focus {
+        background: #6ba4d6;
+      }
+    }
+
+    @media screen and (min-width: 768px) {
+      margin-left: 50px;
+    }
+  }
+
+  li.active {
+    background: #6ba4d6;
+  }
+
+  @media screen and (max-width: 767px) {
+    .navbar-toggle .icon-bar {
+      background: white;
+    }
+  }
+
+}
+

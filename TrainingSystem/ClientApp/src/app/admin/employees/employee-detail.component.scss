@@ -1,0 +1,15 @@
+.employee-section {
+  margin-bottom: 30px;
+}
+
+.panel-body {
+  p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.panel-group {
+  .panel + .panel {
+    margin-top: 10px;
+  }
+}
