@@ -1,0 +1,44 @@
+form {
+  margin-top: 20px;
+  .form-group {
+    margin-bottom: 20px;
+  }
+}
+
+// sobrescrevendo estilos do tag-input, pra ficar parecido com o .form-control do bootstrap
+tag-input {
+  .bootstrap.ng2-tag-input[_ngcontent-c3] {
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+  }
+  .ng2-tag-input__text-input[_ngcontent-c5] {
+    position: relative;
+    bottom: 27px;
+    height: 34px;
+    background: transparent;
+  }
+  .bootstrap[_ngcontent-c3] tag[_ngcontent-c3] {
+    position: relative;
+    bottom: 6px;
+  }
+  tag[_ngcontent-c3] {
+    padding: 0 10px;
+    height: 30px;
+    line-height: 30px;
+  }
+  .bootstrap[_nghost-c6] svg[_ngcontent-c6],
+  .bootstrap [_nghost-c6] svg[_ngcontent-c6] {
+    height: 30px;
+  }
+  .bootstrap.ng2-tag-input.ng2-tag-input--focused[_ngcontent-c3] {
+    border-bottom: 1px solid #ccc;
+  }
+}
