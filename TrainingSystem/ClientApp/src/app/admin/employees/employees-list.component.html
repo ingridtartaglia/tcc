@@ -1,41 +1,39 @@
-<div class="container-fluid" *ngIf="employees">
-  <div class="row">
-    <div class="col-xs-12">
-      <h3>Lista de usuários</h3>
+<div class="row" *ngIf="employees">
+  <div class="col-xs-12">
+    <h3>Lista de usuários</h3>
 
-      <div class="table-responsive" *ngIf="employees.length > 0; else noEmployees">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Nome</th>
-              <th class="hidden-xs">E-mail</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let employee of employees">
-              <td>{{ employee.appUser.firstName }} {{ employee.appUser.lastName }}</td>
-              <td class="hidden-xs">{{ employee.appUser.email }}</td>
-              <td>
-                <a [routerLink]="['/admin/employees', employee.employeeId]">
-                  <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
-                </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <ng-template #noEmployees>
-        <p>
-          Sem usuários no momento.
-        </p>
-      </ng-template>
-
-      <button
-        [routerLink]="['/admin/employees/add']"
-        class="btn btn-success pull-right">
-        Adicionar usuário
-      </button>
+    <div class="table-responsive" *ngIf="employees.length > 0; else noEmployees">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th class="hidden-xs">E-mail</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let employee of employees">
+            <td>{{ employee.appUser.firstName }} {{ employee.appUser.lastName }}</td>
+            <td class="hidden-xs">{{ employee.appUser.email }}</td>
+            <td>
+              <a [routerLink]="['/admin/employees', employee.employeeId]">
+                <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+    <ng-template #noEmployees>
+      <p>
+        Sem usuários no momento.
+      </p>
+    </ng-template>
+
+    <button
+      [routerLink]="['/admin/employees/add']"
+      class="btn btn-success pull-right">
+      Adicionar usuário
+    </button>
   </div>
 </div>
