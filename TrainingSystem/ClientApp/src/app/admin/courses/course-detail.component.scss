@@ -1,0 +1,14 @@
+.course-section {
+  &:first-of-type {
+    margin-bottom: 30px;
+  }
+  &:last-of-type {
+    margin-bottom: 20px;
+  }
+}
+
+span {
+  &.label {
+    margin-right: 5px;
+  }
+}

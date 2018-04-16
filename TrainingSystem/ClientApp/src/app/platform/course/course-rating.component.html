@@ -1,0 +1,71 @@
+<div class="row course-rating">
+  <div class="col-xs-12">
+    <h3>Notas do curso</h3>
+
+    <tabset>
+      <tab heading="Sua nota" *ngIf="isSubscribed">
+        <p>Dê a sua nota para este curso.</p>
+
+        <form
+          #f="ngForm"
+          name="form"
+          (ngSubmit)="addRating()"
+          novalidate>
+
+          <div
+            class="form-group">
+            <label for="newRatingGrade">Sua nota*</label>
+            <rating
+              class="course-rating__user-grade"
+              [(ngModel)]="newRating.grade"
+              [max]="5"
+              name="newRatingGrade"
+              #newRatingGrade="ngModel">
+            </rating>
+          </div>
+
+          <div class="form-group">
+            <label for="newRatingComment">Comentário</label>
+            <textarea
+              maxlength="1000"
+              class="form-control"
+              name="newRatingComment"
+              [(ngModel)]="newRating.comment"
+              #newRatingComment="ngModel">
+            </textarea>
+          </div>
+
+          <button
+            [disabled]="!newRating.grade"
+            type="submit"
+            class="btn btn-success">
+            Enviar
+          </button>
+        </form>
+      </tab>
+
+      <tab heading="Notas dos usuários">
+        <div *ngIf="ratings.length > 0; else noRatings">
+          <div *ngFor="let rating of ratings">
+            <rating
+              [(ngModel)]="rating.grade"
+              [max]="5"
+              [readonly]="true"
+              name="ratingGrade"
+              #ratingGrade="ngModel">
+            </rating>
+            <p>
+              <i>
+                "{{ rating.comment }}"
+              </i>
+            </p>
+          </div>
+        </div>
+        <ng-template #noRatings>
+          <p>Este curso ainda não possui notas.</p>
+        </ng-template>
+      </tab>
+    </tabset>
+
+  </div>
+</div>

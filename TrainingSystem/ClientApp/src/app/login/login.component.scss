@@ -1,0 +1,27 @@
+.login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+
+  &__content {
+    width: 25%;
+    @media screen and (max-width: 767px) {
+      width: 80%;
+    }
+    @media screen and (min-width: 768px) and (max-width: 991px) {
+      width: 50%;
+    }
+  }
+
+  h3 {
+    text-align: center;
+  }
+
+  form {
+    margin-top: 20px;
+    .form-group {
+      margin-bottom: 20px;
+    }
+  }
+}

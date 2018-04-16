@@ -10,11 +10,13 @@ import { VgBufferingModule } from 'videogular2/buffering';
 import { PlatformRoutingModule } from './platform-routing.module';
 import { PlatformComponent } from './platform.component';
 import { HomeComponent } from './home/home.component';
-import { CoursesComponent } from './courses/courses.component';
-import { CourseRatingComponent } from './courses/course-rating.component';
-import { CourseVideoComponent } from './courses/course-video.component';
-import { CourseExamComponent } from './courses/course-exam.component';
-import { CourseCertificateComponent } from './courses/course-certificate.component';
+import { CourseComponent } from './course/course.component';
+import { CourseRatingComponent } from './course/course-rating.component';
+import { CourseVideoComponent } from './course/course-video.component';
+import { CourseExamComponent } from './course/course-exam.component';
+import { CourseCertificateComponent } from './course/course-certificate.component';
+import { AllCoursesListComponent } from './lists/all-courses-list.component';
+import { UserCoursesListComponent } from './lists/user-courses-list.component';
 
 @NgModule({
   imports: [
@@ -35,11 +37,13 @@ import { CourseCertificateComponent } from './courses/course-certificate.compone
   declarations: [
     PlatformComponent,
     HomeComponent,
-    CoursesComponent,
+    CourseComponent,
     CourseRatingComponent,
     CourseVideoComponent,
     CourseExamComponent,
-    CourseCertificateComponent
+    CourseCertificateComponent,
+    AllCoursesListComponent,
+    UserCoursesListComponent
   ]
 })
 export class PlatformModule { }

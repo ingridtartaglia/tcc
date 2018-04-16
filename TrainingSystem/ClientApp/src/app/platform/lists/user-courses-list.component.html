@@ -1,0 +1,38 @@
+<div class="row" *ngIf="userCourses">
+  <div class="col-xs-12">
+    <h3>Sua lista completa de cursos</h3>
+
+    <div class="table-responsive" *ngIf="userCourses.length > 0; else noUserCourses">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Curso</th>
+            <th>Instrutor</th>
+            <th>Categoria</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let userCourse of userCourses">
+            <td>
+              <a [routerLink]="['/platform/courses', userCourse.courseId]">
+                {{ userCourse.course.name }}
+              </a>
+            </td>
+            <td>
+              {{ userCourse.course.instructor }}
+            </td>
+            <td>
+              {{ userCourse.course.category }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <ng-template #noUserCourses>
+      <p>
+        Você ainda não se inscreveu em nenhum curso.
+      </p>
+    </ng-template>
+
+  </div>
+</div>

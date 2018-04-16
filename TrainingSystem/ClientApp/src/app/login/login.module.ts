@@ -4,12 +4,14 @@ import { FormsModule } from '@angular/forms';
 
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
+import { AlertModule } from 'ngx-bootstrap';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    LoginRoutingModule
+    LoginRoutingModule,
+    AlertModule.forRoot()
   ],
   declarations: [ LoginComponent ]
 })

@@ -1,0 +1,90 @@
+<div class="row" *ngIf="exam && !isExamSubmitted">
+  <div class="col-xs-12">
+    <h3>Avaliação</h3>
+
+    <p class="course-exam__text">
+      Para ser aprovado neste curso, além de assistir a todos os vídeos,
+      é preciso fazer todas as atividades previstas e acertar pelo menos 70% das questões.
+    </p>
+
+    <form
+      #f="ngForm"
+      name="form"
+      (ngSubmit)="f.form.valid && submitExam()"
+      novalidate>
+
+      <ol>
+        <li *ngFor="let question of exam.questions">
+          <p>
+            {{ question.name }}
+          </p>
+          <div
+            class="radio"
+            *ngFor="let questionChoice of question.questionChoices">
+            <label>
+              <input
+                type="radio"
+                name="{{ question.questionId }}"
+                [value]="questionChoice.questionChoiceId"
+                [(ngModel)]="question.choiceId">
+                {{ questionChoice.name }}
+            </label>
+          </div>
+        </li>
+      </ol>
+
+      <button
+        [disabled]="!f.valid"
+        type="submit"
+        class="btn btn-success pull-right">
+        Enviar
+      </button>
+    </form>
+  </div>
+</div>
+
+<div
+  class="alert alert-danger course-exam__result--not-approved"
+  *ngIf="!isApproved && isExamSubmitted">
+
+  <p class="lead">
+    Ops! Infelizmente você não conseguiu passar nesta atividade :(
+  </p>
+
+  <p>
+    Você pode voltar pro curso pra estudar mais um pouco ou tentar resolver
+    as questões novamente.
+  </p>
+
+  <div>
+    <button
+      [routerLink]="['/platform/courses', exam.lesson.courseId]"
+      type="button"
+      class="btn btn-default">
+      Voltar para o curso
+    </button>
+    <button
+      (click)="reload()"
+      type="button"
+      class="btn btn-success">
+      Refazer questões
+    </button>
+  </div>
+</div>
+
+<div
+  class="alert alert-success course-exam__result--approved"
+  *ngIf="isApproved && isExamSubmitted">
+  <p class="lead">
+    <strong>Parabéns!</strong> Você conseguiu a aprovação nesta atividade!
+  </p>
+
+  <div>
+    <button
+      [routerLink]="['/platform/courses', exam.lesson.courseId]"
+      type="button"
+      class="btn btn-default">
+      Voltar para o curso
+    </button>
+  </div>
+</div>

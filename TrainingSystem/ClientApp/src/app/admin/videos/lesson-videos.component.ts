@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Video } from '../../shared/models/video.model';
@@ -8,12 +8,14 @@ import { AlertService } from '../../shared/services/alert.service';
 @Component({
   selector: 'app-lesson-videos',
   templateUrl: './lesson-videos.component.html',
-  styleUrls: ['./lesson-videos.component.css']
+  styleUrls: ['./lesson-videos.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class LessonVideosComponent implements OnInit {
   @Input() videos: Video[];
   @Input() lessonId: number;
   @Output() updateLessonDetail = new EventEmitter<any>();
+  isVideoListVisible: Boolean = true;
   isVideoFormVisible: Boolean = false;
   newVideo: Video;
   fileSelected: Boolean = false;
@@ -29,6 +31,12 @@ export class LessonVideosComponent implements OnInit {
 
   showVideoForm() {
     this.isVideoFormVisible = true;
+    this.isVideoListVisible = false;
+  }
+
+  backToVideoList() {
+    this.isVideoListVisible = true;
+    this.isVideoFormVisible = false;
   }
 
   addVideo() {
@@ -36,8 +44,8 @@ export class LessonVideosComponent implements OnInit {
       .subscribe(
         data => {
           this.newVideo = new Video(this.lessonId);
-          this.isVideoFormVisible = false;
           this.updateLessonDetail.emit();
+          this.backToVideoList();
           this.alertService.success('Vídeo adicionado com sucesso!');
         },
         error => {
@@ -61,9 +69,9 @@ export class LessonVideosComponent implements OnInit {
 
   fileChange(files: FileList) {
     if (files && files[0].size > 0) {
-      if (files[0].type === 'video/mp4'
+      if ((files[0].type === 'video/mp4'
         || files[0].type === 'video/x-m4v'
-        || files[0].type === 'video/*') {
+        || files[0].type === 'video/*') && files[0].size < 31457280) {
         this.isFileTypeSupported = true;
       } else {
         this.isFileTypeSupported = false;

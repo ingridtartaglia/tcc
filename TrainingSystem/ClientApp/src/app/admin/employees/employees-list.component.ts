@@ -6,7 +6,7 @@ import { EmployeeService } from '../../shared/services/employee.service';
 @Component({
   selector: 'app-employees-list',
   templateUrl: './employees-list.component.html',
-  styleUrls: ['./employees-list.component.css']
+  styleUrls: ['./employees-list.component.scss']
 })
 export class EmployeesListComponent implements OnInit {
   employees: Employee[];

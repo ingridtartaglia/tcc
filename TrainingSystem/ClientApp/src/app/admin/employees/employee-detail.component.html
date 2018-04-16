@@ -1,44 +1,55 @@
-<div class="container-fluid" *ngIf="employee">
-  <div class="row">
+<div *ngIf="employee">
+
+  <div class="row employee-section">
     <div class="col-xs-12">
-      <h2>Detalhes do usuário</h2>
+      <h3>Detalhes do usuário</h3>
 
-      <div class="row">
-        <div class="col-xs-12">
-          <p>
-            <strong>Nome:</strong> {{ employee.appUser.firstName }} {{ employee.appUser.lastName }}
-          </p>
-          <p>
-            <strong>E-mail:</strong> {{ employee.appUser.email }}
-          </p>
-          <p>
-            <strong>Ocupação:</strong> {{ employee.occupation }}
-          </p>
-        </div>
-      </div>
+      <p>
+        <strong>Nome:</strong> {{ employee.appUser.firstName }} {{ employee.appUser.lastName }}
+      </p>
+      <p>
+        <strong>E-mail:</strong> {{ employee.appUser.email }}
+      </p>
+      <p>
+        <strong>Ocupação:</strong> {{ employee.occupation }}
+      </p>
 
-      <div class="row">
-        <div class="col-xs-12">
-          <h4>Relatório de atividades nos cursos inscritos</h4>
-
-          <accordion>
-            <accordion-group
-              *ngFor="let course of courses"
-              heading="{{ course.name }}">
-              <p>
-                <strong>Vídeos assistidos:</strong> {{ course.videosCount }} ({{ course.watchedVideosPercentage }}%)
-              </p>
-              <p>
-                <strong>Nota:</strong> {{ course.approvedExamsPercentage ? course.approvedExamsPercentage + '%' : '--' }}
-              </p>
-              <p>
-                <strong>Situação:</strong> {{ getUserStatusInCourse(course) }}
-              </p>
-            </accordion-group>
-          </accordion>
-
-        </div>
-      </div>
     </div>
   </div>
+
+  <div class="row employee-section">
+    <div class="col-xs-12">
+      <h3>Relatório de atividades nos cursos inscritos</h3>
+
+      <accordion>
+        <accordion-group
+          *ngFor="let course of courses"
+          heading="{{ course.name }}">
+          <p>
+            <strong>Vídeos assistidos:</strong> {{ course.videosCount }} ({{ course.watchedVideosPercentage }}%)
+          </p>
+          <p>
+            <strong>Nota:</strong>
+            <span [ngClass]="{
+              'text-success': course.isCompleted,
+              'text-danger': course.approvedExamsPercentage < 70 && course.watchedVideosPercentage === 100 }">
+              {{ course.approvedExamsPercentage ? course.approvedExamsPercentage + '%' : '--' }}
+            </span>
+          </p>
+          <p>
+            <strong>Situação:</strong>
+            <span [ngClass]="{
+              'text-success': course.isCompleted,
+              'text-danger': course.approvedExamsPercentage < 70 && course.watchedVideosPercentage === 100,
+              'text-warning': course.watchedVideosPercentage !== 100 }">
+              {{ getUserStatusInCourse(course) }}
+            </span>
+          </p>
+        </accordion-group>
+      </accordion>
+
+    </div>
+  </div>
+
 </div>
+

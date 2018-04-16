@@ -1,23 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { AuthService } from '../shared/services/auth.service';
+import { AlertService } from '../shared/services/alert.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class LoginComponent implements OnInit {
-
   email: '';
   password: '';
-  loading: boolean;
   returnUrl: string;
+  dismissible = true;
+  alerts: any[] = [];
 
   constructor(private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private alertService: AlertService) { }
 
   ngOnInit() {
     // Reseta o status de login
@@ -25,6 +28,17 @@ export class LoginComponent implements OnInit {
 
     // Pega a url retornada da rota
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'];
+
+    this.alertService.getAlert().subscribe((data) => {
+      if (!data) {
+        // clear alerts when an empty alert is received
+        this.alerts = [];
+        return;
+      }
+
+      // add alert to array
+      this.alerts.push(data);
+    });
   }
 
   login() {
@@ -46,7 +60,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate([this.returnUrl]);
         },
         error => {
-          this.loading = false;
+          this.alertService.error(error);
         }
       );
   }

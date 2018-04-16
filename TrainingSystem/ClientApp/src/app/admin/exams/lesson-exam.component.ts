@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 
 import { Exam } from '../../shared/models/exam.model';
 import { ExamService } from '../../shared/services/exam.service';
@@ -9,7 +9,8 @@ import { AlertService } from '../../shared/services/alert.service';
 @Component({
   selector: 'app-lesson-exam',
   templateUrl: './lesson-exam.component.html',
-  styleUrls: ['./lesson-exam.component.css']
+  styleUrls: ['./lesson-exam.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class LessonExamComponent implements OnInit {
   @Input() exam: Exam;
