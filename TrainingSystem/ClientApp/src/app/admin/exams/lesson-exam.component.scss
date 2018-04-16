@@ -1,0 +1,24 @@
+.form-group {
+  margin-bottom: 20px;
+}
+
+.exam-section {
+  margin-bottom: 20px;
+  ol {
+    margin-bottom: 0;
+    & > li > ol {
+      margin-bottom: 20px;
+      padding-left: 15px;
+    }
+
+    & > li > ol > li,
+    & > li > ul > li {
+      margin: 5px 0;
+    }
+
+    span {
+      position: relative;
+      top: 3px;
+    }
+  }
+}

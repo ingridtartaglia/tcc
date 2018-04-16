@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row exam-section" *ngIf="!isQuestionFormVisible">
   <div class="col-xs-12">
     <div *ngIf="exam; else noExam">
       <div *ngIf="exam.questions.length > 0; else noQuestions">
@@ -6,8 +6,8 @@
           <li *ngFor="let question of exam.questions">
             <p>
               {{ question.name }}
-              <a (click)="deleteQuestion(question.questionId)">
-                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              <a class="pull-right" (click)="deleteQuestion(question.questionId)">
+                <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
               </a>
             </p>
             <ol>
@@ -22,7 +22,7 @@
         </ol>
       </div>
       <ng-template #noQuestions>
-        Sem questões disponíveis no momento.
+        <p>Essa unidade possui uma avaliação sem questões cadastradas.</p>
       </ng-template>
     </div>
     <ng-template #noExam>
@@ -32,22 +32,22 @@
     <button
       *ngIf="!exam"
       (click)="addExam()"
-      class="btn btn-primary pull-right">
+      class="btn btn-default pull-right">
       Adicionar avaliação
     </button>
 
     <button
       *ngIf="exam"
       (click)="showQuestionForm()"
-      class="btn btn-primary pull-right">
+      class="btn btn-default pull-right">
       Adicionar questão
     </button>
   </div>
 </div>
 
-<div class="row" *ngIf="isQuestionFormVisible">
+<div class="row exam-section" *ngIf="isQuestionFormVisible">
   <div class="col-xs-12">
-    <h2>Questões</h2>
+    <h4>Adicionar questão</h4>
 
     <form
       #f="ngForm"
@@ -162,9 +162,10 @@
       <button
         [disabled]="!f.valid"
         type="submit"
-        class="btn btn-primary">
+        class="btn btn-success pull-right">
         Salvar
       </button>
     </form>
+
   </div>
 </div>
