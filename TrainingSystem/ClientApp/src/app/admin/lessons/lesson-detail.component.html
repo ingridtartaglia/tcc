@@ -1,48 +1,41 @@
-<div class="container-fluid" *ngIf="lesson">
-  <div class="row">
+<div *ngIf="lesson">
+
+  <div class="row lesson-section">
     <div class="col-xs-12">
-      <h2>Detalhes da unidade</h2>
-
-      <div class="row">
-        <div class="col-xs-12">
-          <p>
-            <strong>Nome:</strong> {{ lesson.name }}
-          </p>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-xs-12">
-          <ul class="nav nav-tabs">
-            <li role="presentation"
-              [ngClass]="{'active': tabContent === 'videos'}">
-              <a (click)="showTabContent('videos')">
-                Vídeos
-              </a>
-            </li>
-            <li role="presentation"
-              [ngClass]="{'active': tabContent === 'exam'}">
-              <a (click)="showTabContent('exam')">
-                Avaliação
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <app-lesson-videos
-        *ngIf="tabContent === 'videos'"
-        [videos]="lesson.videos"
-        [lessonId]="lesson.lessonId"
-        (updateLessonDetail)="updateLessonDetail()">
-      </app-lesson-videos>
-
-      <app-lesson-exam
-        *ngIf="tabContent === 'exam'"
-        [exam]="lesson.exam"
-        [lessonId]="lesson.lessonId"
-        (updateLessonDetail)="updateLessonDetail()">
-      </app-lesson-exam>
+      <h3>Detalhes da unidade {{ lesson.name }}</h3>
     </div>
   </div>
+
+  <div class="row lesson-section">
+    <div class="col-xs-12">
+      <ul class="nav nav-tabs">
+        <li role="presentation"
+          [ngClass]="{'active': tabContent === 'videos'}">
+          <a (click)="showTabContent('videos')">
+            Vídeos
+          </a>
+        </li>
+        <li role="presentation"
+          [ngClass]="{'active': tabContent === 'exam'}">
+          <a (click)="showTabContent('exam')">
+            Avaliação
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <app-lesson-videos
+    *ngIf="tabContent === 'videos'"
+    [videos]="lesson.videos"
+    [lessonId]="lesson.lessonId"
+    (updateLessonDetail)="updateLessonDetail()">
+  </app-lesson-videos>
+
+  <app-lesson-exam
+    *ngIf="tabContent === 'exam'"
+    [exam]="lesson.exam"
+    [lessonId]="lesson.lessonId"
+    (updateLessonDetail)="updateLessonDetail()">
+  </app-lesson-exam>
 </div>

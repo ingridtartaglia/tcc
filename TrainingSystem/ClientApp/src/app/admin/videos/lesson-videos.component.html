@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" *ngIf="isVideoListVisible">
   <div class="col-xs-12">
     <div class="table-responsive"
       *ngIf="videos.length > 0; else noVideos">
@@ -14,7 +14,7 @@
             <td>{{ video.name }}</td>
             <td>
               <a (click)="deleteVideo(video.videoId)">
-                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
               </a>
             </td>
           </tr>
@@ -27,7 +27,7 @@
 
     <button
       (click)="showVideoForm()"
-      class="btn btn-primary">
+      class="btn btn-default pull-right">
       Adicionar vídeo
     </button>
   </div>
@@ -73,14 +73,26 @@
           class="help-block">
           Tipo de arquivo não suportado
         </div>
+        <p class="help-block">
+          São aceitos apenas arquivos de vídeo, com tamanho máximo de 30 MB.
+        </p>
       </div>
 
-      <button
-        [disabled]="!f.valid || !fileSelected || (!isFileTypeSupported && uploader.files.length > 0)"
-        type="submit"
-        class="btn btn-primary">
-        Salvar
-      </button>
+      <div class="form__button-container">
+        <button
+          type="button"
+          class="btn btn-default"
+          (click)="backToVideoList()">
+          Voltar para a lista
+        </button>
+        <button
+          [disabled]="!f.valid || !fileSelected || (!isFileTypeSupported && uploader.files.length > 0)"
+          type="submit"
+          class="btn btn-success">
+          Salvar
+        </button>
+      </div>
+
     </form>
   </div>
 </div>
