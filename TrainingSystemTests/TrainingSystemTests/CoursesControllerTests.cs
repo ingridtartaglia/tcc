@@ -1,14 +1,24 @@
 ﻿using FluentAssertions;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features.Authentication;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Moq;
 using System;
+using System.Collections.Generic;
 using System.Net;
+using System.Threading.Tasks;
 using TrainingSystem.Controllers;
 using TrainingSystem.Data;
 using TrainingSystem.Models;
+using TrainingSystemTests;
+using TrainingSystemTests.Utils;
 using Xunit;
 
 namespace TrainingSystem.Tests.ControllerTests
@@ -16,22 +26,35 @@ namespace TrainingSystem.Tests.ControllerTests
     public class CoursesControllerTests : IDisposable
     {
         private readonly TrainingSystemContext _dbContext;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         public CoursesControllerTests()
         {
-            var connection = new SqliteConnection("DataSource=:memory:");
-            connection.Open();
-            var optionBuilder = new DbContextOptionsBuilder<TrainingSystemContext>();
-            optionBuilder.EnableSensitiveDataLogging(true);
-            optionBuilder.UseSqlite(connection);
-            _dbContext = new TrainingSystemContext(optionBuilder.Options);
-            _dbContext.Database.EnsureCreated();
+            var services = new ServiceCollection();
+            services.AddEntityFrameworkInMemoryDatabase()
+                .AddDbContext<TrainingSystemContext>(options => options.UseInMemoryDatabase("TrainingSystem"));
+            services.AddIdentity<AppUser, IdentityRole>()
+                .AddEntityFrameworkStores<TrainingSystemContext>();
+            var context = new DefaultHttpContext();
+            context.Features.Set<IHttpAuthenticationFeature>(new HttpAuthenticationFeature());
+            services.AddSingleton<IHttpContextAccessor>(h => new HttpContextAccessor { HttpContext = context });
+            var serviceProvider = services.BuildServiceProvider();
+            _dbContext = serviceProvider.GetRequiredService<TrainingSystemContext>();
+            _userManager = serviceProvider.GetRequiredService<UserManager<AppUser>>();
+            _roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
         }
 
         [Fact]
         public void GetCourses()
         {
             // Arrange
+            var appUser = new AppUser()
+            {
+                Id = "1",
+                Email = "admin@email.com",
+                UserName = "admin@email.com"
+            };
             var course1 = new Course() {
                 Name = "Curso 1",
                 Category = "Outros",
@@ -42,6 +65,7 @@ namespace TrainingSystem.Tests.ControllerTests
                 Category = "Asp.net",
                 Instructor = "Fulano"
             };
+            _userManager.CreateAsync(appUser, "Teste!23").Wait();
             _dbContext.Course.Add(course1);
             _dbContext.Course.Add(course2);
             _dbContext.SaveChanges();
@@ -51,9 +75,11 @@ namespace TrainingSystem.Tests.ControllerTests
                                               It.IsAny<ValidationStateDictionary>(),
                                               It.IsAny<string>(),
                                               It.IsAny<Object>()));
-            var controller = new CoursesController(_dbContext) {
+            
+            var controller = new CoursesController(_dbContext, _userManager) {
                 ObjectValidator = objectValidator.Object
             };
+            Helpers.SetupUser(controller, "admin@email.com");
 
             // Act
             var response = controller.GetCourses();
@@ -66,11 +92,20 @@ namespace TrainingSystem.Tests.ControllerTests
         public void GetCourse()
         {
             // Arrange
+            var appUser = new AppUser()
+            {
+                Id = "1",
+                Email = "admin@email.com",
+                UserName = "admin@email.com"
+            };
             var course1 = new Course() {
                 Name = "Curso 1",
                 Category = "Outros",
                 Instructor = "Fulano"
             };
+            _roleManager.CreateAsync(new IdentityRole("Admin")).Wait();
+            _userManager.CreateAsync(appUser, "Teste!23").Wait();
+            _userManager.AddToRoleAsync(appUser, "Admin").Wait();
             _dbContext.Course.Add(course1);
             _dbContext.SaveChanges();
 
@@ -79,10 +114,11 @@ namespace TrainingSystem.Tests.ControllerTests
                                               It.IsAny<ValidationStateDictionary>(),
                                               It.IsAny<string>(),
                                               It.IsAny<Object>()));
-            var controller = new CoursesController(_dbContext) {
+            var controller = new CoursesController(_dbContext, _userManager) {
                 ObjectValidator = objectValidator.Object
             };
-
+            Helpers.SetupUser(controller, "admin@email.com");
+            
             // Act
             var response = (OkObjectResult)controller.GetCourse(1).Result;
 
@@ -107,7 +143,7 @@ namespace TrainingSystem.Tests.ControllerTests
                                               It.IsAny<ValidationStateDictionary>(),
                                               It.IsAny<string>(),
                                               It.IsAny<Object>()));
-            var controller = new CoursesController(_dbContext) {
+            var controller = new CoursesController(_dbContext, _userManager) {
                 ObjectValidator = objectValidator.Object
             };
 
@@ -133,7 +169,7 @@ namespace TrainingSystem.Tests.ControllerTests
                                               It.IsAny<ValidationStateDictionary>(),
                                               It.IsAny<string>(),
                                               It.IsAny<Object>()));
-            var controller = new CoursesController(_dbContext) {
+            var controller = new CoursesController(_dbContext, _userManager) {
                 ObjectValidator = objectValidator.Object
             };
 
@@ -161,7 +197,7 @@ namespace TrainingSystem.Tests.ControllerTests
                                               It.IsAny<ValidationStateDictionary>(),
                                               It.IsAny<string>(),
                                               It.IsAny<Object>()));
-            var controller = new CoursesController(_dbContext) {
+            var controller = new CoursesController(_dbContext, _userManager) {
                 ObjectValidator = objectValidator.Object
             };
             controller.ModelState.AddModelError("Name", "The Name field is required");
@@ -191,7 +227,7 @@ namespace TrainingSystem.Tests.ControllerTests
                                               It.IsAny<ValidationStateDictionary>(),
                                               It.IsAny<string>(),
                                               It.IsAny<Object>()));
-            var controller = new CoursesController(_dbContext) {
+            var controller = new CoursesController(_dbContext, _userManager) {
                 ObjectValidator = objectValidator.Object
             };
 
