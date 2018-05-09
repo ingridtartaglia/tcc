@@ -206,7 +206,7 @@ namespace TrainingSystemTests.TrainingSystemTests
         }
 
         [Fact]
-        public void PutLesson()
+        public void PutKeyword()
         {
             // Arrange
             var course = new Course() {
