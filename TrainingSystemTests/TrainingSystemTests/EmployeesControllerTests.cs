@@ -4,21 +4,16 @@ using Microsoft.AspNetCore.Http.Features.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Moq;
 using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Threading.Tasks;
 using TrainingSystem.Controllers;
 using TrainingSystem.Data;
 using TrainingSystem.Models;
+using TrainingSystem.ViewModels;
 using TrainingSystemTests;
-using TrainingSystemTests.Utils;
 using Xunit;
 
 namespace TrainingSystem.Tests.ControllerTests
@@ -27,6 +22,7 @@ namespace TrainingSystem.Tests.ControllerTests
     {
         private readonly TrainingSystemContext _dbContext;
         private readonly UserManager<AppUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         public EmployeesControllerTests()
         {
@@ -41,6 +37,7 @@ namespace TrainingSystem.Tests.ControllerTests
             var serviceProvider = services.BuildServiceProvider();
             _dbContext = serviceProvider.GetRequiredService<TrainingSystemContext>();
             _userManager = serviceProvider.GetRequiredService<UserManager<AppUser>>();
+            _roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
         }
 
         [Fact]
@@ -50,8 +47,8 @@ namespace TrainingSystem.Tests.ControllerTests
             var appUser = new AppUser()
             {
                 Id = "1",
-                Email = "admin@email.com",
-                UserName = "admin@email.com"
+                Email = "estagiario@email.com",
+                UserName = "estagiario@email.com"
             };
             var employee1 = new Employee()
             {
@@ -94,8 +91,8 @@ namespace TrainingSystem.Tests.ControllerTests
             var appUser = new AppUser()
             {
                 Id = "1",
-                Email = "admin@email.com",
-                UserName = "admin@email.com"
+                Email = "estagiario@email.com",
+                UserName = "estagiario@email.com"
             };
             var employee = new Employee()
             {
@@ -115,7 +112,7 @@ namespace TrainingSystem.Tests.ControllerTests
             {
                 ObjectValidator = objectValidator.Object
             };
-            Helpers.SetupUser(controller, "admin@email.com");
+            Helpers.SetupUser(controller, "estagiario@email.com");
 
             // Act
             var response = (OkObjectResult)controller.GetEmployee(1).Result;
@@ -131,8 +128,8 @@ namespace TrainingSystem.Tests.ControllerTests
             var appUser = new AppUser()
             {
                 Id = "1",
-                Email = "admin@email.com",
-                UserName = "admin@email.com"
+                Email = "estagiario@email.com",
+                UserName = "estagiario@email.com"
             };
             var employee = new Employee()
             {
@@ -152,7 +149,7 @@ namespace TrainingSystem.Tests.ControllerTests
             {
                 ObjectValidator = objectValidator.Object
             };
-            Helpers.SetupUser(controller, "admin@email.com");
+            Helpers.SetupUser(controller, "estagiario@email.com");
 
             // Act
             var response = (NotFoundResult)controller.GetEmployee(50).Result;
@@ -161,6 +158,124 @@ namespace TrainingSystem.Tests.ControllerTests
             response.StatusCode.Should().Be(404);
         }
 
-        // falta fazer: PostEmployee e CreateInvalidEmployee
+        [Fact]
+        public void PostEmployee()
+        {
+            // Arrange
+            var vm = new RegisterViewModel()
+            {
+                Email = "estagiario@email.com",
+                Occupation = "Estagiário",
+                FirstName = "Fulano",
+                LastName = "de Tal",
+                Password = "Teste!23"
+            };
+            _roleManager.CreateAsync(new IdentityRole("Employee")).Wait();
+
+            var objectValidator = new Mock<IObjectModelValidator>();
+            objectValidator.Setup(o => o.Validate(It.IsAny<ActionContext>(),
+                                              It.IsAny<ValidationStateDictionary>(),
+                                              It.IsAny<string>(),
+                                              It.IsAny<Object>()));
+            var controller = new EmployeesController(_dbContext, _userManager)
+            {
+                ObjectValidator = objectValidator.Object
+            };
+            Helpers.SetupUser(controller, "admin@email.com");
+
+            // Act
+            var response = (CreatedAtActionResult)controller.PostEmployee(vm).Result;
+
+            // Assert
+            Assert.Equal((int)HttpStatusCode.Created, response.StatusCode);
+            ((Employee)response.Value).EmployeeId.Should().NotBe(0);
+            ((Employee)response.Value).Occupation.Should().Be("Estagiário");
+        }
+
+        [Fact]
+        public void CreateInvalidEmployee()
+        {            
+            // Arrange
+            var vm = new RegisterViewModel()
+            {
+                Email = "estagiario@email.com",
+                Occupation = "",
+                FirstName = "Fulano",
+                LastName = "de Tal",
+                Password = "Teste!23"
+            };
+            _roleManager.CreateAsync(new IdentityRole("Employee")).Wait();
+
+            var objectValidator = new Mock<IObjectModelValidator>();
+            objectValidator.Setup(o => o.Validate(It.IsAny<ActionContext>(),
+                                              It.IsAny<ValidationStateDictionary>(),
+                                              It.IsAny<string>(),
+                                              It.IsAny<Object>()));
+            var controller = new EmployeesController(_dbContext, _userManager)
+            {
+                ObjectValidator = objectValidator.Object
+            };
+            Helpers.SetupUser(controller, "admin@email.com");
+            controller.ModelState.AddModelError("Occupation", "The Occupation field is required");
+
+            // Act
+            var response = (BadRequestObjectResult)controller.PostEmployee(vm).Result;
+
+            // Assert
+            Assert.Equal((int)HttpStatusCode.BadRequest, response.StatusCode);
+            ((SerializableError)response.Value).ContainsKey("Occupation").Should().BeTrue();
+        }
+
+        [Fact]
+        public void CreateExistentEmployee()
+        {
+            // Arrange
+            var appUser = new AppUser()
+            {
+                Id = "1",
+                Email = "estagiario@email.com",
+                UserName = "estagiario@email.com",
+                FirstName = "Fulano",
+                LastName = "de Tal"
+            };
+            var employee = new Employee()
+            {
+                Occupation = "Estagiário",
+                AppUser = appUser
+            };
+            _roleManager.CreateAsync(new IdentityRole("Employee")).Wait();
+            _userManager.CreateAsync(appUser, "Teste!23").Wait();
+            _userManager.AddToRoleAsync(appUser, "Employee");
+            _dbContext.Employee.Add(employee);
+            _dbContext.SaveChanges();
+
+            var vm = new RegisterViewModel()
+            {
+                Email = "estagiario@email.com",
+                Occupation = "Estagiário",
+                FirstName = "Siclano",
+                LastName = "de Tal",
+                Password = "Teste!23"
+            };
+
+            var objectValidator = new Mock<IObjectModelValidator>();
+            objectValidator.Setup(o => o.Validate(It.IsAny<ActionContext>(),
+                                              It.IsAny<ValidationStateDictionary>(),
+                                              It.IsAny<string>(),
+                                              It.IsAny<Object>()));
+            var controller = new EmployeesController(_dbContext, _userManager)
+            {
+                ObjectValidator = objectValidator.Object
+            };
+            Helpers.SetupUser(controller, "admin@email.com");
+
+            // Act
+            var response = (BadRequestObjectResult)controller.PostEmployee(vm).Result;
+
+            // Assert
+            Assert.Equal((int)HttpStatusCode.BadRequest, response.StatusCode);
+            ((SerializableError)response.Value).ContainsKey("Email").Should().BeTrue();
+        }
+
     }
 }
