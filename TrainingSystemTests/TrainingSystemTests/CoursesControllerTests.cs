@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using TrainingSystem.Controllers;
 using TrainingSystem.Data;
 using TrainingSystem.Models;
+using TrainingSystem.ViewModels;
 using TrainingSystemTests;
 using TrainingSystemTests.Utils;
 using Xunit;
@@ -89,7 +90,7 @@ namespace TrainingSystem.Tests.ControllerTests
         }
 
         [Fact]
-        public void GetCourse()
+        public void GetCourseForAdmin()
         {
             // Arrange
             var appUser = new AppUser()
@@ -124,6 +125,119 @@ namespace TrainingSystem.Tests.ControllerTests
 
             // Assert
             ((Course)response.Value).CourseId.Should().Be(1);
+        }
+
+        [Fact]
+        public void GetCourseForEmployee()
+        {
+            // Arrange
+            var appUser = new AppUser()
+            {
+                Id = "1",
+                Email = "employee@email.com",
+                UserName = "employee@email.com"
+            };
+            var employee = new Employee()
+            {
+                EmployeeId = 1,
+                AppUserId = "1",
+                Occupation = "Estagiário"
+            };
+            var course = new Course()
+            {
+                CourseId = 1,
+                Name = "Curso 1",
+                Category = "Outros",
+                Instructor = "Fulano"
+            };
+            var courseSubscription = new CourseSubscription()
+            {
+                EmployeeId = 1,
+                CourseId = 1
+            };
+            var lesson = new Lesson()
+            {
+                CourseId = 1,
+                LessonId = 1,
+                Name = "Unidade 1"
+            };
+            var video = new Video()
+            {
+                VideoId = 1,
+                LessonId = 1,
+                Name = "Introdução à programação",
+                FileName = "introduction.mp4"
+            };
+            var videoWatch = new VideoWatch()
+            {
+                EmployeeId = 1,
+                IsCompleted = false,
+                VideoId = 1
+            };
+            var exam = new Exam()
+            {
+                LessonId = 1,
+                ExamId = 1
+            };
+            var question = new Question()
+            {
+                ExamId = 1,
+                QuestionId = 1,
+                Name = "Quem foi o primeiro programador?"
+            };
+            var questionChoice = new QuestionChoice()
+            {
+                QuestionChoiceId = 1,
+                QuestionId = 1,
+                Name = "Steve Jobs",
+                IsCorrect = false
+            };
+            var userExamChoice = new UserExamChoice()
+            {
+                UserExamChoiceId = 1,
+                QuestionChoiceId = 1,
+                UserExamId = 1
+            };
+            var userExam = new UserExam()
+            {
+                EmployeeId = 1,
+                ExamId = 1,
+                UserExamChoices = new List<UserExamChoice> { userExamChoice },
+                IsApproved = true,
+                SubmissionDate = new DateTime(2018, 05, 14, 12, 00, 00)
+            };
+            _roleManager.CreateAsync(new IdentityRole("Employee")).Wait();
+            _userManager.CreateAsync(appUser, "Teste!23").Wait();
+            _userManager.AddToRoleAsync(appUser, "Employee").Wait();
+            _dbContext.Employee.Add(employee);
+            _dbContext.Course.Add(course);
+            _dbContext.CourseSubscription.Add(courseSubscription);
+            _dbContext.Lesson.Add(lesson);
+            _dbContext.Video.Add(video);
+            _dbContext.VideoWatch.Add(videoWatch);
+            _dbContext.Exam.Add(exam);
+            _dbContext.Question.Add(question);
+            _dbContext.QuestionChoice.Add(questionChoice);
+            _dbContext.UserExamChoice.Add(userExamChoice);
+            _dbContext.UserExam.Add(userExam);
+            _dbContext.SaveChanges();
+
+            var objectValidator = new Mock<IObjectModelValidator>();
+            objectValidator.Setup(o => o.Validate(It.IsAny<ActionContext>(),
+                                              It.IsAny<ValidationStateDictionary>(),
+                                              It.IsAny<string>(),
+                                              It.IsAny<Object>()));
+            var controller = new CoursesController(_dbContext, _userManager)
+            {
+                ObjectValidator = objectValidator.Object
+            };
+            Helpers.SetupUser(controller, "employee@email.com");
+
+            // Act
+            var response = (OkObjectResult)controller.GetCourse(1).Result;
+
+            // Assert
+            ((CourseViewModel)response.Value).CourseId.Should().Be(1);
         }
 
         [Fact]
