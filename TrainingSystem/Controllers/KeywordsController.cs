@@ -49,41 +49,6 @@ namespace TrainingSystem.Controllers
             return Ok(keyword);
         }
 
-        // PUT: api/Keywords/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutKeyword([FromRoute] int id, [FromBody] Keyword keyword)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != keyword.KeywordId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(keyword).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!KeywordExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
         // POST: api/Keywords
         [HttpPost]
         public async Task<IActionResult> PostKeyword([FromBody] Keyword keyword)
@@ -97,32 +62,6 @@ namespace TrainingSystem.Controllers
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetKeyword", new { id = keyword.KeywordId }, keyword);
-        }
-
-        // DELETE: api/Keywords/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteKeyword([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var keyword = await _context.Keyword.SingleOrDefaultAsync(k => k.KeywordId == id);
-            if (keyword == null)
-            {
-                return NotFound();
-            }
-
-            _context.Keyword.Remove(keyword);
-            await _context.SaveChangesAsync();
-
-            return Ok(keyword);
-        }
-
-        private bool KeywordExists(int id)
-        {
-            return _context.Keyword.Any(k => k.KeywordId == id);
         }
     }
 }
