@@ -70,8 +70,10 @@ export class CourseMaterialsComponent implements OnInit {
   fileChange(files: FileList) {
     if (files && files[0].size > 0) {
       if ((files[0].type === 'application/msword'
-      || files[0].type === 'application/vnd.ms-powerpoint'
-      || files[0].type === 'application/pdf') && files[0].size < 31457280) {
+        || files[0].type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' 
+        || files[0].type === 'application/vnd.ms-powerpoint'
+        || files[0].type === 'application/vnd.openxmlformats-officedocument.presentationml.presentation' 
+        || files[0].type === 'application/pdf') && files[0].size < 31457280) {
         this.isFileTypeSupported = true;
       } else {
         this.isFileTypeSupported = false;

@@ -67,7 +67,7 @@
           id="file"
           name="file"
           #uploader
-          accept="application/msword,application/vnd.ms-powerpoint,application/pdf"
+          accept="application/msword,application/vnd.ms-powerpoint,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.presentationml.presentation"
           (change)="fileChange(uploader.files)"
           required />
         <div
@@ -76,7 +76,7 @@
           Tipo de arquivo não suportado
         </div>
         <p class="help-block">
-          Tipos de arquivos suportados: .docx, .pptx ou .pdf. Tamanho máximo do arquivo: 30 MB.
+          Tipos de arquivos suportados: .doc, .docx, .ppt, .pptx ou .pdf. Tamanho máximo do arquivo: 30 MB.
         </p>
       </div>
 
