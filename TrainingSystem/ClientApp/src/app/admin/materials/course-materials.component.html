@@ -5,7 +5,7 @@
       <table class="table">
         <thead>
           <tr>
-            <th>Materiais</th>
+            <th>Nome</th>
             <th>Ações</th>
           </tr>
         </thead>
@@ -13,8 +13,8 @@
           <tr *ngFor="let material of materials">
             <td>{{ material.name }}</td>
             <td>
-              <a (click)="deleteMaterial(material.materialId)">
-                <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
+              <a (click)="deleteMaterial(material.materialId)" class="text-danger">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Excluir
               </a>
             </td>
           </tr>
@@ -22,12 +22,12 @@
       </table>
     </div>
     <ng-template #noMaterials>
-      <p>Sem materiais cadastrados no momento.</p>
+      <p>Você ainda não cadastrou nenhum material.</p>
     </ng-template>
 
     <button
       (click)="showMaterialForm()"
-      class="btn btn-default pull-right">
+      class="btn btn-primary pull-right">
       Adicionar material
     </button>
   </div>
@@ -91,7 +91,7 @@
           [disabled]="!f.valid || !fileSelected || (!isFileTypeSupported && uploader.files.length > 0)"
           type="submit"
           class="btn btn-success">
-          Salvar
+          Salvar material
         </button>
       </div>
     </form>

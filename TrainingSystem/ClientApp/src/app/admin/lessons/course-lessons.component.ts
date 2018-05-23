@@ -41,7 +41,9 @@ export class CourseLessonsComponent implements OnInit {
     this.lessonService.create(this.newLesson)
       .subscribe(
         data => {
-          this.router.navigate([`/admin/courses/${data.courseId}/lessons/${data.lessonId}`]);
+          // this.router.navigate([`/admin/courses/${data.courseId}/lessons/${data.lessonId}`]);
+          this.updateCourseDetail.emit();
+          this.backToLessonList();
           this.alertService.success('Unidade criada com sucesso!');
         },
         error => {

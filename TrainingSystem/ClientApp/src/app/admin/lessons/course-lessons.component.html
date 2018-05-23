@@ -5,7 +5,7 @@
       <table class="table">
         <thead>
           <tr>
-            <th>Unidades</th>
+            <th>Nome</th>
             <th>Ações</th>
           </tr>
         </thead>
@@ -14,10 +14,10 @@
             <td>{{ lesson.name }}</td>
             <td>
               <a [routerLink]="['/admin/courses', lesson.courseId, 'lessons', lesson.lessonId]">
-                <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span> Visualizar
               </a>
-              <a (click)="deleteLesson(lesson.lessonId)">
-                <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
+              <a (click)="deleteLesson(lesson.lessonId)" class="text-danger">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Excluir
               </a>
             </td>
           </tr>
@@ -25,13 +25,13 @@
       </table>
     </div>
     <ng-template #noLessons>
-      <p>Sem unidades cadastradas no momento.</p>
+      <p>Você ainda não cadastrou nenhuma unidade.</p>
     </ng-template>
 
     <button
       type="button"
       (click)="showLessonForm()"
-      class="btn btn-default pull-right">
+      class="btn btn-primary pull-right">
       Adicionar unidade
     </button>
   </div>
@@ -73,7 +73,7 @@
           [disabled]="!f.valid"
           type="submit"
           class="btn btn-success">
-          Salvar
+          Salvar unidade
         </button>
       </div>
     </form>

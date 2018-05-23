@@ -22,6 +22,11 @@
               {{ keyword.name }}
             </span>
           </p>
+          <a
+            (click)="deleteCourse(course.courseId)"
+            class="text-danger pull-right">
+            Excluir curso
+          </a>
         </div>
       </div>
 
