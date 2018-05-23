@@ -1,12 +1,25 @@
 <div *ngIf="lesson">
 
-  <div class="row lesson-section">
+  <div class="row">
     <div class="col-xs-12">
       <h3>Detalhes de {{ lesson.name }}</h3>
+
+      <div class="panel panel-default lesson-detail__info">
+        <div class="panel-body">
+          <p *ngIf="lesson.course.name">
+            <strong>Nome do curso:</strong>
+            <a [routerLink]="['/admin/courses', lesson.courseId]">{{ lesson.course.name }}</a>
+          </p>
+          <a (click)="deleteLesson(lesson.lessonId)" class="text-danger pull-right">
+            Excluir unidade
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="row lesson-section">
+
+  <div class="row lesson-detail__tabs">
     <div class="col-xs-12">
       <ul class="nav nav-tabs">
         <li role="presentation"
@@ -18,7 +31,7 @@
         <li role="presentation"
           [ngClass]="{'active': tabContent === 'exam'}">
           <a (click)="showTabContent('exam')">
-            Avaliação
+            Atividades
           </a>
         </li>
       </ul>

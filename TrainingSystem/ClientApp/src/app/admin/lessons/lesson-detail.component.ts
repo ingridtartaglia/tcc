@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Video } from '../../shared/models/video.model';
 import { Lesson } from '../../shared/models/lesson.model';
 import { LessonService } from '../../shared/services/lesson.service';
+import { AlertService } from '../../shared/services/alert.service';
 
 @Component({
   selector: 'app-lesson-detail',
@@ -16,7 +17,9 @@ export class LessonDetailComponent implements OnInit {
   tabContent: string;
 
   constructor(private route: ActivatedRoute,
-    private lessonService: LessonService) { }
+    private lessonService: LessonService,
+    private router: Router,
+    private alertService: AlertService) { }
 
   ngOnInit() {
     this.tabContent = 'videos';
@@ -34,5 +37,17 @@ export class LessonDetailComponent implements OnInit {
 
   updateLessonDetail() {
     this.getLesson();
+  }
+
+  deleteLesson(id: number) {
+    this.lessonService.delete(id).subscribe(
+      data => {
+        this.router.navigate([`/admin/courses/${this.lesson.courseId}`]);
+        this.alertService.success('Unidade deletada com sucesso!');
+      },
+      error => {
+        this.alertService.error(error);
+      }
+    );
   }
 }
