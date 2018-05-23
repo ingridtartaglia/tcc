@@ -1,9 +1,9 @@
 <div class="row" *ngIf="employees">
-  <div class="col-xs-12">
+  <div class="col-xs-12 employee-list">
     <h3>Lista de usuários</h3>
 
     <div class="table-responsive" *ngIf="employees.length > 0; else noEmployees">
-      <table class="table">
+      <table class="table employees-list__table">
         <thead>
           <tr>
             <th>Nome</th>
@@ -25,9 +25,11 @@
       </table>
     </div>
     <ng-template #noEmployees>
-      <p>
-        Sem usuários no momento.
-      </p>
+      <div class="panel panel-default employees-list__no-employee">
+        <div class="panel-body">
+          Você ainda não cadastrou nenhum usuário.
+        </div>
+      </div>
     </ng-template>
 
     <button

@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-xs-12">
-    <h3>Cadastrar curso</h3>
+    <h3>Cadastro de curso</h3>
 
       <form
         #f="ngForm"
@@ -67,24 +67,27 @@
         </div>
 
         <div class="form-group">
-          <label for="keywords">Palavras-chave</label>
-          <tag-input
-            [(ngModel)]="course.keywords"
-            [editable]="true"
-            [identifyBy]="'name'"
-            [displayBy]="'name'"
-            [ngModelOptions]="{standalone: true}"
-            [maxItems]="5"
-            secondaryPlaceholder="Adicione uma palavra aqui"
-            theme="bootstrap">
+          <label for="keywords">Palavras-chave*</label>
+          <tag-input [(ngModel)]="course.keywords"
+                     [editable]="true"
+                     [identifyBy]="'name'"
+                     [displayBy]="'name'"
+                     [ngModelOptions]="{standalone: true}"
+                     [maxItems]="5"
+                     secondaryPlaceholder=""
+                     theme="bootstrap">
           </tag-input>
+          <p class="help-block">
+            Para adicionar mais de uma palavra-chave, aperte enter. <br />
+            Você pode adicionar até 5 palavras-chave.
+          </p>
         </div>
 
         <button
           type="submit"
           [disabled]="!f.valid"
-          class="btn btn-success pull-right">
-          Cadastrar
+          class="btn btn-success pull-right course-register__button">
+          Cadastrar curso
         </button>
       </form>
   </div>
