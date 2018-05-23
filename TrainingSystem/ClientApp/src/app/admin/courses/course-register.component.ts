@@ -28,6 +28,7 @@ export class CourseRegisterComponent implements OnInit {
       .subscribe(
         data => {
           this.router.navigate([`/admin/courses/${data.courseId}`]);
+          this.alertService.success('Curso criado com sucesso!'); 
         },
         error => {
           this.alertService.error(error);
