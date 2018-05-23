@@ -27,6 +27,7 @@ export class EmployeeRegisterComponent implements OnInit {
       .subscribe(
         data => {
           this.router.navigate([`/admin/employees/${data.employeeId}`]);
+          this.alertService.success('Usuário criado com sucesso!');
         },
         error => {
           this.alertService.error(error);

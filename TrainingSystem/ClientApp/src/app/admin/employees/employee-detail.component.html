@@ -4,22 +4,26 @@
     <div class="col-xs-12">
       <h3>Detalhes do usuário</h3>
 
-      <p>
-        <strong>Nome:</strong> {{ employee.appUser.firstName }} {{ employee.appUser.lastName }}
-      </p>
-      <p>
-        <strong>E-mail:</strong> {{ employee.appUser.email }}
-      </p>
-      <p>
-        <strong>Ocupação:</strong> {{ employee.occupation }}
-      </p>
+      <div class="panel panel-default employee-detail__info">
+        <div class="panel-body">
+          <p>
+            <strong>Nome:</strong> {{ employee.appUser.firstName }} {{ employee.appUser.lastName }}
+          </p>
+          <p>
+            <strong>E-mail:</strong> {{ employee.appUser.email }}
+          </p>
+          <p>
+            <strong>Ocupação:</strong> {{ employee.occupation }}
+          </p>
+        </div>
+      </div>
 
     </div>
   </div>
 
   <div class="row employee-section">
     <div class="col-xs-12">
-      <h3>Relatório de atividades nos cursos inscritos</h3>
+      <h4 *ngIf="courses.length > 0">Relatório de atividades nos cursos inscritos</h4>
 
       <accordion>
         <accordion-group
