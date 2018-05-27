@@ -18,6 +18,9 @@
     <div class="row">
       <div class="col-xs-12 col-md-4" [collapse]="isSidebarCollapsed">
         <aside>
+          <a [routerLink]="['/platform/courses', course.courseId]" class="course-video__back">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Voltar para a página do curso
+          </a>
           <ol>
             <li *ngFor="let lesson of course.lessons">
               {{ lesson.name }}
