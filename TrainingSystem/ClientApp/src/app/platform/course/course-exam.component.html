@@ -1,13 +1,16 @@
 <div class="row" *ngIf="exam && !isExamSubmitted">
   <div class="col-xs-12">
-    <h3>Avaliação</h3>
+    <h3>Atividade avaliativa</h3>
 
-    <p class="course-exam__text">
+    <p
+      *ngIf="exam.questions"
+      class="course-exam__text">
       Para ser aprovado neste curso, além de assistir a todos os vídeos,
       é preciso fazer todas as atividades previstas e acertar pelo menos 70% das questões.
     </p>
 
     <form
+      *ngIf="exam.questions"
       #f="ngForm"
       name="form"
       (ngSubmit)="f.form.valid && submitExam()"
