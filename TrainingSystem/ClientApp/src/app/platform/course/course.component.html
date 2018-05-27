@@ -11,43 +11,43 @@
     </p>
   </alert>
 
-  <div class="row course-section">
+  <div class="row">
     <div class="col-xs-12">
-      <h3>Detalhes do curso</h3>
+      <h3>Detalhes de {{ course.name }}</h3>
 
-      <p>
-        <strong>Nome:</strong> {{ course.name }}
-      </p>
-      <p *ngIf="course.description">
-        <strong>Descrição:</strong> {{ course.description }}
-      </p>
-      <p>
-        <strong>Instrutor:</strong> {{ course.instructor }}
-      </p>
-      <p>
-        <strong>Categoria:</strong> {{ course.category }}
-      </p>
-      <p *ngIf="course.keywords.length > 0">
-        <strong>Palavras-chave:</strong>
-        <span
-          class="label label-default"
-          *ngFor="let keyword of course.keywords">
-          {{ keyword.name }}
-        </span>
-      </p>
+      <div class="panel panel-default course-detail__info"> 
+        <div class="panel-body">
+          <p *ngIf="course.description">
+            {{ course.description }}
+          </p>
+          <p>
+            <strong>Instrutor:</strong> {{ course.instructor }}
+          </p>
+          <p>
+            <strong>Categoria:</strong> {{ course.category }}
+          </p>
+          <p *ngIf="course.keywords.length > 0">
+            <strong>Palavras-chave:</strong>
+            <span class="label label-default"
+                  *ngFor="let keyword of course.keywords">
+              {{ keyword.name }}
+            </span>
+          </p>
 
-      <button
-        *ngIf="!course.isSubscribed"
-        (click)="subscribeCourse(course.courseId)"
-        class="btn btn-success">
-        Inscrever-se
-      </button>
+          <button *ngIf="!course.isSubscribed"
+                  (click)="subscribeCourse(course.courseId)"
+                  class="btn btn-success pull-right">
+            Inscrever-se
+          </button>
+        </div>
+      </div>
+
     </div>
   </div>
 
-  <div class="row course-section">
+  <div class="row course-detail__content">
     <div class="col-xs-12">
-      <h3>Conteúdo do curso</h3>
+      <h4>Conteúdo do curso</h4>
 
       <accordion>
         <accordion-group
