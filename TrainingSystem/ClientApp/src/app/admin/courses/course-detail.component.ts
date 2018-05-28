@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Course } from '../../shared/models/course.model';
 import { CourseService } from '../../shared/services/course.service';
+import { AlertService } from '../../shared/services/alert.service';
 
 @Component({
   selector: 'app-course-detail',
@@ -14,7 +15,9 @@ export class CourseDetailComponent implements OnInit {
   course: Course;
   tabContent: string;
 
-  constructor(private courseService: CourseService, private route: ActivatedRoute) { }
+  constructor(private courseService: CourseService, private route: ActivatedRoute,
+    private router: Router,
+    private alertService: AlertService) { }
 
   ngOnInit() {
     this.tabContent = 'lessons';
@@ -32,5 +35,17 @@ export class CourseDetailComponent implements OnInit {
 
   updateCourseDetail() {
     this.getCourse();
+  }
+
+  deleteCourse(id: number) {
+    this.courseService.delete(id).subscribe(
+      data => {
+        this.router.navigate([`/admin/courses/list`]);
+        this.alertService.success('Curso deletado com sucesso!');
+      },
+      error => {
+        this.alertService.error(error);
+      }
+    );
   }
 }

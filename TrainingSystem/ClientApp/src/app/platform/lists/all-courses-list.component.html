@@ -3,7 +3,7 @@
     <h3>Todos os nossos cursos</h3>
 
     <div class="table-responsive" *ngIf="courses.length > 0; else noCourses">
-      <table class="table">
+      <table class="table course-list__table">
         <thead>
           <tr>
             <th>Curso</th>
@@ -39,9 +39,11 @@
       </table>
     </div>
     <ng-template #noCourses>
-      <p>
-        No momento ainda não temos cursos disponíveis :(
-      </p>
+      <div class="panel panel-default course-list__no-course">
+        <div class="panel-body">
+          No momento ainda não temos cursos disponíveis :(
+        </div>
+      </div>
     </ng-template>
 
   </div>

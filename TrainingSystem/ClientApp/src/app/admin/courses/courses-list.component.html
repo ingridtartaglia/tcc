@@ -3,7 +3,7 @@
     <h3>Lista de cursos</h3>
 
     <div class="table-responsive" *ngIf="courses.length > 0; else noCourses">
-      <table class="table">
+      <table class="table course-list__table">
         <thead>
           <tr>
             <th>Curso</th>
@@ -19,10 +19,10 @@
             <td class="hidden-xs">{{ course.category }}</td>
             <td>
               <a [routerLink]="['/admin/courses', course.courseId]">
-                <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span> Visualizar
               </a>
-              <a (click)="deleteCourse(course.courseId)">
-                <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
+              <a (click)="deleteCourse(course.courseId)" class="text-danger">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Excluir
               </a>
             </td>
           </tr>
@@ -30,14 +30,16 @@
       </table>
     </div>
     <ng-template #noCourses>
-      <p>
-        Sem cursos no momento.
-      </p>
+      <div class="panel panel-default course-list__no-course">
+        <div class="panel-body">
+          Você ainda não cadastrou nenhum curso.
+        </div>
+      </div>
     </ng-template>
 
     <button
       [routerLink]="['/admin/courses/add']"
-      class="btn btn-success pull-right">
+      class="btn btn-primary pull-right">
       Adicionar curso
     </button>
   </div>

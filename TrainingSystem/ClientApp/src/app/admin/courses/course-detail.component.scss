@@ -1,14 +1,15 @@
-.course-section {
-  &:first-of-type {
-    margin-bottom: 30px;
-  }
-  &:last-of-type {
-    margin-bottom: 20px;
-  }
-}
+.course-detail {
+  &__info {
+    margin: 2em 0;
 
-span {
-  &.label {
-    margin-right: 5px;
+    span {
+      &.label {
+        margin-right: 5px;
+      }
+    }
+  }
+
+  &__tabs {
+    margin-bottom: 1.5em;
   }
 }

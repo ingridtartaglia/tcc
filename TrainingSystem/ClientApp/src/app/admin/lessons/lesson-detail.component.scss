@@ -1,8 +1,9 @@
-.lesson-section {
-  &:first-of-type {
-    margin-bottom: 30px;
+.lesson-detail {
+  &__info {
+    margin: 2em 0;
   }
-  &:last-of-type {
-    margin-bottom: 20px;
+
+  &__tabs {
+    margin-bottom: 1.5em;
   }
 }

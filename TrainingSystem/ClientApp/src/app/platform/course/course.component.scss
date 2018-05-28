@@ -1,22 +1,30 @@
-.course-section {
-  margin-bottom: 30px;
-}
+.course-detail {
+  &__info {
+    margin: 2em 0;
 
-.panel-body {
-  & > ol:only-child,
-  & > ul:last-child {
-    margin-bottom: 0;
+    span {
+      &.label {
+        margin-right: 5px;
+      }
+    }
   }
-}
 
-.panel-group {
-  .panel + .panel {
-    margin-top: 10px;
-  }
-}
+  &__content {
+    h4 {
+      margin-bottom: 1em;
+    }
 
-span {
-  &.label {
-    margin-right: 5px;
+    .panel-body {
+      & > ol:only-child,
+      & > ul:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    .panel-group {
+      .panel + .panel {
+        margin-top: 10px;
+      }
+    }
   }
 }
