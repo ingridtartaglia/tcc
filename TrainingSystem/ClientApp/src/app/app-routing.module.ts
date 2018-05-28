@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { AdminGuard } from './shared/guards/admin.guard';
 import { EmployeeGuard } from './shared/guards/employee.guard';
+import { LoginGuard } from './shared/guards/login.guard';
 
 const routes: Routes = [
   {
@@ -19,6 +20,7 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: 'app/login/login.module#LoginModule',
+    canActivate: [LoginGuard]
   }
 ];
 
