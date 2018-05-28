@@ -53,7 +53,7 @@
         <accordion-group
           *ngFor="let lesson of course.lessons"
           heading="{{ lesson.name }}">
-          <ol *ngIf="lesson.videos.length > 0">
+          <ol>
             <li *ngFor="let video of lesson.videos">
               <a
                 *ngIf="course.isSubscribed; else noSubscribed"
