@@ -11,10 +11,9 @@
               </a>
             </p>
             <ol>
-              <li
-                type="a"
-                *ngFor="let questionChoice of question.questionChoices"
-                [ngClass]="{'text-success': questionChoice.isCorrect }">
+              <li type="a"
+                  *ngFor="let questionChoice of question.questionChoices"
+                  [ngClass]="{'text-success': questionChoice.isCorrect }">
                 {{ questionChoice.name }}
               </li>
             </ol>
@@ -22,7 +21,7 @@
         </ol>
       </div>
       <ng-template #noQuestions>
-        <p>Essa unidade possui uma avaliação sem questões cadastradas.</p>
+        <p>Você ainda não cadastrou nenhuma questão.</p>
       </ng-template>
     </div>
     <ng-template #noExam>
@@ -33,7 +32,7 @@
       *ngIf="!exam"
       (click)="addExam()"
       class="btn btn-default pull-right">
-      Adicionar avaliação
+      Adicionar questão
     </button>
 
     <button

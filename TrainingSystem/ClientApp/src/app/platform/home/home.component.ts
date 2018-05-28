@@ -37,7 +37,8 @@ export class HomeComponent implements OnInit {
   subscribeCourse(courseId: number) {
     this.subscriptionService.create(courseId)
       .subscribe(
-        data => {
+      data => {
+          this.getCoursesList();
           this.getUserCoursesList();
           this.alertService.success('Sua inscrição neste curso foi realizada com sucesso!');
         },

@@ -39,6 +39,8 @@ export class LessonExamComponent implements OnInit {
       .subscribe(
         data => {
           this.updateLessonDetail.emit();
+          this.newQuestion = new Question(data.examId);
+          this.showQuestionForm();
         },
         error => {
           this.alertService.error(error);
