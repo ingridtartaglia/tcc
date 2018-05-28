@@ -11,6 +11,7 @@ import { AuthService } from './shared/services/auth.service';
 import { EmployeeService } from './shared/services/employee.service';
 import { JwtInterceptor } from './shared/jwt.interceptor';
 import { AuthGuard } from './shared/guards/auth.guard';
+import { LoginGuard } from './shared/guards/login.guard';
 import { AdminGuard } from './shared/guards/admin.guard';
 import { EmployeeGuard } from './shared/guards/employee.guard';
 import { CourseService } from './shared/services/course.service';
@@ -40,6 +41,7 @@ import { AlertService } from './shared/services/alert.service';
     AuthGuard,
     AdminGuard,
     EmployeeGuard,
+    LoginGuard,
     AuthService,
     EmployeeService,
     CourseService,

@@ -5,7 +5,7 @@
       <table class="table">
         <thead>
           <tr>
-            <th>Lista de vídeos</th>
+            <th>Nomes</th>
             <th>Ações</th>
           </tr>
         </thead>
@@ -13,8 +13,8 @@
           <tr *ngFor="let video of videos">
             <td>{{ video.name }}</td>
             <td>
-              <a (click)="deleteVideo(video.videoId)">
-                <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
+              <a (click)="deleteVideo(video.videoId)" class="text-danger">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Excluir
               </a>
             </td>
           </tr>
@@ -22,12 +22,12 @@
       </table>
     </div>
     <ng-template #noVideos>
-      <p>Sem vídeos cadastrados no momento.</p>
+      <p>Você ainda não cadastrou nenhum vídeo.</p>
     </ng-template>
 
     <button
       (click)="showVideoForm()"
-      class="btn btn-default pull-right">
+      class="btn btn-primary pull-right">
       Adicionar vídeo
     </button>
   </div>
@@ -42,7 +42,7 @@
       novalidate>
       <div class="form-group"
         [ngClass]="{ 'has-error': newVideoName.touched && !newVideoName.valid }">
-        <label for="newVideoName">Nome do vídeo*</label>
+        <label for="newVideoName">Nome*</label>
         <input
           type="text"
           class="form-control"
@@ -65,7 +65,7 @@
           type="file"
           id="file"
           name="file"
-          accept="video/mp4,video/x-m4v,video/*"
+          accept="video/*"
           #uploader
           (change)="fileChange(uploader.files)" required />
         <div
@@ -89,7 +89,7 @@
           [disabled]="!f.valid || !fileSelected || (!isFileTypeSupported && uploader.files.length > 0)"
           type="submit"
           class="btn btn-success">
-          Salvar
+          Salvar vídeo
         </button>
       </div>
 

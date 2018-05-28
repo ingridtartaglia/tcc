@@ -53,7 +53,4 @@ export class CourseExamComponent implements OnInit {
       );
   }
 
-  reload() {
-    window.location.reload();
-  }
 }

@@ -1,0 +1,14 @@
+.course-list {
+  &__table {
+    margin: 2em 0;
+  }
+
+  &__no-course {
+    height: 15em;
+    margin: 2em 0;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+  }
+}

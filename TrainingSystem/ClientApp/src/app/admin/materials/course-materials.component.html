@@ -5,7 +5,7 @@
       <table class="table">
         <thead>
           <tr>
-            <th>Materiais</th>
+            <th>Nome</th>
             <th>Ações</th>
           </tr>
         </thead>
@@ -13,8 +13,8 @@
           <tr *ngFor="let material of materials">
             <td>{{ material.name }}</td>
             <td>
-              <a (click)="deleteMaterial(material.materialId)">
-                <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
+              <a (click)="deleteMaterial(material.materialId)" class="text-danger">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Excluir
               </a>
             </td>
           </tr>
@@ -22,12 +22,12 @@
       </table>
     </div>
     <ng-template #noMaterials>
-      <p>Sem materiais cadastrados no momento.</p>
+      <p>Você ainda não cadastrou nenhum material.</p>
     </ng-template>
 
     <button
       (click)="showMaterialForm()"
-      class="btn btn-default pull-right">
+      class="btn btn-primary pull-right">
       Adicionar material
     </button>
   </div>
@@ -43,7 +43,7 @@
       <div
         class="form-group"
         [ngClass]="{ 'has-error': newMaterialName.touched && !newMaterialName.valid }">
-        <label for="newMaterialName">Nome do material*</label>
+        <label for="newMaterialName">Nome*</label>
         <input
           type="text"
           class="form-control"
@@ -67,7 +67,7 @@
           id="file"
           name="file"
           #uploader
-          accept="application/msword,application/vnd.ms-powerpoint,application/pdf"
+          accept="application/msword,application/vnd.ms-powerpoint,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.presentationml.presentation"
           (change)="fileChange(uploader.files)"
           required />
         <div
@@ -76,7 +76,7 @@
           Tipo de arquivo não suportado
         </div>
         <p class="help-block">
-          Tipos de arquivos suportados: .docx, .pptx ou .pdf. Tamanho máximo do arquivo: 30 MB.
+          Tipos de arquivos suportados: .doc, .docx, .ppt, .pptx ou .pdf. Tamanho máximo do arquivo: 30 MB.
         </p>
       </div>
 
@@ -91,7 +91,7 @@
           [disabled]="!f.valid || !fileSelected || (!isFileTypeSupported && uploader.files.length > 0)"
           type="submit"
           class="btn btn-success">
-          Salvar
+          Salvar material
         </button>
       </div>
     </form>

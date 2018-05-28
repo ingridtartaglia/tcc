@@ -36,6 +36,7 @@ namespace TrainingSystem.Controllers
 
             // checking if this user is already approved for this exam
             var lastExam = _context.UserExam
+                                   .Where(ue => ue.ExamId == userExam.ExamId)
                                    .OrderByDescending(e => e.SubmissionDate)
                                    .FirstOrDefault(e => e.EmployeeId == employee.EmployeeId);
             

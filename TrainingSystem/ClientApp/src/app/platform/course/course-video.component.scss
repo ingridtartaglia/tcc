@@ -1,7 +1,14 @@
-.course-video__title {
-  margin-bottom: 30px;
-  @media screen and (max-width: 767px) {
-    margin-bottom: 10px;
+.course-video {
+  &__title {
+    margin-bottom: 30px;
+    @media screen and (max-width: 767px) {
+      margin-bottom: 10px;
+    }
+  }
+
+  &__back {
+    margin-bottom: 1em;
+    display: block;
   }
 }
 
@@ -12,8 +19,8 @@ video {
 
 aside {
   background: #F3F9FF;
-  padding: 20px 0;
-  margin-bottom: 20px;
+  padding: 1em;
+  margin-bottom: 1em;
 
   & > ol {
     margin-bottom: 0;
