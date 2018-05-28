@@ -21,6 +21,16 @@ const routes: Routes = [
     path: 'login',
     loadChildren: 'app/login/login.module#LoginModule',
     canActivate: [LoginGuard]
+  },
+  {
+    path: '',
+    redirectTo: '/login',
+    pathMatch: 'full'
+  },
+  {
+    path: '**',
+    redirectTo: '/login',
+    pathMatch: 'full'
   }
 ];
 
