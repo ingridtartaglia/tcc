@@ -23,14 +23,14 @@
 
   <div class="row employee-section">
     <div class="col-xs-12">
-      <h4 *ngIf="courses.length > 0">Relatório de atividades nos cursos inscritos</h4>
+      <h4 *ngIf="courses">Relatório de atividades nos cursos inscritos</h4>
 
       <accordion>
         <accordion-group
           *ngFor="let course of courses"
           heading="{{ course.name }}">
           <p>
-            <strong>Vídeos assistidos:</strong> {{ course.videosCount }} ({{ course.watchedVideosPercentage }}%)
+            <strong>Vídeos assistidos:</strong> {{ course.videoWatch.length }} ({{ course.watchedVideosPercentage }}%)
           </p>
           <p>
             <strong>Nota:</strong>
