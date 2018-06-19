@@ -35,10 +35,10 @@ namespace TrainingSystem
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddDbContext<TrainingSystemContext>(options => options.UseSqlServer(Configuration.GetConnectionString("TrainingSystemDatabase")));
             services.AddSingleton<IJwtFactory, JwtFactory>();
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
+            
             // jwt wire up
             // Get options from app settings
             var jwtAppSettingOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
