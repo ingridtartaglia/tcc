@@ -94,7 +94,7 @@ namespace TrainingSystem
                 o.Password.RequireUppercase = false;
                 o.Password.RequireNonAlphanumeric = false;
                 o.Password.RequiredLength = 6;
-            });
+            }).AddErrorDescriber<CustomIdentityErrorDescriber>();
             builder = new IdentityBuilder(builder.UserType, typeof(IdentityRole), builder.Services);
             builder.AddEntityFrameworkStores<TrainingSystemContext>().AddDefaultTokenProviders();
             builder.AddRoleValidator<RoleValidator<IdentityRole>>();

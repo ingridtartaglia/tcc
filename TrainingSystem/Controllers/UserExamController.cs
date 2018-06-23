@@ -41,7 +41,7 @@ namespace TrainingSystem.Controllers
                                    .FirstOrDefault(e => e.EmployeeId == employee.EmployeeId);
             
             if (lastExam != null && lastExam.IsApproved) {
-                return BadRequest("User is already approved in this exam");
+                return BadRequest("Você já foi aprovado nessa atividade.");
             }
 
             userExam.EmployeeId = employee.EmployeeId;
