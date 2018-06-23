@@ -43,7 +43,7 @@ namespace TrainingSystem.Controllers
 
             var identity = GetClaimsIdentity(loginViewModel.Email, loginViewModel.Password);
             if (identity == null) {
-                ModelState.AddModelError("login_failure", "Invalid username or password.");
+                ModelState.AddModelError("login_failure", "Usuário ou senha inválidos.");
                 return BadRequest(ModelState);
             }
 

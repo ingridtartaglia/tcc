@@ -110,7 +110,7 @@ namespace TrainingSystemTests.TrainingSystemTests
             var controller = new QuestionsController(_dbContext) {
                 ObjectValidator = objectValidator.Object
             };
-            controller.ModelState.AddModelError("Name", "The Name field is required");
+            controller.ModelState.AddModelError("Name", "Nome obrigatório.");
 
             // Act
             var response = (BadRequestObjectResult)controller.PostQuestion(questionToAdd).Result;

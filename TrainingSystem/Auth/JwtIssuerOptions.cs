@@ -39,7 +39,7 @@ namespace TrainingSystem.Auth
         /// <summary>
         /// Set the timespan the token will be valid for (default is 120 min)
         /// </summary>
-        public TimeSpan ValidFor { get; set; } = TimeSpan.FromMinutes(120);
+        public TimeSpan ValidFor { get; set; } = TimeSpan.FromMinutes(10080); // 1 week
 
         /// <summary>
         /// "jti" (JWT ID) Claim (default ID is a GUID)

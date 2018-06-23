@@ -63,7 +63,7 @@ namespace TrainingSystem.Controllers
             var appUser = await _userManager.FindByEmailAsync(registerViewModel.Email);
 
             if (appUser != null) {
-                ModelState.AddModelError("email", "User already exists");
+                ModelState.AddModelError("email", "Este usuário já existe.");
                 return BadRequest(ModelState);
             }
 
