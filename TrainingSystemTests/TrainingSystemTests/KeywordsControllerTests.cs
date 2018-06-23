@@ -195,7 +195,7 @@ namespace TrainingSystemTests.TrainingSystemTests
             var controller = new KeywordsController(_dbContext) {
                 ObjectValidator = objectValidator.Object
             };
-            controller.ModelState.AddModelError("Name", "The Name field is required");
+            controller.ModelState.AddModelError("Name", "Nome obrigatório.");
 
             // Act
             var response = (BadRequestObjectResult)controller.PostKeyword(keywordToAdd).Result;

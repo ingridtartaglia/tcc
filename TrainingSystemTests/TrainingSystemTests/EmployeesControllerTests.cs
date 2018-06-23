@@ -216,7 +216,7 @@ namespace TrainingSystem.Tests.ControllerTests
                 ObjectValidator = objectValidator.Object
             };
             Helpers.SetupUser(controller, "admin@email.com");
-            controller.ModelState.AddModelError("Occupation", "The Occupation field is required");
+            controller.ModelState.AddModelError("Occupation", "Ocupação obrigatória.");
 
             // Act
             var response = (BadRequestObjectResult)controller.PostEmployee(vm).Result;

@@ -115,7 +115,7 @@ namespace TrainingSystem.Tests.ControllerTests
             var controller = new MaterialsController(_dbContext, _environment) {
                 ObjectValidator = objectValidator.Object
             };
-            controller.ModelState.AddModelError("File", "The File field is required");
+            controller.ModelState.AddModelError("File", "Arquivo obrigatório.");
 
             // Act
             var response = (BadRequestObjectResult)controller.PostMaterial(materialToAdd).Result;
