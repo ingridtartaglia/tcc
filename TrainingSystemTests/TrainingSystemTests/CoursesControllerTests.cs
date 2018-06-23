@@ -314,7 +314,7 @@ namespace TrainingSystem.Tests.ControllerTests
             var controller = new CoursesController(_dbContext, _userManager) {
                 ObjectValidator = objectValidator.Object
             };
-            controller.ModelState.AddModelError("Name", "The Name field is required");
+            controller.ModelState.AddModelError("Name", "Nome obrigatório.");
 
             // Act
             var response = (BadRequestObjectResult)controller.PostCourse(courseToAdd).Result;
