@@ -21,9 +21,9 @@
     </div>
   </div>
 
-  <div class="row employee-section">
+  <div class="row employee-section" *ngIf="courses">
     <div class="col-xs-12">
-      <h4 *ngIf="courses">Relatório de atividades nos cursos inscritos</h4>
+      <h4>Relatório de atividades nos cursos inscritos</h4>
 
       <accordion>
         <accordion-group
@@ -52,6 +52,9 @@
         </accordion-group>
       </accordion>
 
+      <div *ngIf="courses.length === 0">
+        <p>Este usuário ainda não se inscreveu em nenhum curso.</p>
+      </div>
     </div>
   </div>
 
