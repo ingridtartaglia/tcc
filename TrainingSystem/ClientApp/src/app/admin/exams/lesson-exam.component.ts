@@ -65,6 +65,10 @@ export class LessonExamComponent implements OnInit {
     this.isQuestionFormVisible = true;
   }
 
+  backToQuestions() {
+    this.isQuestionFormVisible = false;
+  }
+
   addQuestion() {
     if (this.newQuestion.questionChoices.filter(choice => choice.isCorrect).length > 1) {
       this.showAnswerErrorMessage = true;
