@@ -57,5 +57,8 @@ namespace TrainingSystem.ViewModels
         public int ExamsCount { get; set; }
         public double? CourseRating { get; set; }
         public bool IsCompleted => ApprovedExamsPercentage == 100 && WatchedVideosPercentage == 100;
+        public int FinishedVideosUserCount { get; set; }
+        public int FinishedExamsUserCount { get; set; }
+        public int SubscribedUsers { get; set; }
     }
 }
