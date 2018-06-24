@@ -20,7 +20,11 @@
         </thead>
         <tbody>
           <tr *ngFor="let course of courses">
-            <td>{{ course.name }}</td>
+            <td>
+              <a [routerLink]="['/admin/courses', course.courseId]">
+                {{ course.name }}
+              </a>
+            </td>
             <td class="text-center">{{ course.subscribedUsers }}</td>
             <td class="text-center">{{ course.finishedVideosUserCount }}</td>
             <td class="text-center">{{ course.finishedExamsUserCount }}</td>
