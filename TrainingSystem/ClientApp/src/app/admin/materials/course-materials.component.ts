@@ -45,6 +45,7 @@ export class CourseMaterialsComponent implements OnInit {
         data => {
           this.newMaterial = new Material(this.courseId);
           this.updateCourseDetail.emit();
+          this.fileSelected = false;
           this.backToMaterialList();
           this.alertService.success('Material adicionado com sucesso!');
         },

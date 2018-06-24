@@ -45,6 +45,7 @@ export class LessonVideosComponent implements OnInit {
         data => {
           this.newVideo = new Video(this.lessonId);
           this.updateLessonDetail.emit();
+          this.fileSelected = false;
           this.backToVideoList();
           this.alertService.success('Vídeo adicionado com sucesso!');
         },
