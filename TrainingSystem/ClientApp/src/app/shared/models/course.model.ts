@@ -24,4 +24,7 @@ export class Course {
   appUser: AppUser;
   watchedVideosPercentage: number;
   approvedExamsPercentage: number;
+  finishedVideosUserCount: number;
+  finishedExamsUserCount: number;
+  subscribedUsers: number;
 }

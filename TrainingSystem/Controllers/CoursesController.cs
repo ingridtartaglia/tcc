@@ -31,8 +31,8 @@ namespace TrainingSystem.Controllers
         public IEnumerable<CourseViewModel> GetCourses()
         {
             var courses = _context.Course
-                .Include(c => c.Lessons)
-                    .ThenInclude(l => l.Videos)
+                .Include(c => c.Lessons).ThenInclude(l => l.Videos)
+                .Include(c => c.Lessons).ThenInclude(l => l.Exam)
                 .Include(c => c.Ratings)
                 .ToList();
 
@@ -40,6 +40,7 @@ namespace TrainingSystem.Controllers
             var user = _userManager.FindByEmailAsync(email).Result;
 
             var subscriptions = new List<int>();
+            var vms = new List<CourseViewModel>();
             if (_userManager.IsInRoleAsync(user, "Employee").Result)
             {
                 var employee = _context.Employee.SingleOrDefault(e => e.AppUserId == user.Id);
@@ -47,15 +48,44 @@ namespace TrainingSystem.Controllers
                                             .Where(cs => cs.EmployeeId == employee.EmployeeId)
                                             .Select(cs => cs.CourseId)
                                             .ToList();
+
+                courses.ForEach(c => {
+                    var vm = new CourseViewModel(c);
+                    vm.IsSubscribed = subscriptions.Contains(c.CourseId);
+                    vms.Add(vm);
+                });
             }
+            else
+            {
+                foreach(var course in courses)
+                {
+                    var subscribedUsers = _context.CourseSubscription
+                                                  .Where(cs => cs.CourseId == course.CourseId)
+                                                  .Select(cs => cs.EmployeeId);
+                    var videos = course.Lessons.SelectMany(l => l.Videos).Select(v => v.VideoId);
+                    var exams = course.Lessons.Select(l => l.Exam).Select(e => e.ExamId);
 
-            var vms = new List<CourseViewModel>();
-            courses.ForEach(c => {
-                var vm = new CourseViewModel(c);
-                vm.IsSubscribed = subscriptions.Contains(c.CourseId);
-                vms.Add(vm);
-            });
+                    int finishedVideosUserCount = 0;
+                    int finishedExamsUserCount = 0;
 
+                    foreach (var u in subscribedUsers)
+                    {
+                        var videosWatch = _context.VideoWatch
+                                                  .Where(vw => vw.EmployeeId == u && videos.Contains(vw.VideoId) && vw.IsCompleted);
+                        if (videosWatch.Count() == videos.Count()) finishedVideosUserCount++;
+
+                        var userExams = _context.UserExam
+                                                .Where(ue => ue.EmployeeId == u && exams.Contains(ue.ExamId) && ue.IsApproved);
+                        if (userExams.Count() == exams.Count()) finishedExamsUserCount++;
+                    }
+
+                    var vm = new CourseViewModel(course);
+                    vm.SubscribedUsers = subscribedUsers.Count();
+                    vm.FinishedVideosUserCount = finishedVideosUserCount;
+                    vm.FinishedExamsUserCount = finishedExamsUserCount;
+                    vms.Add(vm);
+                }
+            }
             return vms;
         }
 
