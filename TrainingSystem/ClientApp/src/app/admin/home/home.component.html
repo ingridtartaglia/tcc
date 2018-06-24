@@ -2,6 +2,38 @@
   <div class="col-xs-12">
     <h4>Bem-vindo!</h4>
 
-    <p>home do admin works!</p>
+    <p>Veja abaixo as estatísticas da aplicação ou, se preferir, gerencie os usuários e os cursos clicando nos links do menu acima.</p>
+  </div>
+</div>
+
+<div class="row" *ngIf="courses">
+  <div class="col-xs-12">
+    <div class="table-responsive" *ngIf="courses.length > 0; else noCourses">
+      <table class="table course-list__table">
+        <thead>
+          <tr>
+            <th>Curso</th>
+            <th class="text-center">Usuários inscritos</th>
+            <th class="text-center">Usuários que finalizaram</th>
+            <th class="text-center">Usuários aprovados</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let course of courses">
+            <td>{{ course.name }}</td>
+            <td class="text-center">{{ course.subscribedUsers }}</td>
+            <td class="text-center">{{ course.finishedVideosUserCount }}</td>
+            <td class="text-center">{{ course.finishedExamsUserCount }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <ng-template #noCourses>
+      <div class="panel panel-default course-list__no-course">
+        <div class="panel-body">
+          Ainda não temos estatísticas suficientes para exibição :(
+        </div>
+      </div>
+    </ng-template>
   </div>
 </div>
