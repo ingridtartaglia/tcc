@@ -16,11 +16,14 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="app-navbar" [collapse]="isCollapsed">
       <ul class="nav navbar-nav">
-        <li [routerLinkActive]="['active']">
-          <a [routerLink]="['/platform/courses/list']">Cursos</a>
+        <li class="visible-xs">
+          <a [routerLink]="['/platform']" (click)="isCollapsed = !isCollapsed">Home</a>
         </li>
         <li [routerLinkActive]="['active']">
-          <a [routerLink]="['/platform/courses/your-list']">Seus cursos</a>
+          <a [routerLink]="['/platform/courses/list']" (click)="isCollapsed = !isCollapsed">Cursos</a>
+        </li>
+        <li [routerLinkActive]="['active']">
+          <a [routerLink]="['/platform/courses/your-list']" (click)="isCollapsed = !isCollapsed">Seus cursos</a>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">

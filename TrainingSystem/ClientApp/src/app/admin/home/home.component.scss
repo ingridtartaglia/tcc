@@ -1,0 +1,27 @@
+tbody {
+  td > a {
+    margin-right: 10px;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+.course-list {
+  &__title {
+    margin-bottom: 1.25em;
+  }
+
+  &__no-course {
+    height: 15em;
+    margin: 2em 0;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.home-text {
+  margin-bottom: 40px;
+}
