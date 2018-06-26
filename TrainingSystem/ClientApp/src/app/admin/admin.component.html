@@ -42,7 +42,8 @@
     <div class="col-xs-12">
       <alert *ngFor="let alert of alerts"
         [type]="alert.type"
-        [dismissible]="dismissible">
+        [dismissible]="dismissible"
+        [dismissOnTimeout]="3000">
         {{ alert.message }}
       </alert>
 

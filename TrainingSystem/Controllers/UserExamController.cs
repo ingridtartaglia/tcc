@@ -61,7 +61,7 @@ namespace TrainingSystem.Controllers
             }
 
             // if correct answers are more than 70% user is approved
-            userExam.IsApproved = (rightQuestionsCount / userExam.UserExamChoices.Count) >= 0.7d;
+            userExam.IsApproved = Decimal.Divide(rightQuestionsCount, userExam.UserExamChoices.Count) >= 0.7m;
 
             _context.UserExam.Add(userExam);
             await _context.SaveChangesAsync();

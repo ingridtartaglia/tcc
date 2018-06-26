@@ -7,10 +7,19 @@
   }
 }
 
+.is-correct-icon,
+.is-remove-icon {
+  position: relative !important;
+  top: 2px !important;
+  margin: 0 5px;
+}
+
 .exam-section {
   margin-bottom: 20px;
+
   ol {
     margin-bottom: 0;
+
     & > li > ol {
       margin-bottom: 20px;
       padding-left: 15px;

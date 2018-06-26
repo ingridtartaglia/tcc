@@ -11,6 +11,7 @@ Para executar o projeto, é necessário ter instalado no seu computador:
 - [NPM](https://www.npmjs.com/get-npm)
 - [.NET SDK](https://www.microsoft.com/net/learn/get-started/windows)
 - [Visual Studio 2017](https://visualstudio.microsoft.com/pt-br/downloads/)
+- [SQL Server Express](https://www.microsoft.com/pt-br/sql-server/sql-server-editions-express)
 
 
 ### Ambientes:
@@ -25,7 +26,7 @@ Os ambientes configurados para esta aplicação são:
 
 1. Certifique-se de que seu computador esteja atendendo aos pré-requisitos;
 2. Abra o projeto no Visual Studio, através da solução `TrainingSystem.sln`;
-3. Inicie a depuração, apertando a tecla `F5` (ou ir em Depurar > Iniciar depuração). O Visual Studio irá compilar o projeto e abrí-lo no navegador.
+3. Inicie a depuração, apertando `Ctrl + F5` (ou ir em Depurar > Iniciar sem depurar). O Visual Studio irá compilar o projeto e abrí-lo no navegador.
 
 
 ### Instruções para rodar os testes funcionais:

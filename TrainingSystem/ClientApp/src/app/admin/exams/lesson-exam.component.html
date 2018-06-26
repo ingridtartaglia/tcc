@@ -6,15 +6,19 @@
           <li *ngFor="let question of exam.questions">
             <p>
               {{ question.name }}
-              <a class="pull-right" (click)="deleteQuestion(question.questionId)">
-                <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
+              <a class="pull-right text-danger" (click)="deleteQuestion(question.questionId)">
+                <span class="glyphicon glyphicon-remove is-remove-icon" aria-hidden="true"></span>Remover
               </a>
             </p>
             <ol>
               <li type="a"
                   *ngFor="let questionChoice of question.questionChoices"
                   [ngClass]="{'text-success': questionChoice.isCorrect }">
-                {{ questionChoice.name }}
+                {{ questionChoice.name }} 
+                <span *ngIf="questionChoice.isCorrect"
+                      class="glyphicon glyphicon-ok text-success is-correct-icon"
+                      aria-hidden="true">
+                </span>
               </li>
             </ol>
           </li>
