@@ -8,6 +8,10 @@ import { UserExam } from '../models/user-exam.model';
 export class UserExamService {
   constructor(private http: HttpClient) { }
 
+  getUserExams(): Observable<UserExam[]> {
+    return this.http.get<UserExam[]>(`/api/UserExams`);
+  }
+
   create(userExam: UserExam): Observable<any> {
     return this.http.post('/api/UserExams', userExam);
   }

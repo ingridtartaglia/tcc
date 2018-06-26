@@ -26,6 +26,17 @@ namespace TrainingSystem.Controllers
             _userManager = userManager;
         }
 
+        // GET: api/UserExams
+        [HttpGet]
+        public IEnumerable<UserExam> GetUserExams()
+        {
+            string email = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = _userManager.FindByEmailAsync(email).Result;
+            var employee = _context.Employee.SingleOrDefault(e => e.AppUserId == user.Id);
+            return _context.UserExam
+                .Where(ue => ue.EmployeeId == employee.EmployeeId);
+        }
+
         // POST: api/UserExams
         [HttpPost]
         public async Task<IActionResult> PostUserExam([FromBody] UserExam userExam)

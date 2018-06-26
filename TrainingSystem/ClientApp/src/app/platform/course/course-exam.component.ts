@@ -16,6 +16,7 @@ import { AlertService } from '../../shared/services/alert.service';
 })
 export class CourseExamComponent implements OnInit {
   exam: Exam;
+  userExam: UserExam[];
   newUserExam: UserExam;
   selectedChoices: object;
   isExamSubmitted: boolean;
@@ -28,6 +29,14 @@ export class CourseExamComponent implements OnInit {
 
   ngOnInit() {
     this.getExam();
+    this.getUserExam();
+  }
+
+  getUserExam() {
+    // return this.userExamService.getUserExams().subscribe(ue => this.userExam = ue);
+    return this.userExamService.getUserExams().subscribe(ue => {
+      this.userExam = ue.filter(u => u.examId === parseInt(this.route.snapshot.params.examId, 10));
+    });
   }
 
   getExam() {
