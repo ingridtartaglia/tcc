@@ -34,7 +34,7 @@ namespace TrainingSystem.Controllers
             var user = _userManager.FindByEmailAsync(email).Result;
             var employee = _context.Employee.SingleOrDefault(e => e.AppUserId == user.Id);
             var userExam = _context.UserExam
-                .SingleOrDefault(ue => ue.EmployeeId == employee.EmployeeId && ue.ExamId == id);
+                .SingleOrDefault(ue => ue.EmployeeId == employee.EmployeeId && ue.ExamId == id && ue.IsApproved);
 
             if (userExam == null) return false;
 
