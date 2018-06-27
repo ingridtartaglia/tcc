@@ -24,8 +24,8 @@ Para executar o projeto, é necessário ter instalado no seu computador:
 ### Instruções para rodar os testes funcionais:
 
 1. Abra o projeto no Visual Studio, através da solução `TrainingSystem.sln`;
-2. Certifique-se que a aplicação não está rodando. Se estiver, por favor interrompa apertando `Shift + F5`.
-3. Inicie a execução dos testes, apertando as teclas `Ctrl + R` e depois `A` (ou ir em Testar > Executar > Todos os testes). O resultado irá aparecer na tela.
+2. Certifique-se de que o projeto da aplicação não está rodando.
+3. Inicie os testes, apertando as teclas `Ctrl + R` e depois `A` (ou ir em Testar > Executar > Todos os testes). O resultado irá aparecer na tela.
 
 
 
