@@ -26,15 +26,19 @@ namespace TrainingSystem.Controllers
             _userManager = userManager;
         }
 
-        // GET: api/UserExams
-        [HttpGet]
-        public IEnumerable<UserExam> GetUserExams()
+        // GET: api/UserExams/5
+        [HttpGet("{id}")]
+        public bool IsApproved([FromRoute] int id)
         {
             string email = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var user = _userManager.FindByEmailAsync(email).Result;
             var employee = _context.Employee.SingleOrDefault(e => e.AppUserId == user.Id);
-            return _context.UserExam
-                .Where(ue => ue.EmployeeId == employee.EmployeeId);
+            var userExam = _context.UserExam
+                .SingleOrDefault(ue => ue.EmployeeId == employee.EmployeeId && ue.ExamId == id);
+
+            if (userExam == null) return false;
+
+            return userExam.IsApproved;
         }
 
         // POST: api/UserExams

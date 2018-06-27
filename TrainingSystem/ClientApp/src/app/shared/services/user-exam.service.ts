@@ -8,8 +8,8 @@ import { UserExam } from '../models/user-exam.model';
 export class UserExamService {
   constructor(private http: HttpClient) { }
 
-  getUserExams(): Observable<UserExam[]> {
-    return this.http.get<UserExam[]>(`/api/UserExams`);
+  isApproved(examId: number): Observable<boolean> {
+    return this.http.get<boolean>(`/api/UserExams/${examId}`);
   }
 
   create(userExam: UserExam): Observable<any> {

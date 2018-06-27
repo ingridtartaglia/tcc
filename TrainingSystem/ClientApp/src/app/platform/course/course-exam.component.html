@@ -23,7 +23,7 @@
 
 <div
   class="alert alert-success course-exam__result--approved"
-  *ngIf="(isApproved && isExamSubmitted) || userExam[0].isApproved">
+  *ngIf="isApproved">
   <p class="lead">
     <strong>Parabéns!</strong> Você conseguiu a aprovação nesta atividade!
   </p>
@@ -38,7 +38,7 @@
   </div>
 </div>
 
-<div class="row" *ngIf="exam && !userExam[0].isApproved">
+<div class="row" *ngIf="exam && !isApproved">
   <div class="col-xs-12">
     <h3>Atividade avaliativa</h3>
     <p *ngIf="exam.questions"

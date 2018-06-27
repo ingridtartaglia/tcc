@@ -38,6 +38,88 @@ namespace TrainingSystemTests.TrainingSystemTests
         }
 
         [Fact]
+        public void GetIsApproved()
+        {
+            // Arrange
+            var appUser = new AppUser()
+            {
+                Id = "1",
+                Email = "employee@email.com",
+                UserName = "employee@email.com"
+            };
+            var employee = new Employee()
+            {
+                EmployeeId = 1,
+                AppUserId = "1",
+                Occupation = "Estagiário"
+            };
+            var course = new Course()
+            {
+                CourseId = 1,
+                Name = "Curso 1",
+                Category = "Outros",
+                Instructor = "Fulano"
+            };
+            var lesson = new Lesson()
+            {
+                CourseId = 1,
+                LessonId = 1,
+                Name = "Unidade 1"
+            };
+            var exam = new Exam()
+            {
+                LessonId = 1,
+                ExamId = 1
+            };
+            var question = new Question()
+            {
+                ExamId = 1,
+                QuestionId = 1,
+                Name = "Quem foi o primeiro programador?"
+            };
+            var questionChoice = new QuestionChoice()
+            {
+                QuestionChoiceId = 1,
+                QuestionId = 1,
+                Name = "Steve Jobs",
+                IsCorrect = false
+            };
+            var userExamChoice = new UserExamChoice()
+            {
+                UserExamChoiceId = 1,
+                QuestionChoiceId = 1,
+                UserExamId = 1
+            };
+            var userExam = new UserExam()
+            {
+                EmployeeId = 1,
+                ExamId = 1,
+                UserExamChoices = new List<UserExamChoice> { userExamChoice },
+                IsApproved = true,
+                SubmissionDate = new DateTime(2018, 05, 14, 12, 00, 00)
+            };
+            _userManager.CreateAsync(appUser, "Teste!23").Wait();
+            _dbContext.Employee.Add(employee);
+            _dbContext.Course.Add(course);
+            _dbContext.Lesson.Add(lesson);
+            _dbContext.Exam.Add(exam);
+            _dbContext.Question.Add(question);
+            _dbContext.QuestionChoice.Add(questionChoice);
+            _dbContext.UserExamChoice.Add(userExamChoice);
+            _dbContext.UserExam.Add(userExam);
+            _dbContext.SaveChanges();
+
+            var controller = new UserExamController(_dbContext, _userManager);
+            Helpers.SetupUser(controller, "employee@email.com");
+
+            // Act
+            var response = (bool)controller.IsApproved(userExam.UserExamId);
+
+            // Assert
+            Assert.True(response);
+        }
+
+        [Fact]
         public void PostUserExam()
         {
             // Arrange
