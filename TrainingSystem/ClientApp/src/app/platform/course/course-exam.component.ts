@@ -28,6 +28,12 @@ export class CourseExamComponent implements OnInit {
 
   ngOnInit() {
     this.getExam();
+    this.getUserExam();
+  }
+
+  getUserExam() {
+    const id = this.route.snapshot.params.examId;
+    return this.userExamService.isApproved(id).subscribe(ue => this.isApproved = ue);
   }
 
   getExam() {

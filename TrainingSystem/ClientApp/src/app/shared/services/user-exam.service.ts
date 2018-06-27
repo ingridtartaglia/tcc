@@ -8,6 +8,10 @@ import { UserExam } from '../models/user-exam.model';
 export class UserExamService {
   constructor(private http: HttpClient) { }
 
+  isApproved(examId: number): Observable<boolean> {
+    return this.http.get<boolean>(`/api/UserExams/${examId}`);
+  }
+
   create(userExam: UserExam): Observable<any> {
     return this.http.post('/api/UserExams', userExam);
   }
