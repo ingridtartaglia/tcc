@@ -71,7 +71,8 @@
       <button [disabled]="!f.valid || (isApproved && isExamSubmitted)"
               type="submit"
               class="btn btn-success pull-right">
-        Enviar
+        <span class="glyphicon glyphicon-cog spinning" *ngIf="loading"></span>
+        {{ !loading ? 'Enviar' : null }}
       </button>
     </form>
   </div>

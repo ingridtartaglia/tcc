@@ -73,7 +73,8 @@
           [disabled]="!f.valid"
           type="submit"
           class="btn btn-success">
-          Salvar unidade
+          <span class="glyphicon glyphicon-cog spinning" *ngIf="loading"></span>
+          {{ !loading ? 'Salvar unidade' : null }}
         </button>
       </div>
     </form>

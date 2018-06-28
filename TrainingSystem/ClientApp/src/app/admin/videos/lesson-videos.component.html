@@ -89,7 +89,8 @@
           [disabled]="!f.valid || !fileSelected || (!isFileTypeSupported && uploader.files.length > 0)"
           type="submit"
           class="btn btn-success">
-          Salvar vídeo
+          <span class="glyphicon glyphicon-cog spinning" *ngIf="loading"></span>
+          {{ !loading ? 'Salvar vídeo' : null }}
         </button>
       </div>
 

@@ -95,7 +95,8 @@
         type="submit"
         [disabled]="!f.valid"
         class="btn btn-success pull-right">
-        Cadastrar usuário
+        <span class="glyphicon glyphicon-cog spinning" *ngIf="loading"></span>
+        {{ !loading ? 'Cadastrar usuário' : null }}
       </button>
     </form>
 

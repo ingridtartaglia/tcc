@@ -15,7 +15,7 @@
     <div class="col-xs-12">
       <h3>Detalhes de {{ course.name }}</h3>
 
-      <div class="panel panel-default course-detail__info"> 
+      <div class="panel panel-default course-detail__info">
         <div class="panel-body">
           <p *ngIf="course.description">
             {{ course.description }}
@@ -37,7 +37,8 @@
           <button *ngIf="!course.isSubscribed"
                   (click)="subscribeCourse(course.courseId)"
                   class="btn btn-success pull-right">
-            Inscrever-se
+            <span class="glyphicon glyphicon-cog spinning" *ngIf="loading"></span>
+            {{ !loading ? 'Inscrever-se' : null }}
           </button>
         </div>
       </div>

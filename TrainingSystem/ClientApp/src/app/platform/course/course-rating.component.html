@@ -39,7 +39,8 @@
             [disabled]="!newRating.grade"
             type="submit"
             class="btn btn-success">
-            Enviar
+            <span class="glyphicon glyphicon-cog spinning" *ngIf="loading"></span>
+            {{ !loading ? 'Enviar' : null }}
           </button>
         </form>
       </tab>
