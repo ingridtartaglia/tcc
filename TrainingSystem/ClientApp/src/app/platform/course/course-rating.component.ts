@@ -15,6 +15,7 @@ export class CourseRatingComponent implements OnInit {
   @Input() courseId: number;
   @Input() ratings: Rating[];
   newRating: Rating;
+  loading = false;
 
   constructor(private ratingService: RatingService, private alertService: AlertService) { }
 
@@ -25,12 +26,15 @@ export class CourseRatingComponent implements OnInit {
   }
 
   addRating() {
+    this.loading = true;
     this.ratingService.create(this.newRating)
       .subscribe(
         data => {
           this.alertService.success('Sua nota para este curso foi adicionada com sucesso!');
+          this.loading = false;
         },
         error => {
+          this.loading = false;
           this.alertService.error(error);
         });
   }

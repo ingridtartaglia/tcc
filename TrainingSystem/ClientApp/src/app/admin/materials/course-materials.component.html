@@ -91,7 +91,8 @@
           [disabled]="!f.valid || !fileSelected || (!isFileTypeSupported && uploader.files.length > 0)"
           type="submit"
           class="btn btn-success">
-          Salvar material
+          <span class="glyphicon glyphicon-cog spinning" *ngIf="loading"></span>
+          {{ !loading ? 'Salvar material' : 'Carregando...' }}
         </button>
       </div>
     </form>

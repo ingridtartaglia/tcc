@@ -20,6 +20,7 @@ export class CourseExamComponent implements OnInit {
   selectedChoices: object;
   isExamSubmitted: boolean;
   isApproved: boolean;
+  loading = false;
 
   constructor(private examService: ExamService,
     private alertService: AlertService,
@@ -42,6 +43,7 @@ export class CourseExamComponent implements OnInit {
   }
 
   submitExam() {
+    this.loading = true;
     this.newUserExam = new UserExam(this.exam.examId);
     this.exam.questions.forEach((question, index) => {
       this.newUserExam.userExamChoices.push(new UserExamChoice(question.choiceId));
@@ -52,8 +54,10 @@ export class CourseExamComponent implements OnInit {
         data => {
           this.isExamSubmitted = true;
           this.isApproved = data.isApproved;
+          this.loading = false;
         },
         error => {
+          this.loading = false;
           this.alertService.error(error);
         }
       );

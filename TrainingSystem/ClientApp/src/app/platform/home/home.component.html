@@ -26,7 +26,8 @@
                 class="btn btn-success btn-xs pull-right"
                 *ngIf="!course.isSubscribed"
                 (click)="subscribeCourse(course.courseId)">
-                Inscrever-se
+                <span class="glyphicon glyphicon-cog spinning" *ngIf="loading"></span>
+                {{ !loading ? 'Inscrever-se' : 'Carregando...' }}
               </button>
             </td>
           </tr>

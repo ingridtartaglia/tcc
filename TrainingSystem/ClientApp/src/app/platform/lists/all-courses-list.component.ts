@@ -12,6 +12,7 @@ import { SubscriptionService } from '../../shared/services/subscription.service'
 })
 export class AllCoursesListComponent implements OnInit {
   courses: Course[];
+  loading = false;
 
   constructor(private courseService: CourseService,
     private alertService: AlertService,
@@ -26,12 +27,15 @@ export class AllCoursesListComponent implements OnInit {
   }
 
   subscribeCourse(courseId: number) {
+    this.loading = true;
     this.subscriptionService.create(courseId)
       .subscribe(
         data => {
           this.alertService.success('Sua inscrição neste curso foi realizada com sucesso!');
+          this.loading = false;
         },
         error => {
+          this.loading = false;
           this.alertService.error(error);
         });
   }

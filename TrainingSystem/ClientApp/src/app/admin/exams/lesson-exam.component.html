@@ -14,7 +14,7 @@
               <li type="a"
                   *ngFor="let questionChoice of question.questionChoices"
                   [ngClass]="{'text-success': questionChoice.isCorrect }">
-                {{ questionChoice.name }} 
+                {{ questionChoice.name }}
                 <span *ngIf="questionChoice.isCorrect"
                       class="glyphicon glyphicon-ok text-success is-correct-icon"
                       aria-hidden="true">
@@ -161,7 +161,8 @@
         <button [disabled]="!f.valid"
                 type="submit"
                 class="btn btn-success pull-right">
-          Salvar questão
+                <span class="glyphicon glyphicon-cog spinning" *ngIf="loading"></span>
+                {{ !loading ? 'Salvar questão' : 'Carregando...' }}
         </button>
       </div>
     </form>

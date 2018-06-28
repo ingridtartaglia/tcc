@@ -13,6 +13,7 @@ import { AlertService } from '../../shared/services/alert.service';
 })
 export class EmployeeRegisterComponent implements OnInit {
   register: Register;
+  loading = false;
 
   constructor(private router: Router,
     private alertService: AlertService,
@@ -23,6 +24,7 @@ export class EmployeeRegisterComponent implements OnInit {
   }
 
   registerEmployees() {
+    this.loading = true;
     this.employeeService.create(this.register)
       .subscribe(
         data => {
@@ -30,6 +32,7 @@ export class EmployeeRegisterComponent implements OnInit {
           this.alertService.success('Usuário criado com sucesso!');
         },
         error => {
+          this.loading = false;
           this.alertService.error(error);
         });
   }
