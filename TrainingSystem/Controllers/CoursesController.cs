@@ -63,7 +63,7 @@ namespace TrainingSystem.Controllers
                                                   .Where(cs => cs.CourseId == course.CourseId)
                                                   .Select(cs => cs.EmployeeId);
                     var videos = course.Lessons.SelectMany(l => l.Videos).Select(v => v.VideoId);
-                    var exams = course.Lessons.Select(l => l.Exam).Select(e => e.ExamId);
+                    var exams = course.Lessons.Where(l=> l.Exam != null).Select(l => l.Exam).Select(e => e.ExamId);
 
                     int finishedVideosUserCount = 0;
                     int finishedExamsUserCount = 0;
