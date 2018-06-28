@@ -20,6 +20,7 @@ export class CourseMaterialsComponent implements OnInit {
   newMaterial: Material;
   fileSelected: Boolean = false;
   isFileTypeSupported: Boolean = false;
+  loading = false;
 
   constructor(private materialService: MaterialService,
     private alertService: AlertService,
@@ -40,6 +41,7 @@ export class CourseMaterialsComponent implements OnInit {
   }
 
   addMaterial() {
+    this.loading = true;
     this.materialService.create(this.newMaterial)
       .subscribe(
         data => {
@@ -48,8 +50,10 @@ export class CourseMaterialsComponent implements OnInit {
           this.fileSelected = false;
           this.backToMaterialList();
           this.alertService.success('Material adicionado com sucesso!');
+          this.loading = false;
         },
         error => {
+          this.loading = false;
           this.alertService.error(error);
         }
       );

@@ -14,6 +14,7 @@ import { AlertService } from '../../shared/services/alert.service';
 })
 export class CourseRegisterComponent implements OnInit {
   course: Course;
+  loading = false;
 
   constructor(private router: Router,
     private alertService: AlertService,
@@ -24,6 +25,7 @@ export class CourseRegisterComponent implements OnInit {
   }
 
   addCourse() {
+    this.loading = true;
     this.courseService.create(this.course)
       .subscribe(
         data => {
@@ -31,6 +33,7 @@ export class CourseRegisterComponent implements OnInit {
           this.alertService.success('Curso criado com sucesso!');
         },
         error => {
+          this.loading = false;
           this.alertService.error(error);
         });
   }

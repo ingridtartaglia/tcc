@@ -20,6 +20,7 @@ export class LessonVideosComponent implements OnInit {
   newVideo: Video;
   fileSelected: Boolean = false;
   isFileTypeSupported: Boolean = false;
+  loading = false;
 
   constructor(private videoService: VideoService,
     private alertService: AlertService,
@@ -40,6 +41,7 @@ export class LessonVideosComponent implements OnInit {
   }
 
   addVideo() {
+    this.loading = true;
     this.videoService.create(this.newVideo)
       .subscribe(
         data => {
@@ -48,8 +50,10 @@ export class LessonVideosComponent implements OnInit {
           this.fileSelected = false;
           this.backToVideoList();
           this.alertService.success('Vídeo adicionado com sucesso!');
+          this.loading = false;
         },
         error => {
+          this.loading = false;
           this.alertService.error(error);
         }
       );

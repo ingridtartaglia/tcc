@@ -18,6 +18,7 @@ export class CourseLessonsComponent implements OnInit {
   isLessonListVisible: Boolean = true;
   isLessonFormVisible: Boolean = false;
   newLesson: Lesson;
+  loading = false;
 
   constructor(private lessonService: LessonService,
     private alertService: AlertService,
@@ -39,14 +40,17 @@ export class CourseLessonsComponent implements OnInit {
   }
 
   addLesson() {
+    this.loading = true;
     this.lessonService.create(this.newLesson)
       .subscribe(
         data => {
           this.updateCourseDetail.emit();
           this.backToLessonList();
           this.alertService.success('Unidade criada com sucesso!');
+          this.loading = false;
         },
         error => {
+          this.loading = false;
           this.alertService.error(error);
         });
   }

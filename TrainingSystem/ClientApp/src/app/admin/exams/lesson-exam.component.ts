@@ -21,6 +21,7 @@ export class LessonExamComponent implements OnInit {
   newQuestion: Question;
   isQuestionFormVisible: Boolean = false;
   showAnswerErrorMessage: Boolean = false;
+  loading = false;
 
   constructor(private examService: ExamService,
     private alertService: AlertService,
@@ -35,14 +36,17 @@ export class LessonExamComponent implements OnInit {
   }
 
   addExam() {
+    this.loading = true;
     this.examService.create(this.newExam)
       .subscribe(
         data => {
           this.updateLessonDetail.emit();
           this.newQuestion = new Question(data.examId);
           this.showQuestionForm();
+          this.loading = false;
         },
         error => {
+          this.loading = false;
           this.alertService.error(error);
         }
       );
