@@ -8,8 +8,10 @@ body {
 }
 
 .glyphicon.spinning {
-  animation: spin 1s infinite linear;
-  -webkit-animation: spin2 1s infinite linear;
+  animation: spin 2s infinite linear;
+  -webkit-animation: spin2 2s infinite linear;
+  position: relative;
+  top: 2px;
 }
 
 @keyframes spin {

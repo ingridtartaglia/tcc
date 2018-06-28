@@ -54,7 +54,7 @@
         class="btn btn-success btn-block"
         [disabled]="!f.valid">
         <span class="glyphicon glyphicon-cog spinning" *ngIf="loading"></span>
-        {{ !loading ? 'Entrar' : null }}
+        {{ !loading ? 'Entrar' : 'Carregando...' }}
       </button>
     </form>
 

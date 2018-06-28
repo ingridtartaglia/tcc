@@ -32,7 +32,7 @@
                 *ngIf="!course.isSubscribed"
                 (click)="subscribeCourse(course.courseId)">
                 <span class="glyphicon glyphicon-cog spinning" *ngIf="loading"></span>
-                {{ !loading ? 'Inscrever-se' : null }}
+                {{ !loading ? 'Inscrever-se' : 'Carregando...' }}
               </button>
             </td>
           </tr>
