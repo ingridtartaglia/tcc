@@ -18,7 +18,7 @@ Para executar o projeto, é necessário ter instalado no seu computador:
 
 1. Certifique-se de que seu computador esteja atendendo aos pré-requisitos;
 2. Abra o projeto no Visual Studio, através da solução `TrainingSystem.sln`;
-3. Para rodar o projeto, aperte `Ctrl + F5` (ou vá em Depurar > Iniciar sem depurar). O Visual Studio irá compilar e abrí-lo no navegador.
+3. Para rodar o projeto, aperte `Ctrl + F5` (ou vá em Depurar > Iniciar sem depurar). O Visual Studio irá compilar e abrir a aplicação no navegador, com a url http://localhost:52584.
 
 
 ### Instruções para rodar os testes funcionais:
