@@ -41,12 +41,16 @@
 <div class="row" *ngIf="exam && !isApproved">
   <div class="col-xs-12">
     <h3>Atividade avaliativa</h3>
-    <p *ngIf="exam.questions"
-       class="course-exam__text">
+    <p *ngIf="exam.questions.length === 0" class="course-exam__no-questions">
+      Ops! Parece que esta atividade não possui questões a serem feitas. <br>
+      Por favor, entre em contato com o administrador da plataforma para reportar este problema.
+    </p>
+    <p *ngIf="exam.questions.length > 0"
+      class="course-exam__text">
       Para ser aprovado neste curso, além de assistir a todos os vídeos,
       é preciso fazer todas as atividades previstas e acertar pelo menos 70% das questões.
     </p>
-    <form *ngIf="exam.questions"
+    <form *ngIf="exam.questions.length > 0"
           #f="ngForm"
           name="form"
           (ngSubmit)="f.form.valid && submitExam()"
